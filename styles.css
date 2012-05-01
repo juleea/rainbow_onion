@@ -1,0 +1,38 @@
+div {
+  position: relative; 
+}
+
+
+.left {
+  float: left;
+  position: relative; 
+  width: 20%;
+  padding: 25px;
+}
+
+.tutorial {
+  width: 100%;
+}
+
+.center {
+  position: relative; 
+  float: left;
+  width: 50%;
+  padding: 25px;
+}
+
+#main {
+  width:100%;
+  height:400px;
+}
+
+.right {
+  float: left;
+  padding: 25px;
+}
+
+.registers {
+}
+
+.stack {
+}
