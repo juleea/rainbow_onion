@@ -24,6 +24,7 @@
 <div class='center'>
   <div class='button_bar'>
     <button class='run' onclick='runButton()'>Run</button>
+    <button class='updateregs' onclick='updateRegs()'>Update</button>
   </div>
   <div class='text'>
     <textarea id='main'> </textarea> 
@@ -33,8 +34,20 @@
 
 <div class='right'>
 
-<div class='registers'>
+<div class='registers' id="registers">
+  
   Registers
+  <BR />
+  eax: <span id="eax">0</span><BR />
+  ebx: <span id="ebx">0</span><BR />
+  ecx: <span id="ecx">0</span><BR />
+  edx: <span id="edx">0</span><BR />
+  esi: <span id="esi">0</span><BR />
+  edi: <span id="edi">0</span><BR />
+  esp: <span id="esp">0</span><BR />
+  ebp: <span id="ebp">0</span><BR />
+  eip: <span id="eip">0</span><BR />
+  
 </div>
 
 <div class='memory'>
