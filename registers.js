@@ -2,6 +2,8 @@ goog.require('goog.math.Integer');
 
 
 function Registers() {
+
+
   //Private
   var contents = {
     'eax':goog.math.Integer.fromNumber(0), 
@@ -16,7 +18,7 @@ function Registers() {
   
   //returns true if given string is a valid two byte register
   var isReg2 = function(reg) {
-    return 2byteReg.indexOf(reg) > -1;
+    return twoByteReg.indexOf(reg) > -1;
   }
 
   function setContents(register, data) {
@@ -37,6 +39,12 @@ function Registers() {
 
   function getAll() {
     return contents;
+  }
+  
+  // Public
+  
+  this.init = function () {
+    
   }
 
 }

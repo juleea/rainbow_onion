@@ -1,6 +1,6 @@
 
-/* prototype for instructions */
-instructionProt = {};
+/* prototype for instructions- currently bugging out in Firebug */
+/*instructionProt = {};
 instructionProt.parse = function(line) {
   alert("Implement parsing!")
 };
@@ -8,14 +8,9 @@ instructionProt.execute = function(memory, registers) {
   alert("Implement execute!")
 };
 
-mov = instructionProt.begetObject();
+mov = instructionProt.begetObject();*/
 
 
-//Breaks the line up, figures out which instruction should parse it
-//Returns true iff this is a valid instruction
-function parseLine(line) {
-
-}
 
 
 function Code() {

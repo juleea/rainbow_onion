@@ -1,6 +1,7 @@
 //jquery for onload
 $(function() {
   memory = new Memory();
+  //registers = new Registers();
 
   //lISTENERS
   $('textarea#mainText').keyup(function(e) {
@@ -14,11 +15,11 @@ $(function() {
   });
 
   $('button#runButton').click(runButton);
+  $('button#updateRegsButton').click(updateRegs);
 
 });
 
 // updates contents of registers
-
 function updateRegs() {
     console.log("updating register contents");
     $("#registers").css("border","3px solid red");
