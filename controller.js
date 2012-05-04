@@ -1,7 +1,7 @@
 //jquery for onload
 $(function() {
   memory = new Memory();
-  //registers = new Registers();
+  registers = new Registers();
 
   //lISTENERS
   $('textarea#mainText').keyup(function(e) {
@@ -25,17 +25,8 @@ function updateRegs() {
     $("#registers").css("border","3px solid red");
     
     // dummy object until I can getContents
-    var registerValues = Object();
-    registerValues.eax = 3;
-    registerValues.ebx = 2;
-    registerValues.ecx = 1;
-    registerValues.edx = 0;
-    registerValues.esi = 4;
-    registerValues.edi = 31;
-    registerValues.esp = 3;
-    registerValues.ebp = 3;
-    registerValues.eip = 4;
-    
+    var registerValues = registers.getAll(); //getObject();
+
     for (var reg in registerValues) {
         $("#" + reg).text(registerValues[reg]);
         console.log("#" + reg);
