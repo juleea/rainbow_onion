@@ -9,12 +9,12 @@ function Memory() {
   }
   
   //Must give valid address!
-  function setContents(address, bytes, data) {
+  this.setContents = function(address, bytes, data) {
     //TODO what if not multiple of 4?
     contents[address] = data;
   }
   
-  function getContents(address, bytes) {
+  this.getContents = function(address, bytes) {
     //TODO what if not multiple of 4?
     return contents[address];
   }
