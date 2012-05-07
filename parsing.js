@@ -1,12 +1,62 @@
 /*
-Parameters class
+Parameter class
 */
+function Parameter() {
+  //Private
+  var TYPE = {
+    INTEGER: 1,
+    REGISTER: 2, 
+    DISPLACEMENT: 3,
+    INDEXED: 4
+  };
+  
+  var type;
+  var value; // TODO: decide on contents- string? 
 
-/*
-Instruction class (holds instruction, parameters, execute functions */
-*/
+  //Public
+  this.init = function (type, value) {
+    this.type = paramType;
+    this.value = value;
+  }
+  
+  //Must give valid address!
+  function setValue(value) {
+    this.value = value;
+  }
+  
+  function getValue() {
+    return value;
+  }
+  
+  function getType() {
+    return type;
+  }
+}
 
-//Breaks the line up, figures out which instruction should parse it
+
+
+
+/* Parses 1-2 arguments and returns an array of Parameter objects */
+function parseParameters(paramString) {
+    var params = [];
+    
+    // TODO: error checking for empty args
+    
+    /* dumb parse - looks for comma */
+    var comma = paramString.indexOf(",");
+    if (comma == -1) {
+        // only one argument 
+        params[0] = paramString;    
+    } else {
+        params[0] = paramString.substring(0,comma).trim();
+        params[1] = paramString.substring(comma+1).trim();
+    }
+    return params;
+    
+}
+
+
+//Breaks the line up, figures out which instruction 
 //Returns true iff this is a valid instruction
 function parseLine(line) {
     var firstSpace = line.indexOf(" ");
@@ -20,9 +70,11 @@ function parseLine(line) {
         // TODO: isValidInstruction
         if (instruction == "mov") {
             alert("mov instruction typed!");
+            movInstruction = new Mov(parseParameters(line.substring(firstSpace+1)));
+            
+            movInstruction.execute(memory,registers);
         }
         return true;
     }
 }
 
-// TODO: parseParameters
