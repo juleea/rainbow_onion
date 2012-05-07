@@ -50,6 +50,9 @@ function parseParameters(paramString) {
         params[0] = paramString.substring(0,comma).trim();
         params[1] = paramString.substring(comma+1).trim();
     }
+    
+    alert("parameters:\n" + params[0] + "\n" + params[1]);
+ 
     return params;
 }
 
