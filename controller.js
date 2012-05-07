@@ -38,8 +38,10 @@ function updateRegs() {
 function getLastLine() {
   var text = $('textarea#mainText').val();
   if (text == '') return '';
-  var lines = text.split('/n');
-  return lines[lines.length - 1];
+  var lines = text.split('\n'); 
+  console.log(lines);
+  if (lines.length <= 1) return '';
+  return lines[lines.length - 2];
 }
 
 function runButton() {
