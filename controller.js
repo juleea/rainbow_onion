@@ -16,6 +16,9 @@ $(function() {
 
   $('button#parseButton').click(parseButton);
   $('button#updateRegsButton').click(updateRegs);
+  
+  var parseText = $('input#parseText').val();
+  $('button#parseButton').bind("click", {param: parseText}, parseLine);
 
 });
 

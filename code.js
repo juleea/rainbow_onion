@@ -1,24 +1,11 @@
 
-/* prototype for instructions- currently bugging out in Firebug */
-/*instructionProt = {};
-instructionProt.parse = function(line) {
-  alert("Implement parsing!")
-};
-instructionProt.execute = function(memory, registers) {
-  alert("Implement execute!")
-};
-
-mov = instructionProt.begetObject();*/
-
-
-
 
 function Code() {
-  var curLineNum;
+  var curLineNum = 0;
   var codeLines = [];
   var breakPoints = {};
 
-  this.addLine = function(code, lineNum)
+  this.addLine = function(lineNum, code)
   {
     codeLines[lineNum] = code;
   }
@@ -47,19 +34,26 @@ function Code() {
   this.step = function() {
     var curLine = codeLines[curLineNum];
     if(curLine) {
-      curLine.execute();
-      curLineNum++;
+      if(!curLine.execute){
+        alert("instruction not implemented");
+      } else {
+        curLine.execute(memory, registers);
+      }
     }
+    curLineNum++;
   }
 
   this.cont = function() {
-    while(curLineNum < code.size() && !breakPoints[curLineNum]) {
+    while(curLineNum < codeLines.length) {
       this.step();
+      if(curLineNum in breakPoints) {
+        break;
+      }
     }
   }
 
   this.run = function() {
     curLineNum = 0;
-    this.step();
+    this.cont();
   }
 }
