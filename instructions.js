@@ -1,37 +1,35 @@
-/*
-Instruction class prototype
-*/
+instructionMap = {};
+instructionMap['mov'] = Mov;
+instructionMap['add'] = Add;
 
-instructionProt = {};
-instructionProt.parse = function(line) {
-  alert("Implement parsing!")
-};
-instructionProt.execute = function(memory, registers) {
-  alert("Implement execute!")
-};
-mov = instructionProt.begetObject();
 
-function Instruction(parameters) {
-    this.parameters = parameters;
-}
-
-Instruction.prototype.execute = function(memory, registers) {
-    alert("Implement execute!");
-}
-
-/*** MOV ***/
-
-Mov.prototype = new Instruction;
-Mov.prototype.constructor = Mov;
-
-/* Mov constructor */
-function Mov(parameters) {
-    this.parameters = parameters; // TODO: how do we get Mov to inherit from Instruction?
-}
-
+/* Mov */
 Mov.prototype.execute = function(memory, registers) {
-    alert("executed mov with params " + this.parameters[0].getIntegerValue() + " and " + this.parameters[1].getRegister());
-    
-    
-    registers.setContents(this.parameters[1].getRegister(),this.parameters[0].getIntegerValue());
+  alert("executed mov with params " + this.parameters[0].getValue() + " and " + this.parameters[1].getValue());    
+  var src = this.parameters[0].getValue();
+  var dest = this.parameters[1].getValue();
+  registers.setContents(dest, registers.getContents(src));
 }
+
+function Mov(parameters) {
+  this.parameters = parameters;
+  this.valid = true;
+  if(!(this.params && this.params.length == 2))
+    this.valid = false;
+}
+
+Add.prototype.execute = function(memory, registers) {
+  alert("executed add with params " + this.parameters[0].getValue() + " and " + this.parameters[1].getValue());    
+  var src = this.parameters[0].getValue();
+  var dest = this.parameters[1].getValue();
+  var sum = registers.getContents(src) + registers.getContents(dest);
+  registers.setContents(dest, sum);
+}
+
+function Add(parameters) {
+  this.parameters = parameters;
+  this.valid = true;
+  if(!(this.params && this.params.length == 2))
+    this.valid = false;
+}
+
