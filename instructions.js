@@ -30,8 +30,8 @@ function Mov(parameters) {
 }
 
 Mov.prototype.execute = function(memory, registers) {
-    alert("executed mov with params " + this.parameters[0] + " and " + this.parameters[1]);
+    alert("executed mov with params " + this.parameters[0].getIntegerValue() + " and " + this.parameters[1].getRegister());
     
     
-    registers.setContents(this.parameters[1],this.parameters[0]);
+    registers.setContents(this.parameters[1].getRegister(),this.parameters[0].getIntegerValue());
 }

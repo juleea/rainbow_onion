@@ -7,10 +7,10 @@ $(function() {
   $('textarea#mainText').keyup(function(e) {
     if(e.keyCode == 13){
       newLine = getLastLine();
-      if(!parseLine(newLine)) {
+      //if(!parseLine(newLine)) {
         //TODO: display error message--oh but parseLine knows the error...
         //maybe it will return that instead of true eh
-      }
+      //}
     }
   });
 
@@ -18,7 +18,7 @@ $(function() {
   $('button#updateRegsButton').click(updateRegs);
   
   var parseText = $('input#parseText').val();
-  $('button#parseButton').bind("click", {param: parseText}, parseLine);
+  $('button#parseButton').click(parseLine);//.bind("click", {param: parseText}, parseLine);
 
 });
 
