@@ -58,7 +58,8 @@ function parseParameters(paramString) {
 
 //Breaks the line up, figures out which instruction 
 //Returns true iff this is a valid instruction
-function parseLine(line) {
+function parseLine(event) {
+    line = event.data.param; // necessary because param is bound (see code.js)
     var firstSpace = line.indexOf(" ");
     if (firstSpace == -1) {
         // possibly a label, or an error
@@ -72,7 +73,7 @@ function parseLine(line) {
             alert("mov instruction typed!");
             movInstruction = new Mov(parseParameters(line.substring(firstSpace+1)));
             
-            movInstruction.execute(memory,registers);
+            //movInstruction.execute(memory,registers);
         }
         return true;
     }
