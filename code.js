@@ -16,16 +16,50 @@ mov = instructionProt.begetObject();*/
 function Code() {
   var curLineNum;
   var codeLines = [];
+  var breakPoints = {};
 
-  function curLineNum() {
+  this.addLine = function(code, lineNum)
+  {
+    codeLines[lineNum] = code;
+  }
+
+  this.clearCode = function() {
+    //TODO: does this leak memory?
+    codeLines.clear();
+  }
+
+  this.addBreakpoint = function(lineNum) {
+    breakPoints[lineNum] = true;
+  }
+
+  this.removeBreakpoint = function(lineNum) {
+    delete breakPoints[lineNum];
+  }
+
+  this.curLineNum = function() {
     return curLineNum;
   }
-  function setCurLine(newLine) {
+
+  this.setCurLine = function(newLine) {
     curLine = newLine;
   }
-  function step() {
+
+  this.step = function() {
     var curLine = codeLines[curLineNum];
-    curLine.execute();
-    curLineNum++;
+    if(curLine) {
+      curLine.execute();
+      curLineNum++;
+    }
+  }
+
+  this.cont = function() {
+    while(curLineNum < code.size() && !breakPoints[curLineNum]) {
+      this.step();
+    }
+  }
+
+  this.run = function() {
+    curLineNum = 0;
+    this.step();
   }
 }

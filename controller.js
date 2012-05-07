@@ -14,7 +14,7 @@ $(function() {
     }
   });
 
-  $('button#runButton').click(runButton);
+  $('button#parseButton').click(parseButton);
   $('button#updateRegsButton').click(updateRegs);
 
 });
@@ -44,14 +44,18 @@ function getLastLine() {
   return lines[lines.length - 2];
 }
 
-function runButton() {
-  alert($('textarea#mainText').val());
+function parseButton() {
+  var text = $('textarea#mainText').val();
+  var lines = text.split('\n');
+  for(var line in lines) {
+    if(parseLine(line)) {
+      //TODO: display error message--oh but parseLine knows the error...
+      //maybe it will return that instead of true eh
+      alert(line + " didn't parse good")
+    }
+  }
 }
 
-function textAreaEnter() {
-
-}
-
-$('textarea#mainText').keyup(function() {
+/*$('textarea#mainText').keyup(function() {
   console.log('Handler for .keyup() called.');
-});
+});*/
