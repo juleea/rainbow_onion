@@ -27,8 +27,7 @@ function updateRegs() {
     console.log("updating register contents");
     $("#registers").css("border","3px solid red");
     
-    // dummy object until I can getContents
-    var registerValues = registers.getAll(); //getObject();
+    var registerValues = registers.getAll(); 
 
     for (var reg in registerValues) {
         $("#" + reg).text(registerValues[reg]);
