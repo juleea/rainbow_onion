@@ -4,7 +4,7 @@ Parameters class
 
 /*
 Instruction class (holds instruction, parameters, execute functions */
-*/
+
 
 //Breaks the line up, figures out which instruction should parse it
 //Returns true iff this is a valid instruction
