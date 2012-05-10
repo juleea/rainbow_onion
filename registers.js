@@ -5,7 +5,7 @@ function Registers() {
 
   //Private
   var contents = {
-    eax:goog.math.Integer.fromNumber(0), 
+    eax:goog.math.Integer.fromNumber(0),
     ecx:goog.math.Integer.fromNumber(1), 
     edx:goog.math.Integer.fromNumber(2), 
     ebx:goog.math.Integer.fromNumber(3), 
@@ -41,11 +41,6 @@ function Registers() {
 
   this.getAll = function() {
     return contents;
-  }
-  
-  
-  this.init = function () {
-    
   }
 
 }

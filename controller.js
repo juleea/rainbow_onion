@@ -2,24 +2,19 @@
 $(function() {
   memory = new Memory();
   registers = new Registers();
-
+  code = new Code();
   //lISTENERS
   $('textarea#mainText').keyup(function(e) {
     if(e.keyCode == 13){
-      newLine = getLastLine();
-      //if(!parseLine(newLine)) {
-        //TODO: display error message--oh but parseLine knows the error...
-        //maybe it will return that instead of true eh
-      //}
+      //might use for parsing on enter
     }
   });
 
+  updateRegs();
+
   $('button#parseButton').click(parseButton);
   $('button#updateRegsButton').click(updateRegs);
-  
-  var parseText = $('input#parseText').val();
-  $('button#parseButton').click(parseLine);//.bind("click", {param: parseText}, parseLine);
-
+  $('button#runButton').click(runButton);
 });
 
 // updates contents of registers
@@ -31,32 +26,42 @@ function updateRegs() {
 
     for (var reg in registerValues) {
         $("#" + reg).text(registerValues[reg]);
-        console.log("#" + reg);
     }
-    
+}
+
+function parseButton() {
+  code.clear();
+  var text = $('textarea#mainText').val();
+  var lines = text.split('\n');
+  for(var i = 0; i < lines.length ; i++) {
+    console.log(lines[i]);
+    code.addLine(parseLine(lines[i]));
+  }
+}
+
+function runButton() {
+  parseButton();
+  code.run();
+}
+
+function updateDisplay() {
+  updateRegs();
+  updateCurLine();
+}
+
+function updateCurLine() {
+  $('#lineInfo').text("Current line: " + code.curLineNum());
 }
 
 //TODO: need some way to discard blank lines
-function getLastLine() {
+/*function getLastLine() {
   var text = $('textarea#mainText').val();
   if (text == '') return '';
   var lines = text.split('\n'); 
   console.log(lines);
   if (lines.length <= 1) return '';
   return lines[lines.length - 2];
-}
-
-function parseButton() {
-  var text = $('textarea#mainText').val();
-  var lines = text.split('\n');
-  for(var line in lines) {
-    /*if(parseLine(line)) {
-      //TODO: display error message--oh but parseLine knows the error...
-      //maybe it will return that instead of true eh
-      alert(line + " didn't parse good")
-    }*/
-  }
-}
+}*/
 
 /*$('textarea#mainText').keyup(function() {
   console.log('Handler for .keyup() called.');

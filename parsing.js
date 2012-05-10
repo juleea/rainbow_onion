@@ -51,7 +51,7 @@ var paramRegex = new RegExp(paramPattern, 'g');
 /* Parses 1-2 arguments and returns an array of Parameter objects */
 function parseParameters(paramString) {
     var params = [];
-    
+    console.log(paramString);
     // TODO: error checking for empty args
     
     // matches against integers and registers only right now
@@ -67,34 +67,34 @@ function parseParameters(paramString) {
     
     params[0] = p1;
     params[1] = p2;
-
-    alert("parameters:\n" + params[0].getValue() + "\n" + params[1].getValue());
- 
+    
     return params;
 }
 
 
 //Breaks the line up, figures out which instruction 
 //Returns true iff this is a valid instruction
-function parseLine() {
-    line = $('input#parseText').val();//event.data.param; // necessary because param is bound (see code.js)
-    //console.log(line);
+function parseLine(line) {
+    if(!line) return null;
     var firstSpace = line.indexOf(" ");
     if (firstSpace == -1) {
         // possibly a label, or an error
-        alert("invalid instruction!");
-        return false;
-    } else {
-        // instruction parsing
-        var instruction = line.substring(0, firstSpace);
-        // TODO: isValidInstruction
-        if (instruction == "mov") {
-            alert("mov instruction typed!");
-            movInstruction = new Mov(parseParameters(line.substring(firstSpace+1).trim()));
-            
-            movInstruction.execute(memory,registers);
-        }
-        return true;
+        alert("invalid syntax! or label--unimplemented");
+        return null;
     }
+    // instruction parsing
+    var instructionStr = line.substring(0, firstSpace);
+    // TODO: isValidInstruction
+    
+    var parsedParams = parseParameters(line.substring(firstSpace+1).trim());
+    var instruction = null;
+    if(instructionStr in instructionMap) {
+        instruction = new instructionMap[instructionStr](parsedParams);
+        if(!instruction.valid) {
+            alert("invalid params for instruction");
+            instruction = null;
+        }
+    }
+    return instruction;
 }
 
