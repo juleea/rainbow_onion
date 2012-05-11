@@ -30,13 +30,8 @@ function updateRegs() {
 }
 
 function parseButton() {
-  code.clear();
   var text = $('textarea#mainText').val();
-  var lines = text.split('\n');
-  for(var i = 0; i < lines.length ; i++) {
-    console.log(lines[i]);
-    code.addLine(parseLine(lines[i]));
-  }
+  code.init(text);
 }
 
 function runButton() {

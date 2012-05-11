@@ -5,6 +5,15 @@ function Code() {
   var codeLines = [];
   var breakPoints = {};
 
+  this.init = function(text) {
+   this.clear();
+    var lines = text.split('\n');
+    for(var i = 0; i < lines.length ; i++) {
+      console.log(lines[i]);
+      this.addLine(parseLine(lines[i]));
+    }
+  }
+
   this.insertLine = function(lineNum, code) {
     codeLines[lineNum] = code;
   }
