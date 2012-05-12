@@ -66,3 +66,11 @@
 .linedwrap .codelines .lineselect {
 	color: red;
 }
+
+.linedwrap .codelines .running {
+	background-color: #F2D3D4;
+}
+
+.linedwrap .codelines .breakpoint {
+	border: 1px solid green;
+}

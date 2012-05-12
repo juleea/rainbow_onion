@@ -21,12 +21,12 @@ $(function() {
   $('button#parseButton').click(parseButton);
   $('button#updateRegsButton').click(updateRegs);
   $('button#runButton').click(runButton);
+  $('button#stepButton').click(stepButton);
 });
 
 // updates contents of registers
 function updateRegs() {
-    console.log("updating register contents");
-    $("#registers").css("border","3px solid red");
+    $("#registers").css("border","3px solid #ececec");
     
     var registerValues = registers.getAll(); 
 
@@ -45,24 +45,25 @@ function runButton() {
   code.run();
 }
 
+function stepButton() {
+  //TODO: Figure out if somebody added a line, sync with curLineNum
+  parseButton();
+  code.step();
+}
+
 function updateDisplay() {
   updateRegs();
   updateCurLine();
 }
 
 function updateCurLine() {
+  //clear
+  for(var i = 0; i < TEXT_AREA_HEIGHT; i++) {
+      $('#line' + i).removeClass('running');
+  }
+  $('#line' + code.curLineNum()).addClass('running');
   $('#lineInfo').text("Current line: " + code.curLineNum());
 }
-
-//TODO: need some way to discard blank lines
-/*function getLastLine() {
-  var text = $('textarea#mainText').val();
-  if (text == '') return '';
-  var lines = text.split('\n'); 
-  console.log(lines);
-  if (lines.length <= 1) return '';
-  return lines[lines.length - 2];
-}*/
 
 /*$('textarea#mainText').keyup(function() {
   console.log('Handler for .keyup() called.');

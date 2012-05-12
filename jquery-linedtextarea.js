@@ -27,6 +27,8 @@
  *   - 2010.01.06: Initial Release
  *
  */
+TEXT_AREA_HEIGHT = 0;
+
 (function($) {
 
 	$.fn.linedtextarea = function(options) {
@@ -40,14 +42,17 @@
 		 * kept up to the current system
 		 */
 		var fillOutLines = function(codeLines, h, lineNo){
-			while ( (codeLines.height() - h ) <= 0 ){
+			while ( (codeLines.height() - h ) <= 0 ) {
+				var lineclasses = "lineno";
+				var lineid = "line" + lineNo;
 				if ( lineNo == opts.selectedLine )
-					codeLines.append("<div class='lineno lineselect'>" + lineNo + "</div>");
-				else
-					codeLines.append("<div class='lineno'>" + lineNo + "</div>");
-				
+					lineclasses = lineclasses + " " + opts.selectedClass;
+				if (lineNo==opts.runningLine)
+					lineclasses = lineclasses + " " + opts.runningClass;
+				codeLines.append("<div class='" + lineclasses + "' id='" + lineid + "'>" + lineNo + "</div>");
 				lineNo++;
 			}
+			TEXT_AREA_HEIGHT = lineNo;
 			return lineNo;
 		};
 		
@@ -121,6 +126,8 @@
   // default options
   $.fn.linedtextarea.defaults = {
   	selectedLine: -1,
-  	selectedClass: 'lineselect'
+  	runningLine: -1,
+  	selectedClass: 'lineselect',
+  	runningClass: 'running'
   };
 })(jQuery);
