@@ -3,6 +3,12 @@ $(function() {
   memory = new Memory();
   registers = new Registers();
   code = new Code();
+
+//number textfield lines
+	$('.lined').linedtextarea(
+		{selectedLine: 1}
+	);
+
   //lISTENERS
   $('textarea#mainText').keyup(function(e) {
     if(e.keyCode == 13){

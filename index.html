@@ -6,10 +6,12 @@
 <head>
 	<title>Rainbow Onion</title>
 	<link rel="stylesheet" type="text/css" href="styles.css" />
+	<link rel="stylesheet" type="text/css" href="jquery-linedtextarea.css" />
   
   <script src="jquery-1.7.2.min.js"></script>
   <script src="closure-library/closure/goog/base.js"></script>
 
+  <script src="jquery-linedtextarea.js"></script>
 	<script src="memory.js"></script>
 	<script src="douglas.js"></script>
 	<script src="instructions.js"></script>
@@ -18,6 +20,7 @@
   <script src="controller.js"></script>
   <script src="registers.js"></script>
 	<script src="code.js"></script>
+	
 </head>
 
 <body>
@@ -36,9 +39,8 @@
     <button class='topButtons' id='contButton'>Continue</button>
   </div>
   <div class='text'>
-    <textarea id='mainText'></textarea> 
+    <textarea class='lined' rows="40" cols = "60" id='mainText' ></textarea> 
   </div>
-  <div id="lineInfo">Current line: 0</div>
   <div class='help'></div>
 </div>
 
@@ -64,6 +66,8 @@
   Stack!
 </div>
 </div>
+
+
 
 </body>
 
