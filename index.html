@@ -29,7 +29,7 @@
 <body>
 
 <div class='header'>
-  <div class='logo'>Rainbow Onion</div>
+  <div class='logo'>rainbow onion</div>
 </div>
 
 
@@ -37,27 +37,37 @@
 
 <div class='left'>
   <div id='tutorials'>
-    
-    <div class='dropdown'>
+    <div class='sectionHead'>
+    <span class='tutorialhead'>Tutorials</span>
+    <div class='dropdown btn rightAlign'>
       <a class="dropdown-toggle" data-toggle="dropdown" href="#menu1">
         Select a tutorial...
         <b class="caret"></b>
       </a>
       <ul class='dropdown-menu' id='tutorialNav'>
-        <li id='tutorial0'><a href="#">Tutorial Information</a></li>
+        <li id='tutorial0' class='tutorial'><a href='#'>Tutorial Information</a></li>
+
       </ul>
     </div>
-    
+    </div>
     <div id='tutorialBox'>
       <div id='tutorialTitle'></div>
-      <div id='tutorialPageTitle'></div>
+      <span id='tutorialPageTitle' class='sectionSubtitle'></span>
+      <span id='pageNumber' class='sectionSubtitle rightAlign'></span>      
       <div id='tutorialPageContent'></div>
     </div>
     <div id='questionAnswer'>
-      <div id='question'></div>
+      <div id='question' class='qa'></div>
       <textarea id='answerText'></textarea>
-      <button class='btn' id='answerButton'>Submit</button>
-      <div id='answer'></div>
+      <span id='answerLabel' class='qa'>Answer: </span>
+      <span id='answer' class='qa'></span>
+      <br/>
+      <button class='btn' id='answerButton'>Show Answer</button>
+    </div>
+    <button class='btn' id='prevPageButton'><</button>
+    <button class='btn' id='nextPageButton'>></button>
+
+      
     </div>
   </div>
 </div>
@@ -72,12 +82,13 @@
   <div class='text'>
     <textarea class='lined' id='mainText' ></textarea> 
   </div>
-  <div class='help'></div>
+  <div class='help'>
+  </div>
 </div>
 
 <div class='right'>
-  <div class='registers' id="registers">  
-    Registers
+  <div class='registers' id='registers'>  
+    <span class='sectionHead'>Registers</span>
     <BR />
     eax: <span id="eax"></span><BR />
     ebx: <span id="ebx"></span><BR />
@@ -91,8 +102,8 @@
     
   </div>
 
-  <div class='memory'>
-    Stack!
+  <div class='memory sectionHead'>
+    <span>Stack!</span>
   </div>
 </div>
 

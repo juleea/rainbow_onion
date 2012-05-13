@@ -6,8 +6,15 @@ Tutorials = function() {
   var currPageNum = 0;
   
   var readTutorials = function() {
+    var tutNum = 1;
     for (file in tutorialFilenames) {
-      allTutorials.push(new Tutorial(file));  
+      var tut = new Tutorial(file);
+      allTutorials.push(tut);
+      //here tutorials are 1-indexed...
+      var tutId = "tutorial" + tutNum;
+      var tutTitle = tutNum + ' - ' + tut.getName();
+      $('#tutorialNav').append('<li id="'+tutId+'" class="tutorial"><a href="#">'+ tutTitle + '</a></li>');
+      tutNum++;
     }
   }
   
@@ -21,18 +28,29 @@ Tutorials = function() {
 
   }
   
-  this.displayNextPage = function(tutorialId) {
+  this.displayNextPage = function() {
     var currTutorial = allTutorials[currTutorialNum];
     if (currPageNum < currTutorial.numPages() - 1) {
       currPageNum++;
-      allTutorials[currTutorialNum].displayPage(currPageNum);
-    } else if (currPageNum == currTutorial.numPages())  {
-      displayLastPage();
+      currTutorial.displayTutorialPageByNumber(currPageNum);
+    } else if (currPageNum == currTutorial.numPages() - 1)  {
+      currTutorial.displayLastPage();
     } else {
       alert('error in page numbering!');
     }
   }
   
+  this.displayPrevPage = function() {
+    var currTutorial = allTutorials[currTutorialNum];
+    if (currPageNum > 0) {
+      currPageNum--;
+      currTutorial.displayTutorialPageByNumber(currPageNum);      
+    } else {
+      alert('error in page numbering!');
+    }
+  }
+  
+    
   this.displayAnswer = function() {
     allTutorials[currTutorialNum].displayAnswer(currPageNum);
   }
@@ -71,8 +89,7 @@ Tutorial = function(file) {
     fakePage3.setText ("page3 content. adding new assembly code to the text area!");
     fakePage3.setQuestion ("What year is it?");
     fakePage3.setAnswer ("2012");
-    fakePage3.addInstruction("mov 30, %eax");
-    fakePage3.addInstruction("mov %eax, %ecx");
+    fakePage3.addInstruction("mov %eax, %ebp");
     
     tutorialPages.push(fakePage1); 
     tutorialPages.push(fakePage2);
@@ -80,8 +97,12 @@ Tutorial = function(file) {
         
   }
   
+  this.getName = function() {
+    return tutorialName;
+  }
+  
   this.displayTutorialPageByNumber = function(pageNumber) {
-    this.displayTutorialPage (tutorialPages[pageNumber]);
+    this.displayTutorialPage (tutorialPages[pageNumber], pageNumber);
   }
 
   
@@ -142,10 +163,10 @@ Page = function() {
   }
   
   this.instructionsAsString = function() {
-    return "instructionsAsString() is broken";
+    if (code == null) return null;
     var str = "";
-    for (line in code) {
-      str = str + line + "\n";
+    for (var i=0; i<code.length; i++) {
+      str = str + code[i] + "\n";
     }
     return str;
   }
@@ -153,7 +174,10 @@ Page = function() {
 
 
 
-Tutorial.prototype.displayTutorialPage = function(page) {
+Tutorial.prototype.displayTutorialPage = function(page, pagenum) {
+  if (page == null) {
+    alert("error: page is null");
+  }
   if (page.getSubtitle() != null) {
     $('#tutorialPageTitle').html(page.getSubtitle());
   }
@@ -169,7 +193,18 @@ Tutorial.prototype.displayTutorialPage = function(page) {
     $('#question').html(page.getQuestion());
     $('#answer').html("");      
   }
-
+  
+  if (pagenum != null) {
+    var totalPages = this.numPages() +1;
+    $('#pageNumber').html(pagenum+1 + "/" + totalPages);
+    $('#nextPageButton').show();
+    $('#prevPageButton').show();
+    if(pagenum != 0) $('#prevPageButton').show();
+    else $('#prevPageButton').hide();
+  } else {
+    $('#nextPageButton').hide();
+  }
+  
   if (page.instructionsAsString() !=null) {
     $('textarea#mainText').html(page.instructionsAsString());
   }    
@@ -179,7 +214,7 @@ Tutorial.prototype.lastPage = new Page();
 Tutorial.prototype.lastPage.setSubtitle("Congratulations");
 Tutorial.prototype.lastPage.setText("You've completed this activity!")
 Tutorial.prototype.displayLastPage = function() {
-  this.displayTutorialPage(this.lastPage);
+  this.displayTutorialPage(this.lastPage, null);
 }
 
 
