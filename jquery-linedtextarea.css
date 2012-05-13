@@ -61,6 +61,7 @@
 	padding-top: 0.0em;
 	text-align: right;
 	white-space: nowrap;
+	z-index: 5;
 }
 
 .linedwrap .codelines .lineselect {

@@ -10,6 +10,8 @@ $(function() {
 	);
 
   //lISTENERS
+  $('.lineno').click(bpClick);
+
   $('textarea#mainText').keyup(function(e) {
     if(e.keyCode == 13){
       //might use for parsing on enter
@@ -18,11 +20,20 @@ $(function() {
 
   updateRegs();
 
-  $('button#parseButton').click(parseButton);
-  $('button#updateRegsButton').click(updateRegs);
   $('button#runButton').click(runButton);
   $('button#stepButton').click(stepButton);
+  $('button#contButton').click(contButton);
+  $('button#parseButton').click(parseButton);
+
 });
+
+function bpClick(event) {
+  var clickedId = event.srcElement.id;
+  //cut out the word "line"
+  var clickedNum = parseInt(clickedId.substr(4));
+  code.toggleBreakpoint(clickedNum);
+  $("#" + clickedId).toggleClass("breakpoint");
+}
 
 // updates contents of registers
 function updateRegs() {
@@ -47,8 +58,14 @@ function runButton() {
 
 function stepButton() {
   //TODO: Figure out if somebody added a line, sync with curLineNum
+  //or whether that would actually be a nice feature...
   parseButton();
   code.step();
+}
+
+function contButton() {
+  parseButton();
+  code.cont();
 }
 
 function updateDisplay() {
