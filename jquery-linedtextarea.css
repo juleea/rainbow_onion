@@ -61,8 +61,17 @@
 	padding-top: 0.0em;
 	text-align: right;
 	white-space: nowrap;
+	z-index: 5;
 }
 
 .linedwrap .codelines .lineselect {
 	color: red;
+}
+
+.linedwrap .codelines .running {
+	background-color: #F2D3D4;
+}
+
+.linedwrap .codelines .breakpoint {
+	border: 1px solid green;
 }

@@ -9,7 +9,6 @@ function Code() {
    this.clear();
     var lines = text.split('\n');
     for(var i = 0; i < lines.length ; i++) {
-      console.log(lines[i]);
       this.addLine(parseLine(lines[i]));
     }
   }
@@ -34,6 +33,13 @@ function Code() {
     delete breakPoints[lineNum];
   }
 
+  this.toggleBreakpoint = function(lineNum) {
+    if(breakPoints[lineNum])
+      delete breakPoints[lineNum];
+    else
+      breakPoints[lineNum] = true;
+  }
+
   this.curLineNum = function() {
     return curLineNum;
   }
@@ -51,13 +57,13 @@ function Code() {
         curLine.execute(memory, registers);
       }
     }
-    //TODO: seems like breaking our code ideas to put this here but can't thing of better;
+    //TODO: seems like breaking our code pattern to put this here but can't think of better;
     curLineNum++;
     updateDisplay();
   }
 
   this.cont = function() {
-    while(curLineNum < codeLines.length) {
+    while(curLineNum < codeLines.length + 1) {
       this.step();
       if(curLineNum in breakPoints) {
         break;
