@@ -2,6 +2,8 @@ instructionMap = {};
 instructionMap['mov'] = Mov;
 instructionMap['add'] = Add;
 
+instructionArgumentMap = {'mov': 2, 'add': 2, 'incl': 1};
+
 
 /* Mov */
 Mov.prototype.execute = function(memory, registers) {

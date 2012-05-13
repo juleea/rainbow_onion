@@ -46,7 +46,7 @@ function Parameter(type) {
     }
     
     this.register = register;
-    this.displacement = displacement;
+    this.displacement = (displacement == "") ? 0 : displacement;
   }
   
   this.setIndexedValue = function(displacement, base_register, index_register, scale) {
@@ -54,15 +54,17 @@ function Parameter(type) {
         alert("Tried to use indexed addressing for non-indexed param type");
     }
 
-    this.displacement = displacement;
+    this.displacement = (displacement == "") ? 0 : displacement;
     this.base_register = base_register;
     this.index_register = index_register;
     this.scale = scale;
     
   }
   
+  this.getLocation = function() {
+  }
   
-  
+  // returns the integer value contained at this param's register/address 
   this.getValue = function() {
     switch(this.type) {
         case PARAM_TYPE.INTEGER: return this.literal;
@@ -149,8 +151,6 @@ function parseSingleArgument(paramString) {
 /* Parses 1-2 arguments and returns an array of Parameter objects */
 function parseParameters(paramString, numExpectedArgs) {
     var params = [];
-    console.log(paramString);
-    // TODO: error checking for empty args
     
     var hasValidNumArgs = verifyNumArgs(paramString, numExpectedArgs);
     if (hasValidNumArgs) {
@@ -197,9 +197,10 @@ function parseLine(line) {
     var instructionStr = line.substring(0, firstSpace);
     // TODO: isValidInstruction
     
-    var parsedParams = parseParameters(line.substring(firstSpace+1).trim());
+    
     var instruction = null;
     if(instructionStr in instructionMap) {
+        var parsedParams = parseParameters(line.substring(firstSpace+1).trim(), instructionArgumentMap[instructionStr]);
         instruction = new instructionMap[instructionStr](parsedParams);
         if(!instruction.valid) {
             alert("invalid params for instruction");
