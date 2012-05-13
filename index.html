@@ -7,6 +7,7 @@
 	<title>Rainbow Onion</title>
 	<link rel="stylesheet" type="text/css" href="styles.css" />
 	<link rel="stylesheet" type="text/css" href="jquery-linedtextarea.css" />
+	<link href="docs/assets/css/bootstrap.css" rel="stylesheet">
   
   <script src="jquery-1.7.2.min.js"></script>
   <script src="closure-library/closure/goog/base.js"></script>
@@ -20,53 +21,95 @@
   <script src="controller.js"></script>
   <script src="registers.js"></script>
 	<script src="code.js"></script>
+	<script src="tutorials.js"></script>
+
 	
 </head>
 
 <body>
 
+<div class='header'>
+  <div class='logo'>Rainbow Onion</div>
+</div>
+
+
+<div class='maincontent'>
+
 <div class='left'>
-
-  <div class='tutorial'>Tutorials here!</div>
-
+  <div id='tutorials'>
+    
+    <div class='dropdown'>
+      <a class="dropdown-toggle" data-toggle="dropdown" href="#menu1">
+        Select a tutorial...
+        <b class="caret"></b>
+      </a>
+      <ul class='dropdown-menu' id='tutorialNav'>
+        <li id='tutorial0'><a href="#">Tutorial Information</a></li>
+      </ul>
+    </div>
+    
+    <div id='tutorialBox'>
+      <div id='tutorialTitle'></div>
+      <div id='tutorialPageTitle'></div>
+      <div id='tutorialPageContent'></div>
+    </div>
+    <div id='questionAnswer'>
+      <div id='question'></div>
+      <textarea id='answerText'></textarea>
+      <button class='btn' id='answerButton'>Submit</button>
+      <div id='answer'></div>
+    </div>
+  </div>
 </div>
 
 <div class='center'>
   <div class='button_bar'>
-    <button class='topButtons run' id='runButton'>Run</button>
-    <button class='topButtons' id='parseButton'>Parse</button>
-    <button class='topButtons' id='stepButton'>Step</button>
-    <button class='topButtons' id='contButton'>Continue</button>
+    <button class='topButtons run btn' id='runButton'>Run</button>
+    <button class='topButtons btn' id='parseButton'>Parse</button>
+    <button class='topButtons btn' id='stepButton'>Step</button>
+    <button class='topButtons btn' id='contButton'>Continue</button>
   </div>
   <div class='text'>
-    <textarea class='lined' rows="40" cols = "60" id='mainText' ></textarea> 
+    <textarea class='lined' id='mainText' ></textarea> 
   </div>
   <div class='help'></div>
 </div>
 
 <div class='right'>
+  <div class='registers' id="registers">  
+    Registers
+    <BR />
+    eax: <span id="eax"></span><BR />
+    ebx: <span id="ebx"></span><BR />
+    ecx: <span id="ecx"></span><BR />
+    edx: <span id="edx"></span><BR />
+    esi: <span id="esi"></span><BR />
+    edi: <span id="edi"></span><BR />
+    esp: <span id="esp"></span><BR />
+    ebp: <span id="ebp"></span><BR />
+    eip: <span id="eip"></span><BR />
+    
+  </div>
 
-<div class='registers' id="registers">
-  
-  Registers
-  <BR />
-  eax: <span id="eax"></span><BR />
-  ebx: <span id="ebx"></span><BR />
-  ecx: <span id="ecx"></span><BR />
-  edx: <span id="edx"></span><BR />
-  esi: <span id="esi"></span><BR />
-  edi: <span id="edi"></span><BR />
-  esp: <span id="esp"></span><BR />
-  ebp: <span id="ebp"></span><BR />
-  eip: <span id="eip"></span><BR />
-  
+  <div class='memory'>
+    Stack!
+  </div>
 </div>
 
-<div class='memory'>
-  Stack!
-</div>
-</div>
+</div> <!-- main content-->
 
+ <script src="docs/assets/js/bootstrap-transition.js"></script>
+ <script src="docs/assets/js/bootstrap-alert.js"></script>
+ <script src="docs/assets/js/bootstrap-modal.js"></script>
+ <script src="docs/assets/js/bootstrap-dropdown.js"></script>
+ <script src="docs/assets/js/bootstrap-scrollspy.js"></script>
+ <script src="docs/assets/js/bootstrap-tab.js"></script>
+ <script src="docs/assets/js/bootstrap-tooltip.js"></script>
+ <script src="docs/assets/js/bootstrap-popover.js"></script>
+ <script src="docs/assets/js/bootstrap-button.js"></script>
+ <script src="docs/assets/js/bootstrap-collapse.js"></script>
+ <script src="docs/assets/js/bootstrap-carousel.js"></script>
+ <script src="docs/assets/js/bootstrap-typeahead.js"></script>
 
 
 </body>

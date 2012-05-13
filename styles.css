@@ -10,7 +10,7 @@ div {
   padding: 25px;
 }
 
-.tutorial {
+.tutorials {
   width: 100%;
 }
 
@@ -35,4 +35,8 @@ div {
 }
 
 .stack {
+}
+
+#tutorialBox {
+  height: 90%;
 }
