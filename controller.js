@@ -2,60 +2,84 @@
 $(function() {
   memory = new Memory();
   registers = new Registers();
+  code = new Code();
+
+//number textfield lines
+	$('.lined').linedtextarea(
+		{selectedLine: 1}
+	);
 
   //lISTENERS
+  $('.lineno').click(bpClick);
+
   $('textarea#mainText').keyup(function(e) {
     if(e.keyCode == 13){
-      newLine = getLastLine();
-      //if(!parseLine(newLine)) {
-        //TODO: display error message--oh but parseLine knows the error...
-        //maybe it will return that instead of true eh
-      //}
+      //might use for parsing on enter
     }
   });
 
+  updateRegs();
+
+  $('button#runButton').click(runButton);
+  $('button#stepButton').click(stepButton);
+  $('button#contButton').click(contButton);
   $('button#parseButton').click(parseButton);
-  $('button#updateRegsButton').click(updateRegs);
-  
-  var parseText = $('input#parseText').val();
-  $('button#parseButton').click(parseLine);//.bind("click", {param: parseText}, parseLine);
 
 });
 
+function bpClick(event) {
+  var clickedId = event.srcElement.id;
+  //cut out the word "line"
+  var clickedNum = parseInt(clickedId.substr(4));
+  code.toggleBreakpoint(clickedNum);
+  $("#" + clickedId).toggleClass("breakpoint");
+}
+
 // updates contents of registers
 function updateRegs() {
-    console.log("updating register contents");
-    $("#registers").css("border","3px solid red");
+    $("#registers").css("border","3px solid #ececec");
     
     var registerValues = registers.getAll(); 
 
     for (var reg in registerValues) {
         $("#" + reg).text(registerValues[reg]);
-        console.log("#" + reg);
     }
-    
-}
-
-//TODO: need some way to discard blank lines
-function getLastLine() {
-  var text = $('textarea#mainText').val();
-  if (text == '') return '';
-  var lines = text.split('\n'); 
-  console.log(lines);
-  if (lines.length <= 1) return '';
-  return lines[lines.length - 2];
 }
 
 function parseButton() {
   var text = $('textarea#mainText').val();
-  var lines = text.split('\n');
-  for(var line in lines) {
-    /*if(parseLine(line)) {
-      //TODO: display error message--oh but parseLine knows the error...
-      //maybe it will return that instead of true eh
-      alert(line + " didn't parse good")
-    }*/
+  code.init(text);
+}
+
+function runButton() {
+  parseButton();
+  code.run();
+}
+
+function stepButton() {
+  //TODO: Figure out if somebody added a line, sync with curLineNum
+  //or whether that would actually be a nice feature...
+  parseButton();
+  code.step();
+}
+
+function contButton() {
+  parseButton();
+  code.cont();
+}
+
+function updateDisplay() {
+  updateRegs();
+  updateCurLine();
+}
+
+function updateCurLine() {
+  //clear
+  for(var i = 0; i < TEXT_AREA_HEIGHT; i++) {
+      $('#line' + i).removeClass('running');
   }
+  $('#line' + code.curLineNum()).addClass('running');
+  $('#lineInfo').text("Current line: " + code.curLineNum());
 }
 
 /*$('textarea#mainText').keyup(function() {

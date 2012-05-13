@@ -149,8 +149,8 @@ function parseSingleArgument(paramString) {
 /* Parses 1-2 arguments and returns an array of Parameter objects */
 function parseParameters(paramString, numExpectedArgs) {
     var params = [];
-    
-    // TODO: convert to lowercase
+    console.log(paramString);
+    // TODO: error checking for empty args
     
     var hasValidNumArgs = verifyNumArgs(paramString, numExpectedArgs);
     if (hasValidNumArgs) {
@@ -185,26 +185,27 @@ function parseParameters(paramString, numExpectedArgs) {
 
 //Breaks the line up, figures out which instruction 
 //Returns true iff this is a valid instruction
-function parseLine() {
-    line = $('input#parseText').val();//event.data.param; // necessary because param is bound (see code.js)
-    //console.log(line);
+function parseLine(line) {
+    if(!line) return null;
     var firstSpace = line.indexOf(" ");
     if (firstSpace == -1) {
         // possibly a label, or an error
-        alert("invalid instruction!");
-        return false;
-    } else {
-        // instruction parsing
-        var instruction = line.substring(0, firstSpace);
-        // TODO: isValidInstruction
-        if (instruction == "mov") {
-            var movInstruction = new Mov(parseParameters(line.substring(firstSpace+1).trim(),2));
-            
-            movInstruction.execute(memory,registers);
-        } else if (instruction == "incl") {
-            parseParameters(line.substring(firstSpace+1).trim(),1);
-        }
-        return true;
+        alert("invalid syntax! or label--unimplemented");
+        return null;
     }
+    // instruction parsing
+    var instructionStr = line.substring(0, firstSpace);
+    // TODO: isValidInstruction
+    
+    var parsedParams = parseParameters(line.substring(firstSpace+1).trim());
+    var instruction = null;
+    if(instructionStr in instructionMap) {
+        instruction = new instructionMap[instructionStr](parsedParams);
+        if(!instruction.valid) {
+            alert("invalid params for instruction");
+            instruction = null;
+        }
+    }
+    return instruction;
 }
 
