@@ -1,10 +1,6 @@
 body {
   font-family: helvetica;
 }
-div {
-  position: relative; 
-}
-
 
 .left {
   float: left;
@@ -20,8 +16,7 @@ div {
 .sectionHead {
   font-family:helvetica;
   font-size: 26px;
-  padding-bottom:20px;
-
+  padding-bottom:15px;
 }
 
 .sectionSubtitle {
@@ -50,14 +45,8 @@ div {
   padding: 25px;
 }
 
-.registers {
-}
-
-.stack {
-}
-
 #tutorialBox {
-  height: 300px;
+  height: 350px;
 }
 
 .tutorialIndent {
@@ -84,6 +73,8 @@ div {
 
 #answerText {
   width:100%;
+  resize:none;
+  height: 50px;
 }
 
 .qa {
@@ -91,6 +82,16 @@ div {
   font-weight: bold;
   font-style:italic;
 }
+
 .tutorial {
   text-align: left;
+}
+
+#helpText {
+  width: 100%;
+  height: 100px;
+}
+
+.panel {
+  padding-bottom: 20px;
 }

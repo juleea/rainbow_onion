@@ -41,7 +41,7 @@
     <span class='tutorialhead'>Tutorials</span>
     <div class='dropdown btn rightAlign'>
       <a class="dropdown-toggle" data-toggle="dropdown" href="#menu1">
-        Select a tutorial...
+        Select a tutorial
         <b class="caret"></b>
       </a>
       <ul class='dropdown-menu' id='tutorialNav'>
@@ -79,15 +79,17 @@
     <button class='topButtons btn' id='stepButton'>Step</button>
     <button class='topButtons btn' id='contButton'>Continue</button>
   </div>
-  <div class='text'>
+  <div class='text panel'>
     <textarea class='lined' id='mainText' ></textarea> 
   </div>
-  <div class='help'>
+  <div class='help panel'>
+    <div class='sectionHead'>Console</div>
+    <textarea id='helpText'></textarea>
   </div>
 </div>
 
 <div class='right'>
-  <div class='registers' id='registers'>  
+  <div class='registers panel' id='registers'>  
     <span class='sectionHead'>Registers</span>
     <BR />
     eax: <span id="eax"></span><BR />
@@ -102,7 +104,7 @@
     
   </div>
 
-  <div class='memory sectionHead'>
+  <div class='memory sectionHead panel  '>
     <span>Stack!</span>
   </div>
 </div>
