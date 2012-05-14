@@ -11,6 +11,8 @@ instructionMap['or'] = Or;
 instructionMap['inc'] = Inc;
 instructionMap['dec'] = Dec;
 
+instructionArgumentMap = {'mov': 2, 'add': 2, 'incl': 1};
+
 
 /* Mov */
 Mov.prototype.execute = function(memory, registers) {

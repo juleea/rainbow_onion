@@ -3,11 +3,16 @@ $(function() {
   memory = new Memory();
   registers = new Registers();
   code = new Code();
+  tutorials = new Tutorials();
+  var currTutorial = 0;
 
 //number textfield lines
 	$('.lined').linedtextarea(
 		{selectedLine: 1}
 	);
+//display tutorial tabs and first first page of first tutorial
+//tutorials.displayTabs
+  tutorials.displayTutorial(0);
 
   //lISTENERS
   $('.lineno').click(bpClick);
@@ -21,9 +26,17 @@ $(function() {
   updateRegs();
 
   $('button#runButton').click(runButton);
+
+  $('button#answerButton').click(function(){tutorials.displayAnswer()});
   $('button#stepButton').click(stepButton);
   $('button#contButton').click(contButton);
   $('button#parseButton').click(parseButton);
+  $('button#stopButton').click(stopButton);
+  $('button#nextPageButton').click(tutorials.displayNextPage);
+  $('button#prevPageButton').click(tutorials.displayPrevPage);
+
+
+
 
 });
 
@@ -33,12 +46,12 @@ function bpClick(event) {
   var clickedNum = parseInt(clickedId.substr(4));
   code.toggleBreakpoint(clickedNum);
   $("#" + clickedId).toggleClass("breakpoint");
+	$('.lined').linedtextarea("selected", clickedNum);
+
 }
 
 // updates contents of registers
-function updateRegs() {
-    $("#registers").css("border","3px solid #ececec");
-    
+function updateRegs() {    
     var registerValues = registers.getAll(); 
 
     for (var reg in registerValues) {
