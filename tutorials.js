@@ -35,6 +35,7 @@ Tutorials = function() {
       currTutorial.displayTutorialPageByNumber(currPageNum);
     } else if (currPageNum == currTutorial.numPages() - 1)  {
       currTutorial.displayLastPage();
+      currPageNum++;
     } else {
       alert('error in page numbering!');
     }

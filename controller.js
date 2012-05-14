@@ -26,13 +26,17 @@ $(function() {
   updateRegs();
 
   $('button#runButton').click(runButton);
-  $('button#answerButton').click(function(){tutorials.displayAnswer()});
-  $('button#nextPageButton').click(tutorials.displayNextPage);
-  $('button#prevPageButton').click(tutorials.displayPrevPage);
 
+  $('button#answerButton').click(function(){tutorials.displayAnswer()});
   $('button#stepButton').click(stepButton);
   $('button#contButton').click(contButton);
   $('button#parseButton').click(parseButton);
+  $('button#stopButton').click(stopButton);
+  $('button#nextPageButton').click(tutorials.displayNextPage);
+  $('button#prevPageButton').click(tutorials.displayPrevPage);
+
+
+
 
 });
 
@@ -42,8 +46,6 @@ function bpClick(event) {
   var clickedNum = parseInt(clickedId.substr(4));
   code.toggleBreakpoint(clickedNum);
   $("#" + clickedId).toggleClass("breakpoint");
-	$('.lined').linedtextarea("selected", clickedNum);
-
 }
 
 // updates contents of registers
