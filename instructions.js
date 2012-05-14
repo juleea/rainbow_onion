@@ -7,9 +7,9 @@ instructionArgumentMap = {'mov': 2, 'add': 2, 'incl': 1};
 
 /* Mov */
 Mov.prototype.execute = function(memory, registers) {
-  var src = this.parameters[0].getValue();
-  var dest = this.parameters[1].getValue();
-  registers.setContents(dest, registers.getContents(src));
+  var src = this.parameters[0].getValue(memory, registers);
+  var dest = this.parameters[1].getLocation(registers);
+  registers.setContents(dest, src);
 }
 
 function Mov(parameters) {
@@ -20,9 +20,12 @@ function Mov(parameters) {
 }
 
 Add.prototype.execute = function(memory, registers) { 
-  var src = this.parameters[0].getValue();
-  var dest = this.parameters[1].getValue();
-  var sum = registers.getContents(src).add(registers.getContents(dest));
+  var src = this.parameters[0].getValue(memory, registers);
+  var dest = this.parameters[1].getValue(memory, registers);
+  var sum = src + dest;
+  console.log(src + " + " + dest + " = " + sum);
+  dest = this.parameters[1].getLocation(registers);
+  // TODO: determine whether getLocation returns memory address or register
   registers.setContents(dest, sum);
 }
 

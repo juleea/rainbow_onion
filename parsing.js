@@ -34,6 +34,7 @@ function Parameter(type) {
   // Overloaded setValue functions for assigning param values
   this.setValue = function(value) {
     switch(this.type) {
+        // TODO: convert value to decimal (might be hex)
         case PARAM_TYPE.INTEGER: this.literal = value; break;
         case PARAM_TYPE.REGISTER: this.register = value; break;
         default: alert("Tried to set value for param with no type");
@@ -61,14 +62,30 @@ function Parameter(type) {
     
   }
   
-  this.getLocation = function() {
+  /*
+   * returns the register or memory address represented by this parameter
+   */
+  this.getLocation = function(registers) {
+    switch(this.type) {
+        case PARAM_TYPE.INTEGER: alert("Cannot get location for integer parameter"); break;
+        case PARAM_TYPE.REGISTER: return this.register; 
+        
+        // the following two return memory addresses
+        case PARAM_TYPE.DISPLACEMENT: return registers.getContents(this.register) + this.displacement;
+        case PARAM_TYPE.INDEXED: return register.getContents(this.base_register) + this.scale * registers.getContents(this.index_register) + this.displacement;
+        default: alert("Tried to get location for param with no type");
+    }
   }
   
-  // returns the integer value contained at this param's register/address 
-  this.getValue = function() {
+  /* returns the integer value contained at this param's register/address, or
+   * the param itself if it is a literal
+   */
+  this.getValue = function(memory, registers) {
     switch(this.type) {
-        case PARAM_TYPE.INTEGER: return this.literal;
-        case PARAM_TYPE.REGISTER: return this.register;
+        case PARAM_TYPE.INTEGER: return Number(this.literal);
+        case PARAM_TYPE.REGISTER: return Number(registers.getContents(this.register));
+        case PARAM_TYPE.DISPLACEMENT: 
+        case PARAM_TYPE.INDEXED: return Number(memory.getContents(this.getLocation(registers))); 
         default: alert("Tried to get value for param with no type");
     }
   }
@@ -84,12 +101,12 @@ function Parameter(type) {
 function verifyNumArgs(paramString, numExpectedArgs) {
     if (numExpectedArgs == 1) {
         var matches = paramString.match(/^([-0-9a-z%$]*(?:\([0-9a-z%, ]*\))?)/);
-        console.log(matches);
+        //console.log(matches);
         // the entire paramString should contain only the sole argument
         return (matches[0].length == paramString.length);
     } else if (numExpectedArgs == 2) {
         var matches = paramString.match(/^([-0-9a-z%$]*(?:\([0-9a-z%, ]*\))?) *, *([0-9a-z%$]*(?:\([0-9a-z%, ]*\))?)$/);
-        console.log(matches);
+        //console.log(matches);
         // the entire paramString should contain only the sole argument
         if (matches == null) 
             return false;
@@ -109,7 +126,7 @@ function parseSingleArgument(paramString) {
         
         // match for indexed addressing mode
         var matches = paramString.match(/^(-?0x0*100|-?0x0*10|-?0x0*1|-?[124]|)\((?:%(eax|ebx|ecx|edx|esi|edi|esp|ebp)|) *, *%(eax|ebx|ecx|edx|esi|edi|ebp) *, *(0x0*1000|0x0*100|0x0*10|0x0*1|[1248])\)/);
-        console.log("indexed: " + matches);
+        //console.log("indexed: " + matches);
         if (matches != null) {
             parameter = new Parameter(PARAM_TYPE.INDEXED);
             parameter.setIndexedValue(matches[1], matches[2], matches[3], matches[4]);
@@ -119,7 +136,7 @@ function parseSingleArgument(paramString) {
         // match for displacement addressing mode + normal (displacement = 0) addressing mode
         // TODO: look into are there restrictions for displacement value?
         matches = paramString.match(/^(-?0x[0-9a-f]{1,6}|-?[0-9]+|)\(%(eax|ebx|ecx|edx|esi|edi|esp|ebp)\)/);
-        console.log("displacement: " + matches);
+        //console.log("displacement: " + matches);
         if (matches != null) {
             parameter = new Parameter(PARAM_TYPE.DISPLACEMENT);
             parameter.setDisplacementValue(matches[1], matches[2]);
@@ -128,7 +145,7 @@ function parseSingleArgument(paramString) {
         
         // match for register addressing mode, e.g. %eax
         matches = paramString.match(/^%(eax|ebx|ecx|edx|esi|edi|esp|ebp)/);
-        console.log("reg: " + matches);
+        //console.log("reg: " + matches);
         if (matches != null) {
             parameter = new Parameter(PARAM_TYPE.REGISTER);
             parameter.setValue(matches[1]);
@@ -137,7 +154,7 @@ function parseSingleArgument(paramString) {
         
         // match for immediate addressing mode, e.g. 9 or 0x100
         matches = paramString.match(/^\$(-?0x[0-9a-f]{1,6}|-?[0-9]+)/); 
-        console.log("literal: " + matches);
+        //console.log("literal: " + matches);
         if (matches != null) {
             parameter = new Parameter(PARAM_TYPE.INTEGER);
             parameter.setValue(matches[1]);
