@@ -35,8 +35,8 @@ Tutorials = function() {
       $('textarea#answerText').val("");
       currTutorial.displayTutorialPageByNumber(currPageNum);
     } else if (currPageNum == currTutorial.numPages() - 1)  {
-      currTutorial.displayLastPage();
       currPageNum++;
+      currTutorial.displayLastPage();
     } else {
       alert('error in page numbering!');
     }
@@ -175,8 +175,6 @@ Page = function() {
   }
 }
 
-
-
 Tutorial.prototype.displayTutorialPage = function(page, pagenum) {
   if (page == null) {
     alert("error: page is null");
@@ -198,16 +196,17 @@ Tutorial.prototype.displayTutorialPage = function(page, pagenum) {
   }
   
   if (pagenum != null) {
-    var totalPages = this.numPages() +1;
-    $('#pageNumber').html(pagenum+1 + "/" + totalPages);
     $('#nextPageButton').show();
     $('#prevPageButton').show();
     if(pagenum != 0) $('#prevPageButton').show();
     else $('#prevPageButton').hide();
   } else {
+    pagenum = this.numPages();
     $('#nextPageButton').hide();
   }
-  
+  var totalPages = this.numPages() + 1;
+  $('#pageNumber').html(pagenum+1 + "/" + totalPages);
+
   if (page.instructionsAsString() !=null) {
     $('textarea#mainText').val(page.instructionsAsString());
   }    
