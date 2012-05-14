@@ -46,8 +46,6 @@ function bpClick(event) {
   var clickedNum = parseInt(clickedId.substr(4));
   code.toggleBreakpoint(clickedNum);
   $("#" + clickedId).toggleClass("breakpoint");
-	$('.lined').linedtextarea("selected", clickedNum);
-
 }
 
 // updates contents of registers
