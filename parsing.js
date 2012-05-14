@@ -82,8 +82,8 @@ function Parameter(type) {
    */
   this.getValue = function(memory, registers) {
     switch(this.type) {
-        case PARAM_TYPE.INTEGER: return Number(this.literal);
-        case PARAM_TYPE.REGISTER: return Number(registers.getContents(this.register));
+        case PARAM_TYPE.INTEGER: return goog.math.Integer.fromNumber(Number(this.literal));
+        case PARAM_TYPE.REGISTER: return goog.math.Integer.fromNumber(Number(registers.getContents(this.register)));
         case PARAM_TYPE.DISPLACEMENT: 
         case PARAM_TYPE.INDEXED: return Number(memory.getContents(this.getLocation(registers))); 
         default: alert("Tried to get value for param with no type");
