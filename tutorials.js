@@ -32,6 +32,7 @@ Tutorials = function() {
     var currTutorial = allTutorials[currTutorialNum];
     if (currPageNum < currTutorial.numPages() - 1) {
       currPageNum++;
+      $('textarea#answerText').val("");
       currTutorial.displayTutorialPageByNumber(currPageNum);
     } else if (currPageNum == currTutorial.numPages() - 1)  {
       currTutorial.displayLastPage();
@@ -45,6 +46,7 @@ Tutorials = function() {
     var currTutorial = allTutorials[currTutorialNum];
     if (currPageNum > 0) {
       currPageNum--;
+      $('textarea#answerText').html("");
       currTutorial.displayTutorialPageByNumber(currPageNum);      
     } else {
       alert('error in page numbering!');
@@ -74,7 +76,7 @@ Tutorial = function(file) {
   
     tutorialName = "fake tutorial"
     var fakePage1 = new Page();
-    fakePage1.setSubtitle ("page1 of myFakeTutorial");
+    fakePage1.setSubtitle ("Welcome to myFakeTutorial");
     fakePage1.setText("page1 content");
     fakePage1.setQuestion("Fill in the blank. Hello, _______.");
     fakePage1.setAnswer("world");
@@ -207,7 +209,7 @@ Tutorial.prototype.displayTutorialPage = function(page, pagenum) {
   }
   
   if (page.instructionsAsString() !=null) {
-    $('textarea#mainText').html(page.instructionsAsString());
+    $('textarea#mainText').val(page.instructionsAsString());
   }    
 }
 
