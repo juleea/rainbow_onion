@@ -1,4 +1,5 @@
 //jquery for onload
+
 $(function() {
   memory = new Memory();
   registers = new Registers();
@@ -8,7 +9,6 @@ $(function() {
 
 //number textfield lines
 	$('.lined').linedtextarea();
-  $('.scroll-pane').jScrollPane();
 
 //display tutorial tabs and first first page of first tutorial
 //tutorials.displayTabs
