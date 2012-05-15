@@ -77,21 +77,24 @@ Tutorial = function(file) {
     tutorialName = "fake tutorial"
     var fakePage1 = new Page();
     fakePage1.setSubtitle ("Welcome to myFakeTutorial");
-    fakePage1.setText("page1 content");
+    fakePage1.setText("This tutorial is about nothing in particular.");
     fakePage1.setQuestion("Fill in the blank. Hello, _______.");
     fakePage1.setAnswer("world");
-    fakePage1.addInstruction("mov 30, %eax")
-    fakePage1.addInstruction("mov %eax, %ecx")
+    fakePage1.addInstruction("mov $30, %eax");
+    fakePage1.addInstruction("mov %eax, %ecx");
+    fakePage1.addInstruction("mov %ecx, %ecx");
+    fakePage1.addInstruction("mov %eax, %ecx");
     
     var fakePage2 = new Page();
-    fakePage2.setSubtitle("page2 of myFakeTutorial");
-    fakePage2.setText("page2 content. there should be no question/answer, and the the code shouldn't change");
+    fakePage2.setSubtitle("myFakeTutorial");
+    fakePage2.setText("Note there should be no question/answer area, and the the code shouldn't change");
     
     var fakePage3 = new Page();
-    fakePage3.setSubtitle ("page3 of myFakeTutorial");
-    fakePage3.setText ("page3 content. adding new assembly code to the text area!");
-    fakePage3.setQuestion ("What year is it?");
-    fakePage3.setAnswer ("2012");
+    fakePage3.setSubtitle ("myFakeTutorial");
+    fakePage3.setText ("new assembly code to the text area!");
+    fakePage3.setQuestion ("What value will be in %ebp?");
+    fakePage3.setAnswer ("15");
+    fakePage3.addInstruction("mov $15, %eax");
     fakePage3.addInstruction("mov %eax, %ebp");
     
     tutorialPages.push(fakePage1); 

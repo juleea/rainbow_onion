@@ -8,7 +8,7 @@ $(function() {
 
 //number textfield lines
 	$('.lined').linedtextarea(
-		{selectedLine: 1}
+		{}
 	);
 //display tutorial tabs and first first page of first tutorial
 //tutorials.displayTabs
