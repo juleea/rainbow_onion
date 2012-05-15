@@ -11,7 +11,7 @@ instructionMap['or'] = Or;
 instructionMap['inc'] = Inc;
 instructionMap['dec'] = Dec;
 
-instructionArgumentMap = {'mov': 2, 'add': 2, 'inc': 1};
+instructionArgumentMap = {'mov': 2, 'add': 2, 'inc': 1, 'sub': 2, 'sal': 2, 'shr': 2, 'xor': 2, 'and': 2, 'or': 2, 'dec':1};
 
 
 /* Mov */
@@ -72,10 +72,11 @@ function OneIntOp(parameters, opFn) {
 
 /* These are functions that take an Integer as the first param and javascript number as the second */
 OneIntOp.prototype.execute = function(memory, registers) { 
-  var src = this.parameters[0].getValue();
-  var dest = this.parameters[1].getValue();
-  var result = this.arithFn.call(registers.getContents(dest), registers.getContents(src).toInt());
-  registers.setContents(dest, result);
+  var srcVal = this.parameters[0].getValue(memory, registers);
+  var destVal = this.parameters[1].getValue(memory, registers);
+  var destLoc = this.parameters[1].getLocation(registers);
+  var result = this.arithFn.call(srcVal, destVal);
+  registers.setContents(destLoc, result);
 }
 
 Sal.prototype = new OneIntOp();
