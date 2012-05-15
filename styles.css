@@ -95,3 +95,10 @@ body {
 .panel {
   padding-bottom: 20px;
 }
+
+.scroll-pane
+{
+  width: 100%;
+  height: 200px;
+  overflow: auto;
+}

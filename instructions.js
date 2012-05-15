@@ -11,7 +11,7 @@ instructionMap['or'] = Or;
 instructionMap['inc'] = Inc;
 instructionMap['dec'] = Dec;
 
-instructionArgumentMap = {'mov': 2, 'add': 2, 'incl': 1};
+instructionArgumentMap = {'mov': 2, 'add': 2, 'inc': 1};
 
 
 /* Mov */

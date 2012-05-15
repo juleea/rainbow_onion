@@ -7,9 +7,8 @@ $(function() {
   var currTutorial = 0;
 
 //number textfield lines
-	$('.lined').linedtextarea(
-		{}
-	);
+	$('.lined').linedtextarea();
+
 //display tutorial tabs and first first page of first tutorial
 //tutorials.displayTabs
   tutorials.displayTutorial(0);
@@ -24,9 +23,9 @@ $(function() {
   });
 
   updateRegs();
+  createMemory();
 
   $('button#runButton').click(runButton);
-
   $('button#answerButton').click(function(){tutorials.displayAnswer()});
   $('button#stepButton').click(stepButton);
   $('button#contButton').click(contButton);
@@ -34,10 +33,6 @@ $(function() {
   $('button#stopButton').click(stopButton);
   $('button#nextPageButton').click(tutorials.displayNextPage);
   $('button#prevPageButton').click(tutorials.displayPrevPage);
-
-
-
-
 });
 
 function bpClick(event) {
@@ -46,6 +41,7 @@ function bpClick(event) {
   var clickedNum = parseInt(clickedId.substr(4));
   code.toggleBreakpoint(clickedNum);
   $("#" + clickedId).toggleClass("breakpoint");
+
 }
 
 // updates contents of registers
@@ -54,6 +50,13 @@ function updateRegs() {
 
     for (var reg in registerValues) {
         $("#" + reg).text(registerValues[reg]);
+    }
+}
+
+function createMemory() {    
+    var memoryValues = memory.getAll4Bytes();
+    for (var i = 0; i < memoryValues.length; i+=4) {
+
     }
 }
 
@@ -69,7 +72,7 @@ function runButton() {
 
 function stepButton() {
   //TODO: Figure out if somebody added a line, sync with curLineNum
-  //or whether that would actually be a nice feature...
+  //or whether that would actually be a nice feature and not confusing...
   parseButton();
   code.step();
 }
@@ -92,7 +95,3 @@ function updateCurLine() {
   $('#line' + code.curLineNum()).addClass('running');
   $('#lineInfo').text("Current line: " + code.curLineNum());
 }
-
-/*$('textarea#mainText').keyup(function() {
-  console.log('Handler for .keyup() called.');
-});*/
