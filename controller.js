@@ -1,4 +1,7 @@
 //jquery for onload
+$(window).load(function() {
+ $('.scroll-pane').css('height', '200px').show().jScrollPane();
+});
 
 $(function() {
   memory = new Memory();
@@ -57,7 +60,8 @@ function updateRegs() {
 function createMemory() {    
     var memoryValues = memory.getAll4Bytes();
     for (var i = 0; i < memoryValues.length; i+=4) {
-
+      $('#memoryPane').append('<tr><td>' + i + '</td><td id="mem' + i + '">'
+       + memory.getContents(i) + '</td></tr>');
     }
 }
 

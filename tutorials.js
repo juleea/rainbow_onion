@@ -1,5 +1,4 @@
 Tutorials = function() {
-
   var tutorialFilenames = ['fakename.txt'];
   var allTutorials = [];
   var currTutorialNum = null;
@@ -87,16 +86,18 @@ Tutorial = function(file) {
     
     var fakePage2 = new Page();
     fakePage2.setSubtitle("myFakeTutorial");
-    fakePage2.setText("Note there should be no question/answer area, and the the code shouldn't change");
+    fakePage2.setText("On this page you can read about fun things!");
     
     var fakePage3 = new Page();
     fakePage3.setSubtitle ("myFakeTutorial");
     fakePage3.setText ("new assembly code to the text area!");
-    fakePage3.setQuestion ("What value will be in %ebp?");
-    fakePage3.setAnswer ("15");
-    fakePage3.addInstruction("mov $15, %eax");
-    fakePage3.addInstruction("mov %eax, %ebp");
-    
+    fakePage3.setQuestion ("What value will be in %eax?");
+    fakePage3.setAnswer ("4");
+    fakePage3.addInstruction("mov $1, %eax");
+    fakePage3.addInstruction("mov %eax, %ebx");
+    fakePage3.addInstruction("add %eax, %ebx");
+    fakePage3.addInstruction("sal %ebx, %eax");
+   
     tutorialPages.push(fakePage1); 
     tutorialPages.push(fakePage2);
     tutorialPages.push(fakePage3);
