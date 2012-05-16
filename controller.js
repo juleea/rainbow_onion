@@ -60,7 +60,7 @@ function updateRegs() {
 function createMemory() {    
     var memoryValues = memory.getAll4Bytes();
     for (var i = 0; i < memoryValues.length; i+=4) {
-      $('#memoryPane').append('<tr><td>' + i + '</td><td id="mem' + i + '">'
+      $('#memoryPane').append('<tr><td>0x' + i.toString(16) + '</td><td id="mem' + i + '">'
        + memory.getContents(i) + '</td></tr>');
     }
 }
