@@ -81,9 +81,6 @@ Tutorial = function(file) {
     fakePage1.setQuestion("Fill in the blank. Hello, _______.");
     fakePage1.setAnswer("world");
     fakePage1.addInstruction("mov $30, %eax");
-    fakePage1.addInstruction("mov %eax, %ecx");
-    fakePage1.addInstruction("mov %ecx, %ecx");
-    fakePage1.addInstruction("mov %eax, %ecx");
     
     var fakePage2 = new Page();
     fakePage2.setSubtitle("myFakeTutorial");
@@ -92,10 +89,13 @@ Tutorial = function(file) {
     var fakePage3 = new Page();
     fakePage3.setSubtitle ("myFakeTutorial");
     fakePage3.setText ("new assembly code to the text area!");
-    fakePage3.setQuestion ("What value will be in %ebp?");
-    fakePage3.setAnswer ("15");
-    fakePage3.addInstruction("mov $15, %eax");
-    fakePage3.addInstruction("mov %eax, %ebp");
+    fakePage3.setQuestion ("What value will be in %eax?");
+    fakePage3.setAnswer ("4");
+
+    fakePage3.addInstruction("mov $1, %eax");
+    fakePage3.addInstruction("mov %eax, %ebx");
+    fakePage3.addInstruction("add %eax, %ebx");
+    fakePage3.addInstruction("sal %ebx, %eax");
     
     tutorialPages.push(fakePage1); 
     tutorialPages.push(fakePage2);
