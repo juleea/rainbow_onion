@@ -25,10 +25,13 @@ function Registers() {
 
   this.setContents = function(reg, data) {
     //TODO what if not multiple of 4?
-    if (contents[reg])
+    if (contents[reg]) {
       contents[reg] = goog.math.Integer.fromNumber(data);
-    else 
-      alert("invalid register!" + reg);
+      return true;
+    }
+    else {
+      return false;
+    }
   }
 
 
