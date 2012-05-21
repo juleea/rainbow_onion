@@ -20,7 +20,7 @@ Tutorials = function() {
   readTutorials();
   
   this.displayTutorial = function(tutorialId) {    
-    if (tutorialId >= allTutorials.length || tutorialId == currTutorialNum) return;
+    if (tutorialId >= allTutorials.length || tutorialId === currTutorialNum) return;
     currPageNum = 0;
     currTutorialNum = tutorialId;
     allTutorials[tutorialId].displayTutorialPageByNumber(0);
@@ -33,7 +33,7 @@ Tutorials = function() {
       currPageNum++;
       $('textarea#answerText').val("");
       currTutorial.displayTutorialPageByNumber(currPageNum);
-    } else if (currPageNum == currTutorial.numPages() - 1)  {
+    } else if (currPageNum === currTutorial.numPages() - 1)  {
       currPageNum++;
       currTutorial.displayLastPage();
     } else {
