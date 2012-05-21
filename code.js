@@ -75,4 +75,8 @@ function Code() {
     curLineNum = 0;
     this.cont();
   }
+
+  this.stop = function() {
+    curLineNum = 0;
+  }
 }

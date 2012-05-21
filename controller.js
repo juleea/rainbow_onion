@@ -87,6 +87,10 @@ function contButton() {
   code.cont();
 }
 
+function stopButton() {
+  code.stop();
+}
+
 function updateDisplay() {
   updateRegs();
   updateCurLine();
