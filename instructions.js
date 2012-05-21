@@ -1,3 +1,16 @@
+/* Type clarifications:
+Here's my standardization that I've put in the code, but haven't checked to make sure its consistent everywhere:
+locations are are Numbers (or registers) and contents are Integers. 
+
+to be precise:
+  parameters.getValue should return google Integers
+  parameters.getLocation should return js Numbers (or a register)
+  setContents, memory.setContents should be passed
+  (location, value) as (Number, google Integer)
+  memory.getContents(Number) and registers.getContents(register) return google Integers
+
+*/
+
 instructionMap = {};
 instructionMap['mov'] = Mov;
 instructionMap['add'] = Add;
@@ -14,11 +27,18 @@ instructionMap['dec'] = Dec;
 instructionArgumentMap = {'mov': 2, 'add': 2, 'inc': 1, 'sub': 2, 'sal': 2, 'shr': 2, 'xor': 2, 'and': 2, 'or': 2, 'dec':1};
 
 
+function setContents(location,value) {
+  if(!registers.setContents(location, value)) {
+    alert('going for memory');
+    memory.setContents(location, value);
+  }
+}
+
 /* Mov */
 Mov.prototype.execute = function(memory, registers) {
   var src = this.parameters[0].getValue(memory, registers);
   var dest = this.parameters[1].getLocation(registers);
-  registers.setContents(dest, src);
+  setContents(dest, src);
 }
 
 function Mov(parameters) {
@@ -44,7 +64,7 @@ Arithmetic.prototype.execute = function(memory, registers) {
   
   // TODO: check whether dest is register or memory
   dest = this.parameters[1].getLocation(registers);
-  registers.setContents(dest, result);
+  setContents(dest, result);
 }
 
 Add.prototype = new Arithmetic();
@@ -76,7 +96,7 @@ OneIntOp.prototype.execute = function(memory, registers) {
   var destVal = this.parameters[1].getValue(memory, registers);
   var destLoc = this.parameters[1].getLocation(registers);
   var result = this.arithFn.call(srcVal, destVal);
-  registers.setContents(destLoc, result);
+  setContents(destLoc, result);
 }
 
 Sal.prototype = new OneIntOp();

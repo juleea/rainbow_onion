@@ -71,8 +71,8 @@ function Parameter(type) {
         case PARAM_TYPE.REGISTER: return this.register; 
         
         // the following two return memory addresses
-        case PARAM_TYPE.DISPLACEMENT: return registers.getContents(this.register) + this.displacement;
-        case PARAM_TYPE.INDEXED: return register.getContents(this.base_register) + this.scale * registers.getContents(this.index_register) + this.displacement;
+        case PARAM_TYPE.DISPLACEMENT: return Number(registers.getContents(this.register)) + this.displacement;
+        case PARAM_TYPE.INDEXED: return Number(register.getContents(this.base_register)) + this.scale * Number(registers.getContents(this.index_register)) + this.displacement;
         default: alert("Tried to get location for param with no type");
     }
   }
@@ -83,9 +83,9 @@ function Parameter(type) {
   this.getValue = function(memory, registers) {
     switch(this.type) {
         case PARAM_TYPE.INTEGER: return goog.math.Integer.fromNumber(Number(this.literal));
-        case PARAM_TYPE.REGISTER: return goog.math.Integer.fromNumber(Number(registers.getContents(this.register)));
+        case PARAM_TYPE.REGISTER: return registers.getContents(this.register);
         case PARAM_TYPE.DISPLACEMENT: 
-        case PARAM_TYPE.INDEXED: return Number(memory.getContents(this.getLocation(registers))); 
+        case PARAM_TYPE.INDEXED: return memory.getContents(this.getLocation(registers)); 
         default: alert("Tried to get value for param with no type");
     }
   }
