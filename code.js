@@ -78,5 +78,6 @@ function Code() {
 
   this.stop = function() {
     curLineNum = 0;
+    updateDisplay();
   }
 }
