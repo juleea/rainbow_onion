@@ -18,6 +18,10 @@ function Memory() {
       contents[address+i] = number & 0xff;
       number >>>= 8;
     }
+    //TODO mvc violation?
+    for(var i = address - address%4; i < address + bytes+ address%4; i+=4) {
+      $('#mem' + i).text(this.getContents(i));
+    }
   }
   
   this.getContents = function(address, bytes) {
