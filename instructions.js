@@ -23,13 +23,19 @@ instructionMap['and'] = And;
 instructionMap['or'] = Or;
 instructionMap['inc'] = Inc;
 instructionMap['dec'] = Dec;
-
-instructionArgumentMap = {'mov': 2, 'add': 2, 'inc': 1, 'sub': 2, 'sal': 2, 'shr': 2, 'xor': 2, 'and': 2, 'or': 2, 'dec':1};
-
+instructionMap['jmp'] = Jmp;
+instructionArgumentMap = {'mov': 2, 'add': 2, 'inc': 1, 'sub': 2, 'sal': 2, 'shr': 2, 'xor': 2, 'and': 2, 'or': 2, 'dec':1, 'jmp':1};
+jmpInstructions = {'jmp':true} //should we parse this like a jmp?
+function createLabel(label) {
+  var toReturn = {};
+  toReturn.execute = function () {};
+  toReturn.label = label;
+  toReturn.valid = true;
+  return toReturn;
+}
 
 function setContents(location,value) {
   if(!registers.setContents(location, value)) {
-    alert('going for memory');
     memory.setContents(location, value);
   }
 }
@@ -148,4 +154,14 @@ function Dec(parameters) {
     function() { return goog.math.Integer.fromInt(-1); } 
     };
   Add.call(this, parameters);
+}
+
+
+Jmp.prototype.execute = function() {
+  code.setLabelLine(this.targetLabel);
+}
+
+function Jmp(labelParam) {
+  this.targetLabel = labelParam;
+  this.valid = labelParam != null;
 }

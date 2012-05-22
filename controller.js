@@ -101,6 +101,7 @@ function updateCurLine() {
   for(var i = 0; i < TEXT_AREA_HEIGHT; i++) {
       $('#line' + i).removeClass('running');
   }
-  $('#line' + code.curLineNum()).addClass('running');
+  //lines 1-indexed, code 0-indexed
+  $('#line' + (code.curLineNum() + 1)).addClass('running');
   $('#lineInfo').text("Current line: " + code.curLineNum());
 }
