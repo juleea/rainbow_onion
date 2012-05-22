@@ -179,10 +179,6 @@ function Neg(parameters) {
   Imul.call(this, parameters);
 }
 
-Lea.prototype.execute = function() {
-  
-}
-
 Jmp.prototype.execute = function() {
   code.setLabelLine(this.targetLabel);
 }
