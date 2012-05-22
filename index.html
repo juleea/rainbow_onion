@@ -58,7 +58,11 @@
       <div id='tutorialTitle'></div>
       <span id='tutorialPageTitle' class='sectionSubtitle'></span>
       <span id='pageNumber' class='sectionSubtitle rightAlign'></span>      
-      <div id='tutorialPageContent'></div>
+      
+      <div id='tutorialPageContentWrapper'>
+        <div id='tutorialPageContent'></div>
+        <button class='btn' id='injectCodeButton'>Reset Code</button>
+      </div>
     </div>
     <div id='questionAnswer'>
       <div id='question' class='qa'></div>
@@ -88,7 +92,7 @@
     <textarea class='lined' id='mainText' ></textarea> 
   </div>
   <div class='help panel'>
-    <div class='sectionHead'>Console</div>
+    <div class='sectionHead'></div>
     <textarea id='helpText'></textarea>
   </div>
 </div>

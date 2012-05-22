@@ -37,6 +37,7 @@ $(function() {
   $('button#stopButton').click(stopButton);
   $('button#nextPageButton').click(tutorials.displayNextPage);
   $('button#prevPageButton').click(tutorials.displayPrevPage);
+  $('button#injectCodeButton').click(tutorials.injectCode);
 });
 
 function bpClick(event) {

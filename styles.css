@@ -9,10 +9,6 @@ body {
   padding: 25px;
 }
 
-.tutorialBody {
-  height: 100%;
-}
-
 .sectionHead {
   font-family:helvetica;
   font-size: 26px;
@@ -46,6 +42,7 @@ body {
 }
 
 #tutorialBox {
+  position:relative;
   height: 350px;
 }
 
@@ -108,3 +105,10 @@ body {
   border: 2px solid gray;
   width: 30px;
 }
+
+button#injectCodeButton {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+}
+

@@ -51,8 +51,11 @@ Tutorials = function() {
       alert('error in page numbering!');
     }
   }
+
+  this.injectCode = function() {
+    allTutorials[currTutorialNum].injectCode(currPageNum);
+  }
   
-    
   this.displayAnswer = function() {
     allTutorials[currTutorialNum].displayAnswer(currPageNum);
   }
@@ -60,6 +63,8 @@ Tutorials = function() {
   this.numTutorials = function() {
     return allTutorials.length;
   }
+  
+  
   
 }
 
@@ -114,6 +119,13 @@ Tutorial = function(file) {
   
   this.displayAnswer = function (pageNumber) {
     $('#answer').html(tutorialPages[pageNumber].getAnswer());
+  }
+
+  this.injectCode = function (pageNumber) {
+    var page = tutorialPages[pageNumber];
+    if (page.instructionsAsString() !=null) {
+      $('textarea#mainText').val(page.instructionsAsString());
+    }
   }
 
   this.numPages = function() {
