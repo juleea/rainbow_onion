@@ -21,10 +21,13 @@ instructionMap['shr'] = Shr;
 instructionMap['xor'] = Xor;
 instructionMap['and'] = And;
 instructionMap['or'] = Or;
+instructionMap['not'] = Not;
 instructionMap['inc'] = Inc;
 instructionMap['dec'] = Dec;
 instructionMap['jmp'] = Jmp;
-instructionArgumentMap = {'mov': 2, 'add': 2, 'inc': 1, 'sub': 2, 'sal': 2, 'shr': 2, 'xor': 2, 'and': 2, 'or': 2, 'dec':1, 'jmp':1};
+instructionMap['neg'] = Neg;
+
+instructionArgumentMap = {'mov': 2, 'add': 2, 'inc': 1, 'sub': 2, 'sal': 2, 'shr': 2, 'xor': 2, 'and': 2, 'or': 2, 'not':1, 'dec':1, 'jmp':1, 'neg': 1};
 jmpInstructions = {'jmp':true} //should we parse this like a jmp?
 function createLabel(label) {
   var toReturn = {};
@@ -91,7 +94,6 @@ function Imul(parameters) {
   Arithmetic.call(this, parameters, goog.math.Integer.prototype.multiply);
 }
 
-
 function OneIntOp(parameters, opFn) {
   Arithmetic.call(this, parameters, opFn);
 }
@@ -135,6 +137,17 @@ function Or(parameters) {
   OneIntOp.call(this, parameters, goog.math.Integer.prototype.or);
 }
 
+Not.prototype.execute = function() {
+  var srcVal = this.parameters[0].getValue(memory, registers);
+  var destLoc = this.parameters[0].getLocation(registers);
+  setContents(destLoc, srcVal.not());
+}
+
+function Not(parameters) {
+  this.parameters = parameters;
+  if(parameters&&parameters.length == 1) this.valid = true;
+}
+
 //Will work with Constance's new fn names
 Inc.prototype = new Arithmetic();
 
@@ -156,6 +169,19 @@ function Dec(parameters) {
   Add.call(this, parameters);
 }
 
+Neg.prototype = new Arithmetic();
+
+function Neg(parameters) {
+  parameters[1] = parameters[0];
+  parameters[0] = { getValue: 
+    function() { return goog.math.Integer.fromInt(-1); } 
+    };
+  Imul.call(this, parameters);
+}
+
+Lea.prototype.execute = function() {
+  
+}
 
 Jmp.prototype.execute = function() {
   code.setLabelLine(this.targetLabel);

@@ -230,7 +230,6 @@ function parseLine(line) {
     var instructionStr = line.substring(0, firstSpace);
     // TODO: isValidInstruction
     
-    
     var instruction = null;
     var parsedParams = undefined;
     var paramStr = line.substring(firstSpace+1).trim();
