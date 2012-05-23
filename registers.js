@@ -1,4 +1,5 @@
 function Registers() {
+    this.contentsUpdated = new Event(this);
 
   //Private
   var contents = {
@@ -24,6 +25,7 @@ function Registers() {
     //TODO what if not multiple of 4?
     if (contents[reg]) {
       contents[reg] = goog.math.Integer.fromNumber(data);
+      this.contentsUpdated.notify({register: reg});
       return true;
     }
     else {
