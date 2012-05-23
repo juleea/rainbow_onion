@@ -68,6 +68,9 @@ Tutorials = function() {
   
 }
 
+Tutorials.prototype.get
+
+
 
 Tutorial = function(file) {
   var filename = file;
@@ -233,5 +236,6 @@ Tutorial.prototype.lastPage.setText("You've completed this activity!")
 Tutorial.prototype.displayLastPage = function() {
   this.displayTutorialPage(this.lastPage, null);
 }
+
 
 
