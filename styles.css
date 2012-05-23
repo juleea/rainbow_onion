@@ -112,3 +112,7 @@ button#injectCodeButton {
   bottom: 0;
 }
 
+.onFlag {
+  background: #FFFFCC;
+  color: #C28547;
+}

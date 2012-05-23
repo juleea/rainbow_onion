@@ -8,6 +8,7 @@ $(function() {
   registers = new Registers();
   code = new Code();
   tutorials = new Tutorials();
+  flags = new Flags();
   var currTutorial = 0;
 
 //number textfield lines
@@ -26,8 +27,8 @@ $(function() {
     }
   });
 
-  updateRegs();
   createMemory();
+  updateDisplay();
 
   $('button#runButton').click(runButton);
   $('button#answerButton').click(function(){tutorials.displayAnswer()});
@@ -51,11 +52,24 @@ function bpClick(event) {
 
 // updates contents of registers
 function updateRegs() {    
-    var registerValues = registers.getAll(); 
+  var registerValues = registers.getAll(); 
 
-    for (var reg in registerValues) {
-        $("#" + reg).text(registerValues[reg]);
+  for (var reg in registerValues) {
+      $("#" + reg).text(registerValues[reg]);
+  }
+}
+
+function updateFlags() {
+  var flagValues = flags.getAll(); 
+  for (var flag in flagValues) {
+    if(flagValues[flag]) {
+      $("#" + flag).text("On")
+      $("." + flag).addClass("onFlag");
+    } else {
+      $("#" + flag).text("Off")
+      $("." + flag).removeClass("onFlag");
     }
+  }
 }
 
 function createMemory() {    
@@ -94,6 +108,7 @@ function stopButton() {
 
 function updateDisplay() {
   updateRegs();
+  updateFlags();
   updateCurLine();
 }
 
