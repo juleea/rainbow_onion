@@ -15,9 +15,7 @@ function Flags() {
 
 
   this.getContents = function(flag) {
-    if (contents[flag]) return contents[flag];
-    alert("invalid flag!" + flag);
-    return undefined;
+    return contents[flag];
   }
 
   this.getAll = function() {

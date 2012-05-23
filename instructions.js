@@ -27,12 +27,16 @@ instructionMap['dec'] = Dec;
 instructionMap['jmp'] = Jmp;
 instructionMap['neg'] = Neg;
 instructionMap['cmp'] = Cmp;
+instructionMap['jne'] = Jne;
+instructionMap['je'] = Je;
 
 MAX_INT = goog.math.Integer.fromInt(214783647);
 MIN_INT = goog.math.Integer.fromInt(-214783648);
 
-instructionArgumentMap = {'mov': 2, 'add': 2, 'inc': 1, 'sub': 2, 'sal': 2, 'shr': 2, 'xor': 2, 'and': 2, 'or': 2, 'not':1, 'dec':1, 'jmp':1, 'neg': 1, 'cmp': 2};
-jmpInstructions = {'jmp':true} //should we parse this like a jmp?
+instructionArgumentMap = {'mov': 2, 'add': 2, 'inc': 1, 'sub': 2, 
+  'sal': 2, 'shr': 2, 'xor': 2, 'and': 2, 'or': 2, 'not':1, 'dec':1, 
+  'jmp':1, 'neg': 1, 'cmp': 2, 'jne':1, 'je':2};
+jmpInstructions = {'jmp':true, 'je':true, 'jne':true} //should we parse this like a jmp?
 
 function createLabel(label) {
   var toReturn = {};
@@ -190,7 +194,27 @@ Jmp.prototype.execute = function() {
 
 function Jmp(labelParam) {
   this.targetLabel = labelParam;
-  this.valid = labelParam != null;
+  this.valid = labelParam;
+}
+
+Jne.prototype.execute = function() {
+  if(!flags.getContents('ZF'))
+  code.setLabelLine(this.targetLabel);
+}
+
+function Jne(labelParam) {
+  this.targetLabel = labelParam;
+  this.valid = labelParam;
+}
+
+Je.prototype.execute = function() {
+  if(flags.getContents('ZF'))
+  code.setLabelLine(this.targetLabel);
+}
+
+function Je(labelParam) {
+  this.targetLabel = labelParam;
+  this.valid = labelParam;
 }
 
 Cmp.prototype.execute = function() {
