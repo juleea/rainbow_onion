@@ -31,7 +31,8 @@ $(function() {
     }
   });
 
-  updateRegs();
+  //updateRegs();
+  createRegisters();
   createMemory();
 
   $('button#runButton').click(runButton);
@@ -130,7 +131,14 @@ var updateReg = function updateReg(regs, args) {
     updateReg.lastUpdatedReg = reg;
 };
 
-
+// initalizes register HTML and values
+function createRegisters() {    
+    var registerValues = registers.getAll();
+    for (var reg in registerValues) {
+      $('#registersPane').append('<tr><td>' + reg + '</td><td id="' + reg + '">'
+       + registerValues[reg] + '</td></tr>');
+    }
+}
 
 // loops through to update address values and updates
 function updateMemValues(address, bytes, color) {
