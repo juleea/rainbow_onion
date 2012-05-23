@@ -26,9 +26,14 @@ instructionMap['inc'] = Inc;
 instructionMap['dec'] = Dec;
 instructionMap['jmp'] = Jmp;
 instructionMap['neg'] = Neg;
+instructionMap['cmp'] = Cmp;
 
-instructionArgumentMap = {'mov': 2, 'add': 2, 'inc': 1, 'sub': 2, 'sal': 2, 'shr': 2, 'xor': 2, 'and': 2, 'or': 2, 'not':1, 'dec':1, 'jmp':1, 'neg': 1};
+MAX_INT = goog.math.Integer.fromInt(214783647);
+MIN_INT = goog.math.Integer.fromInt(-214783648);
+
+instructionArgumentMap = {'mov': 2, 'add': 2, 'inc': 1, 'sub': 2, 'sal': 2, 'shr': 2, 'xor': 2, 'and': 2, 'or': 2, 'not':1, 'dec':1, 'jmp':1, 'neg': 1, 'cmp': 2};
 jmpInstructions = {'jmp':true} //should we parse this like a jmp?
+
 function createLabel(label) {
   var toReturn = {};
   toReturn.execute = function () {};
@@ -186,4 +191,20 @@ Jmp.prototype.execute = function() {
 function Jmp(labelParam) {
   this.targetLabel = labelParam;
   this.valid = labelParam != null;
+}
+
+Cmp.prototype.execute = function() {
+  var src2 = this.parameters[0].getValue(memory, registers);
+  var src1 = this.parameters[1].getValue(memory, registers);
+  var result = src1.subtract(src2);
+  flags.setContents("SF", result.isNegative());
+  flags.setContents("ZF", result.equals(goog.math.Integer.fromInt(0)));
+  var overflow = result.greaterThan(MAX_INT) || result.lessThan(MIN_INT);
+  flags.setContents("OF", overflow);
+  flags.setContents("CF", overflow);
+}
+
+function Cmp(parameters) {
+  this.valid = parameters.length == 2;
+  this.parameters = parameters;
 }

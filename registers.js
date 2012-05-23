@@ -1,6 +1,3 @@
-goog.require('goog.math.Integer');
-
-
 function Registers() {
 
   //Private

@@ -119,5 +119,4 @@ function updateCurLine() {
   }
   //lines 1-indexed, code 0-indexed
   $('#line' + (code.curLineNum() + 1)).addClass('running');
-  $('#lineInfo').text("Current line: " + code.curLineNum());
 }
