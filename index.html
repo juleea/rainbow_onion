@@ -112,12 +112,18 @@
     eip: <span id="eip"></span><BR />
     
   </div>
-  <div class='registers panel' id='condCodes'> 
+  <div class='condCodes panel' id='condCodes'> 
     <span class='sectionHead'>Condition Codes</span><br />
-    <span class="CF">CF: <span class="CF" id="CF"></span></span><BR />
-    <span class="ZF">ZF: <span class="ZF" id="ZF"></span></span><BR />
-    <span class="SF">SF: <span class="SF" id="SF"></span></span><BR />
-    <span class="OF">OF: <span class="OF" id="OF"></span></span><BR />    
+    <table class='condTable'>
+      <tr>
+        <td class="CF condBox">CF: <span class="CF" id="CF"></span> </td>
+        <td class="ZF condBox">ZF: <span class="ZF" id="ZF"></span></td>
+      </tr>
+      <tr>
+        <td class="SF condBox">SF: <span class="SF" id="SF"></span></td>
+        <td class="OF condBox">OF: <span class="OF" id="OF"></span></td>
+      </tr>
+    </table>    
   </div>
 
   <div class='memory  panel'>
