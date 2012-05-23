@@ -50,7 +50,7 @@ TEXT_AREA_HEIGHT = 0;
 				if (lineNo==opts.runningLine)
 					lineclasses = lineclasses + " " + opts.runningClass;
 				codeLines.append("<div class='" + lineclasses + "' id='" + lineid + "'>" + lineNo + "</div>");
-				lineNo+=4//lineNo++;
+				lineNo++;
 			}
 			TEXT_AREA_HEIGHT = lineNo;
 			return lineNo;
