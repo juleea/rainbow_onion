@@ -93,7 +93,7 @@ function parseButton() {
 
 function runButton() {
   parseButton();
-  code.run();
+  code.run($('input#runSpeedSlider').val());
 }
 
 function stepButton() {
@@ -105,7 +105,7 @@ function stepButton() {
 
 function contButton() {
   parseButton();
-  code.cont();
+  code.cont($('input#runSpeedSlider').val());
 }
 
 function stopButton() {

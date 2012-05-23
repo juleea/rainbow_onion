@@ -50,6 +50,9 @@ body {
   padding-left: 10px;
 }
 
+#tutorialPageContentWrapper {
+  padding-top: 10px;
+}
 
 .logo {
   font-family: helvetica;
@@ -131,4 +134,13 @@ button#injectCodeButton {
 
 td {
   border: 3px solid white;
+}
+
+input#runSpeedSlider {
+  max: 10;
+  min: 1;
+  value: 5;
+  step: 1;
+  width: 150px;
+  left: 50px;
 }

@@ -81,32 +81,41 @@ Tutorial = function(file) {
   
   //TODO: make this actually read in the file
   
-    tutorialName = "fake tutorial"
+    tutorialName = "mov and addressing"
     var fakePage1 = new Page();
-    fakePage1.setSubtitle ("Welcome to myFakeTutorial");
-    fakePage1.setText("This tutorial is about nothing in particular.");
-    fakePage1.setQuestion("Fill in the blank. Hello, _______.");
-    fakePage1.setAnswer("world");
+    fakePage1.setSubtitle ("mov and addressing");
+    fakePage1.addLine("<b>mov src, dest</b>")
+    fakePage1.addLine("The 'mov' instruction is used to copy a source value to a register. Source values can be specified in a number of ways.");
+    fakePage1.addLine("1) Immediate values: <br/>   Source values can be as simple as constant integer values preceded by a $.");
+    fakePage1.addLine("<i>Click 'Step' to store 30 in the %eax register.</i>");
+    fakePage1.addLine("2) Register values: <br/>  The source can be a register, and mov will copy that register's value into the destination register.");
+
+    fakePage1.setQuestion("What value will be in %eax after this code is executed?");
+    fakePage1.setAnswer("42");
     fakePage1.addInstruction("mov $30, %eax");
-    
-    var fakePage2 = new Page();
-    fakePage2.setSubtitle("myFakeTutorial");
-    fakePage2.setText("On this page you can read about fun things!");
+    fakePage1.addInstruction(""); // TODO: add breakpoint
+    fakePage1.addInstruction("mov $42, %edx");
+    fakePage1.addInstruction("mov $15, %ecx");
+    fakePage1.addInstruction("mov %ecx, %ebx");
+    fakePage1.addInstruction("mov %edx, %ecx");
+    fakePage1.addInstruction("mov $19, %edx");
+    fakePage1.addInstruction("mov %ecx, %eax");        
+
     
     var fakePage3 = new Page();
     fakePage3.setSubtitle ("myFakeTutorial");
-    fakePage3.setText ("new assembly code to the text area!");
+    fakePage3.addLine("The source can also be specified using a register to access a value in a register or in memory.");
     fakePage3.setQuestion ("What value will be in %eax?");
     fakePage3.setAnswer ("4");
 
     fakePage3.addInstruction("mov $1, %eax");
-    fakePage3.addInstruction("mov %eax, %ebx");
+    fakePage3.addInstruction("mov (%eax), %ebx");
     fakePage3.addInstruction("add %eax, %ebx");
     fakePage3.addInstruction("sal %ebx, %eax");
 
 
     tutorialPages.push(fakePage1); 
-    tutorialPages.push(fakePage2);
+//    tutorialPages.push(fakePage2);
     tutorialPages.push(fakePage3);
         
   }
@@ -141,7 +150,7 @@ Tutorial = function(file) {
 Page = function() {
   //if these values are null when the page is displayed, the dom element will be unchanged
   var subtitle = null;
-  var text = null;
+  var text = "";
   var question = ""; // default is to remove the question and answer box
   var answer = "";
   var code = null; // array of strings of code if new code should be displayed
@@ -150,10 +159,18 @@ Page = function() {
     subtitle = subt;
   }
   
-  this.setText = function(str) {
-    text = str;
+  this.addLine = function(str) {
+    if (text === "") {
+      this.addText(str);
+    } else {
+      this.addText("<br/><br/>" + str);
+    }
   }
   
+  this.addText = function(str) {
+    text = text + "  " + str;
+  }
+
   this.setQuestion = function(str) {
     question = str;
   }
@@ -232,7 +249,7 @@ Tutorial.prototype.displayTutorialPage = function(page, pagenum) {
 
 Tutorial.prototype.lastPage = new Page();
 Tutorial.prototype.lastPage.setSubtitle("Congratulations");
-Tutorial.prototype.lastPage.setText("You've completed this activity!")
+Tutorial.prototype.lastPage.addLine("You've completed this activity!")
 Tutorial.prototype.displayLastPage = function() {
   this.displayTutorialPage(this.lastPage, null);
 }

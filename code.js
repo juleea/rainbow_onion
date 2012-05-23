@@ -72,18 +72,20 @@ function Code() {
     updateDisplay();
   }
 
-  this.cont = function() {
+  this.cont = function(speed) {
     while(curLineNum < codeLines.length) {
       this.step();
       if(curLineNum in breakPoints) {
         break;
       }
+      //pause before executing the next line
+      //setTimeout(function() {this.ready = true; console.log("ready");},speed/10  );
     }
   }
 
-  this.run = function() {
+  this.run = function(speed) {
     curLineNum = 0;
-    this.cont();
+    this.cont(speed);
   }
 
   this.stop = function() {
