@@ -13,6 +13,7 @@ $(function() {
   
   code = new Code();
   tutorials = new Tutorials();
+  flags = new Flags();
   var currTutorial = 0;
 
 //number textfield lines
@@ -31,9 +32,9 @@ $(function() {
     }
   });
 
-  //updateRegs();
   createRegisters();
   createMemory();
+  updateDisplay();
 
   $('button#runButton').click(runButton);
   $('button#answerButton').click(function(){tutorials.displayAnswer()});
@@ -53,6 +54,36 @@ function bpClick(event) {
   code.toggleBreakpoint(clickedNum);
   $("#" + clickedId).toggleClass("breakpoint");
 
+}
+
+// updates contents of registers
+function updateRegs() {    
+  var registerValues = registers.getAll(); 
+
+  for (var reg in registerValues) {
+      $("#" + reg).text(registerValues[reg]);
+  }
+}
+
+function updateFlags() {
+  var flagValues = flags.getAll(); 
+  for (var flag in flagValues) {
+    if(flagValues[flag]) {
+      $("#" + flag).text("On")
+      $("." + flag).addClass("onFlag");
+    } else {
+      $("#" + flag).text("Off")
+      $("." + flag).removeClass("onFlag");
+    }
+  }
+}
+
+function createMemory() {    
+    var memoryValues = memory.getAll4Bytes();
+    for (var i = 0; i < memoryValues.length; i+=4) {
+      $('#memoryPane').append('<tr><td>0x' + i.toString(16) + '</td><td id="mem' + i + '">'
+       + memory.getContents(i) + '</td></tr>');
+    }
 }
 
 function parseButton() {
@@ -82,6 +113,7 @@ function stopButton() {
 }
 
 function updateDisplay() {
+  updateFlags();
   updateCurLine();
 }
 
@@ -92,7 +124,6 @@ function updateCurLine() {
   }
   //lines 1-indexed, code 0-indexed
   $('#line' + (code.curLineNum() + 1)).addClass('running');
-  $('#lineInfo').text("Current line: " + code.curLineNum());
 }
 
 

@@ -112,3 +112,23 @@ button#injectCodeButton {
   bottom: 0;
 }
 
+.onFlag {
+  background: #FFFFCC;
+  color: #C28547;
+}
+
+.condBox {
+  line-height: 23px;
+  padding: 5;
+  text-align: center;
+}
+
+.condTable {
+  height: 50px;
+  width: 100%;
+  background: #DDE;
+}
+
+td {
+  border: 3px solid white;
+}
