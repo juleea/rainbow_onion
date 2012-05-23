@@ -6,6 +6,11 @@ $(window).load(function() {
 $(function() {
   memory = new Memory();
   registers = new Registers();
+  
+  // register observers
+  registers.contentsUpdated.attach(updateReg);
+  memory.contentsUpdated.attach(updateMemory);
+  
   code = new Code();
   tutorials = new Tutorials();
   var currTutorial = 0;
@@ -26,7 +31,8 @@ $(function() {
     }
   });
 
-  updateRegs();
+  //updateRegs();
+  createRegisters();
   createMemory();
 
   $('button#runButton').click(runButton);
@@ -47,23 +53,6 @@ function bpClick(event) {
   code.toggleBreakpoint(clickedNum);
   $("#" + clickedId).toggleClass("breakpoint");
 
-}
-
-// updates contents of registers
-function updateRegs() {    
-    var registerValues = registers.getAll(); 
-
-    for (var reg in registerValues) {
-        $("#" + reg).text(registerValues[reg]);
-    }
-}
-
-function createMemory() {    
-    var memoryValues = memory.getAll4Bytes();
-    for (var i = 0; i < memoryValues.length; i+=4) {
-      $('#memoryPane').append('<tr><td>0x' + i.toString(16) + '</td><td id="mem' + i + '">'
-       + memory.getContents(i) + '</td></tr>');
-    }
 }
 
 function parseButton() {
@@ -93,7 +82,6 @@ function stopButton() {
 }
 
 function updateDisplay() {
-  updateRegs();
   updateCurLine();
 }
 
@@ -102,6 +90,87 @@ function updateCurLine() {
   for(var i = 0; i < TEXT_AREA_HEIGHT; i++) {
       $('#line' + i).removeClass('running');
   }
-  $('#line' + code.curLineNum()).addClass('running');
+  //lines 1-indexed, code 0-indexed
+  $('#line' + (code.curLineNum() + 1)).addClass('running');
   $('#lineInfo').text("Current line: " + code.curLineNum());
+}
+
+
+// updates contents of registers
+function updateRegs() {    
+    var registerValues = registers.getAll(); 
+
+    for (var reg in registerValues) {
+        $("#" + reg).text(registerValues[reg]);
+    }
+}
+
+// uncolors any highlighted registers
+function clearRegColors() {
+    if (typeof updateReg.lastUpdatedReg != 'undefined') {
+        $("#" + updateReg.lastUpdatedReg).css('background-color', 'white');
+    }
+}
+
+// uncolors any highlighted memory
+function clearMemColors() {
+    if (typeof updateMemory.lastUpdatedMem != 'undefined') {
+        updateMemColor(updateMemory.lastUpdatedMem.address, updateMemory.lastUpdatedMem.bytes, 'white');
+    }
+}
+
+// highlights any updated regs and resets non-updated regs to white bg
+var updateReg = function updateReg(regs, args) {
+    clearRegColors();
+    clearMemColors();
+    
+    var reg = args.register;
+    $("#" + reg).text(regs.getContents(reg));
+    $("#" + reg).css('background-color', '#88dddd');
+
+    updateReg.lastUpdatedReg = reg;
+};
+
+// initalizes register HTML and values
+function createRegisters() {    
+    var registerValues = registers.getAll();
+    for (var reg in registerValues) {
+      $('#registersPane').append('<tr><td>' + reg + '</td><td id="' + reg + '">'
+       + registerValues[reg] + '</td></tr>');
+    }
+}
+
+// loops through to update address values and updates
+function updateMemValues(address, bytes, color) {
+    for(var i = address - address%4; i < address + bytes+ address%4; i+=4) {
+      $('#mem' + i).text(memory.getContents(i));
+    }
+}
+
+// loops through memory to change address backgrounds (used for highlighting)
+function updateMemColor(address, bytes, color) {
+    console.log(address, bytes, color);
+    for(var i = address - address%4; i < address + bytes+ address%4; i+=4) {
+      $('#mem' + i).css('background-color', color);
+    }
+}
+
+
+// highlights and updates changed memory vals. 
+var updateMemory = function updateMemory(memory, args) {
+    clearRegColors();
+    clearMemColors();
+     
+    updateMemColor(args.address, args.bytes, '#88dddd');
+    updateMemValues(args.address, args.bytes);
+
+    updateMemory.lastUpdatedMem = args;
+};
+
+function createMemory() {    
+    var memoryValues = memory.getAll4Bytes();
+    for (var i = 0; i < memoryValues.length; i+=4) {
+      $('#memoryPane').append('<tr><td>0x' + i.toString(16) + '</td><td id="mem' + i + '">'
+       + memory.getContents(i) + '</td></tr>');
+    }
 }

@@ -2,7 +2,7 @@
 
 function Code() {
   var curLineNum = 0;
-  var codeLines = [];
+  codeLines = [];
   var breakPoints = {};
 
   this.init = function(text) {
@@ -44,8 +44,18 @@ function Code() {
     return curLineNum;
   }
 
-  this.setCurLine = function(newLine) {
-    curLine = newLine;
+  this.setCurLineNum = function(newLine) {
+    curLineNum = newLine;
+    updateDisplay();
+  }
+
+  this.setLabelLine = function(label) {
+    for(var i = 0; i < codeLines.length; i++) {
+      if(codeLines[i] && codeLines[i].label == label) {
+        this.setCurLineNum(i);
+        return;
+      }
+    }
   }
 
   this.step = function() {
@@ -63,7 +73,7 @@ function Code() {
   }
 
   this.cont = function() {
-    while(curLineNum < codeLines.length + 1) {
+    while(curLineNum < codeLines.length) {
       this.step();
       if(curLineNum in breakPoints) {
         break;

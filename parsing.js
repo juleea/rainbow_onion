@@ -97,7 +97,6 @@ function Parameter(type) {
  * at most one set of outer open/close parens
  * Returns true if valid */
 
-//
 function verifyNumArgs(paramString, numExpectedArgs) {
     if (numExpectedArgs == 1) {
         var matches = paramString.match(/^([-0-9a-z%$]*(?:\([0-9a-z%, ]*\))?)/);
@@ -172,7 +171,6 @@ function parseParameters(paramString, numExpectedArgs) {
     var hasValidNumArgs = verifyNumArgs(paramString, numExpectedArgs);
     if (hasValidNumArgs) {
         var matchedParam = parseSingleArgument(paramString);
-        
         if (matchedParam[0] == null) {
             // TODO: return ParseError
             alert("parsing error in finding arg 1!");
@@ -199,6 +197,19 @@ function parseParameters(paramString, numExpectedArgs) {
     return params;
 }
 
+function parseJmp(labaelStr) {
+//TODO: give errors to users
+  if(labaelStr.indexOf(" ") != -1) {
+    console.log("can't have space in jmp");
+  } else if(labaelStr.indexOf(":") != -1) {
+    console.log("can't have colon in jmp");
+  } else if(labaelStr.indexOf(",") != -1) {
+    console.log("can't have comma in jmp");
+  } else {
+    return labaelStr;
+  }
+  return null;
+}
 
 //Breaks the line up, figures out which instruction 
 //Returns true iff this is a valid instruction
@@ -206,18 +217,25 @@ function parseLine(line) {
     if(!line) return null;
     var firstSpace = line.indexOf(" ");
     if (firstSpace == -1) {
-        // possibly a label, or an error
-        alert("invalid syntax! or label--unimplemented");
-        return null;
+        var colon = line.indexOf(":");
+        if(colon == -1) {
+            alert("invalid syntax: " + line);
+            return null;
+        } else {
+            //LABEL
+            return createLabel(line.substring(0, colon));
+        }
     }
     // instruction parsing
     var instructionStr = line.substring(0, firstSpace);
     // TODO: isValidInstruction
     
-    
     var instruction = null;
+    var parsedParams = undefined;
+    var paramStr = line.substring(firstSpace+1).trim();
     if(instructionStr in instructionMap) {
-        var parsedParams = parseParameters(line.substring(firstSpace+1).trim(), instructionArgumentMap[instructionStr]);
+        if(jmpInstructions[instructionStr]) parsedParams = parseJmp(paramStr);
+        else parsedParams = parseParameters(paramStr, instructionArgumentMap[instructionStr]);
         instruction = new instructionMap[instructionStr](parsedParams);
         if(!instruction.valid) {
             alert("invalid params for instruction");

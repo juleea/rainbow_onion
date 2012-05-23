@@ -17,11 +17,13 @@
   <script src="jquery-linedtextarea.js"></script>
   <script src="jquery.mousewheel.js"></script>
 
+    <script src="observer.js"></script>
 	<script src="memory.js"></script>
 	<script src="douglas.js"></script>
 	<script src="instructions.js"></script>
 	<script src="registers.js"></script> 
 	<script src="parsing.js"></script>
+	<script src="view.js"></script>
   <script src="controller.js"></script>
   <script src="registers.js"></script>
 	<script src="code.js"></script>
@@ -98,22 +100,13 @@
 </div>
 
 <div class='right'>
-  <div class='registers panel' id='registers'>  
+  <div class='well' id='registers'>  
     <span class='sectionHead'>Registers</span>
     <br />
-    eax: <span id="eax"></span><BR />
-    ebx: <span id="ebx"></span><BR />
-    ecx: <span id="ecx"></span><BR />
-    edx: <span id="edx"></span><BR />
-    esi: <span id="esi"></span><BR />
-    edi: <span id="edi"></span><BR />
-    esp: <span id="esp"></span><BR />
-    ebp: <span id="ebp"></span><BR />
-    eip: <span id="eip"></span><BR />
-    
+        <table class="table table-condensed" id="registersPane"></table>
   </div>
 
-  <div class='memory  panel'>
+  <div class='well'>
     <span class='sectionHead'>Memory</span>
     <div class="scroll-pane">
       <table id="memoryPane"></table>
