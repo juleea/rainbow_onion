@@ -12,7 +12,8 @@ $(function() {
     max: 10,
     step: 1,
     change: updateRunSpeed,
-    stop: updateRunSpeed
+    stop: updateRunSpeed,
+    value: 5
   });
 
   $("#runSpeed").text($("#runSpeedSlider").slider('value'));
@@ -63,12 +64,14 @@ $(function() {
 });
 
 function updateRunSpeed(event, ui) {
-  var speed = $("#runSpeedSlider").slider('value')
-  $("#runSpeed").text(speed);
+  var dispSpeed = $('#runSpeedSlider').slider('value');
+  var maxSpeed = $('#runSpeedSlider').slider('option', 'max');
+  if (dispSpeed === maxSpeed) dispSpeed = String.fromCharCode(8734);
+  $('#runSpeed').text(dispSpeed);
 }
 
 function bpClick(event) {
-  var clickedId = event.srcElement.id;
+  var clickedId = event.target.id;
   //cut out the word "line"
   var clickedNum = parseInt(clickedId.substr(4))-1;
   code.toggleBreakpoint(clickedNum);
@@ -116,14 +119,16 @@ function parseButton() {
   return true;
 }
 
+var getSpeed = function (sliderValue) {
+  var runSpeed = $("#runSpeedSlider").slider('value');
+  var maxRunSpeed = $("#runSpeedSlider").slider('option', 'max');
+  if (runSpeed === maxRunSpeed) return 0;
+  return 1/runSpeed * 2000;
+}
+
 function runButton() {
   parseButton();
-  var runSpeed = $("#runSpeedSlider").slider('value');
-  var maxRunSpeed = $("#runSpeedSlider").slider('max');
-  console.log("run speed=" + runSpeed + "   maxrunspeed="+maxRunSpeed);
-  if (runSpeed === maxRunSpeed) runSpeed = 0;
-  code.run(runSpeed);
-  console.log("")
+  code.run(getSpeed());
 }
 
 function stepButton() {
@@ -135,10 +140,7 @@ function stepButton() {
 
 function contButton() {
   parseButton();
-  var runSpeed = $("#runSpeedSlider").slider('value');
-  var maxRunSpeed = $("#runSpeedSlider").slider('value');
-  if (runSpeed === maxRunSpeed) runSpeed = 0;
-  code.cont(runSpeed);
+  code.cont(getSpeed());
 }
 
 function stopButton() {

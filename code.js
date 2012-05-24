@@ -88,13 +88,16 @@ function Code() {
     updateDisplay();
   }
 
-  this.cont = function(speed) {
+  this.cont = function(speed, fromRun) {
+    if (!fromRun) {
+      var fromRun = false;
+    }
     var tempLineNum = curLineNum;
     var ctr = 0;
-    console.log(speed);
-    while(tempLineNum < codeLines.length && !(tempLineNum in breakPoints)) {
-
-      setTimeout(this.step, speed * 2000 * ctr);
+    var first = true;
+    while(tempLineNum < codeLines.length && (!fromRun || !(tempLineNum in breakPoints))) {
+      fromRun = true;
+      setTimeout(this.step, speed * ctr);
       tempLineNum++;
       ctr ++;
     }
@@ -103,7 +106,9 @@ function Code() {
   this.run = function(speed) {
     curLineNum = 0;
     updateDisplay();
-    this.cont(speed);
+    var t = this;
+    var f = function() {t.cont(speed, true);}
+    setTimeout(f, speed);
   }
 
   this.stop = function() {
