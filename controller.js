@@ -92,33 +92,16 @@ function parseButton() {
   var text = $('textarea#mainText').val();
   
   if (!code.init(text)) {
-    var errors = code.getCodeErrors();
-     // TODO: put these messages into the textbox next to each like error line (like Eclipse)
-    /*for (var i in errors) {
-        alert("Line " + errors[i][0] + ": " + errors[i][1]);
-    }*/
-    
-    // just show in tooltip for now
-    var errorString = "";
-    for (var i in errors) {
-        if (i != 0) errorString += "<br />";
-        var lineNo = errors[i][0];
-        var errorMsg = errors[i][1];
-        errorString += "Line " + lineNo + ": " + errorMsg;  
-        //$("#error_bar").append('<span class="badge badge-important" id="error_msg' + lineNo + '">!</span>');
-        //$("#error_msg" + lineNo).tooltip({animation:true, trigger: 'hover', title: errorMsg});  
-    }
-    $("#error_alert").empty();
-    $("#error_alert").append('<div class="alert alert-block alert-error"><a class="close" data-dismiss="alert" href="#">x</a>'
-        + '<strong>Error!</strong> There are errors in your code. Please fix them before proceeding:<br /><p style="margin-left: 3em">' + errorString + "</p></div>"); 
-    $("#error_alert").show();
-    
+    displayCodeErrors();
+    return false;
   }
+  
+  return true;
 }
 
 function runButton() {
-  parseButton();
-  code.run($('input#runSpeedSlider').val());
+  if (parseButton())
+    code.run($('input#runSpeedSlider').val());
 }
 
 function stepButton() {
@@ -229,4 +212,29 @@ function createMemory() {
       $('#memoryPane').append('<tr><td>0x' + i.toString(16) + '</td><td id="mem' + i + '">'
        + memory.getContents(i) + '</td></tr>');
     }
+}
+
+
+function displayCodeErrors() {
+    var errors = code.getCodeErrors();
+     // TODO: put these messages into the textbox next to each like error line (like Eclipse)
+    /*for (var i in errors) {
+        alert("Line " + errors[i][0] + ": " + errors[i][1]);
+    }*/
+    
+    // just show in tooltip for now
+    var errorString = "";
+    for (var i in errors) {
+        if (i != 0) errorString += "<br />";
+        var lineNo = errors[i][0];
+        var errorMsg = errors[i][1];
+        errorString += "Line " + lineNo + ": " + errorMsg;  
+        //$("#error_bar").append('<span class="badge badge-important" id="error_msg' + lineNo + '">!</span>');
+        //$("#error_msg" + lineNo).tooltip({animation:true, trigger: 'hover', title: errorMsg});  
+    }
+    $("#error_alert").empty();
+    $("#error_alert").append('<div class="alert alert-block alert-error"><a class="close" data-dismiss="alert" href="#">x</a>'
+        + '<strong>Error!</strong> There are errors in your code. Please fix them before proceeding:<br /><p style="margin-left: 3em">' + errorString + "</p></div>"); 
+    $("#error_alert").show();
+    
 }
