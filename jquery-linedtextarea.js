@@ -29,6 +29,7 @@
  */
 TEXT_AREA_HEIGHT = 0;
 
+
 (function($) {
 
 	$.fn.linedtextarea = function(options) {
@@ -42,6 +43,12 @@ TEXT_AREA_HEIGHT = 0;
 		 * kept up to the current system
 		 */
 		var fillOutLines = function(codeLines, h, lineNo){
+			
+
+			//TODO: THIS IS ARBITRARY
+			var codeStartAddr = 2284;
+			
+
 			while ( (codeLines.height() - h ) <= 0 ) {
 				var lineclasses = "lineno";
 				var lineid = "line" + lineNo;
@@ -49,13 +56,15 @@ TEXT_AREA_HEIGHT = 0;
 					lineclasses = lineclasses + " " + opts.selectedClass;
 				if (lineNo==opts.runningLine)
 					lineclasses = lineclasses + " " + opts.runningClass;
-				codeLines.append("<div class='" + lineclasses + "' id='" + lineid + "'>" + lineNo + "</div>");
-				lineNo+=4//lineNo++;
+				var hexLineNo = "0x" + (codeStartAddr + (lineNo-1) * 4).toString(16);
+				codeLines.append("<div class='" + lineclasses + "' id='" + lineid + "'>" + hexLineNo + "</div>");
+				lineNo++;
 			}
 			TEXT_AREA_HEIGHT = lineNo;
 			return lineNo;
 		};
 		
+
 		
 		/*
 		 * Iterate through each of the elements are to be applied to

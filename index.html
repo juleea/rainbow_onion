@@ -20,7 +20,9 @@
   <script src="jquery.mousewheel.js"></script>
   <script src="jquery-ui.min.js"></script>
 
-    <script src="observer.js"></script>
+  <script>goog.require('goog.math.Integer')</script>
+
+  <script src="observer.js"></script>
 	<script src="memory.js"></script>
 	<script src="douglas.js"></script>
 	<script src="instructions.js"></script>
@@ -30,7 +32,7 @@
   <script src="registers.js"></script>
 	<script src="code.js"></script>
 	<script src="tutorials.js"></script>
-
+  <script src="flags.js"></script>
 	
 </head>
 
@@ -87,11 +89,11 @@
 <div class='center'>
   <div class='button_bar'>
     <button class='topButtons run btn' id='runButton'><i class='icon-play'></i> Run</button>
-    <button class='topButtons btn' id='parseButton'>Parse</button>
+    <!-- <button class='topButtons btn' id='parseButton'>Parse</button> -->
     <button class='topButtons btn' id='stepButton'><i class='icon-step-forward'></i> Step</button>
     <button class='topButtons btn' id='contButton'>Continue</button>
     <button class='topButtons btn' id='stopButton'><i class='icon-stop'></i> Stop</button>
-   
+    <input class='slider' id='runSpeedSlider' type='range' min='0' max='50' value='25' />
   </div>
    
   <br /> 
@@ -113,6 +115,19 @@
     <span class='sectionHead'>Registers</span>
     <br />
         <table class="table table-condensed" id="registersPane"></table>
+  </div>
+  <div class='condCodes panel' id='condCodes'> 
+    <span class='sectionHead'>Condition Codes</span><br />
+    <table class='condTable'>
+      <tr>
+        <td class="CF condBox">CF: <span class="CF" id="CF"></span> </td>
+        <td class="ZF condBox">ZF: <span class="ZF" id="ZF"></span></td>
+      </tr>
+      <tr>
+        <td class="SF condBox">SF: <span class="SF" id="SF"></span></td>
+        <td class="OF condBox">OF: <span class="OF" id="OF"></span></td>
+      </tr>
+    </table>    
   </div>
 
   <div class='well'>
