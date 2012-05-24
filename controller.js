@@ -119,9 +119,11 @@ function parseButton() {
 function runButton() {
   parseButton();
   var runSpeed = $("#runSpeedSlider").slider('value');
-  var maxRunSpeed = $("#runSpeedSlider").slider('value');
+  var maxRunSpeed = $("#runSpeedSlider").slider('max');
+  console.log("run speed=" + runSpeed + "   maxrunspeed="+maxRunSpeed);
   if (runSpeed === maxRunSpeed) runSpeed = 0;
   code.run(runSpeed);
+  console.log("")
 }
 
 function stepButton() {

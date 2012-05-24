@@ -91,9 +91,10 @@ function Code() {
   this.cont = function(speed) {
     var tempLineNum = curLineNum;
     var ctr = 0;
-
+    console.log(speed);
     while(tempLineNum < codeLines.length && !(tempLineNum in breakPoints)) {
-      setTimeout(this.step, speed * 100 * ctr);
+
+      setTimeout(this.step, speed * 2000 * ctr);
       tempLineNum++;
       ctr ++;
     }
@@ -101,6 +102,7 @@ function Code() {
 
   this.run = function(speed) {
     curLineNum = 0;
+    updateDisplay();
     this.cont(speed);
   }
 
