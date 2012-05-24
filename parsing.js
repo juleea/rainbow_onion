@@ -35,7 +35,7 @@ function Parameter(type) {
   this.setValue = function(value) {
     switch(this.type) {
         // TODO: convert value to decimal (might be hex)
-        case PARAM_TYPE.INTEGER: this.literal = value; break;
+        case PARAM_TYPE.INTEGER: this.literal = goog.math.Integer.fromNumber(Number(value)); break;
         case PARAM_TYPE.REGISTER: this.register = value; break;
         default: alert("Tried to set value for param with no type");
     }
@@ -47,7 +47,7 @@ function Parameter(type) {
     }
     
     this.register = register;
-    this.displacement = (displacement == "") ? 0 : displacement;
+    this.displacement = (displacement == "") ? 0 : Number(displacement);
   }
   
   this.setIndexedValue = function(displacement, base_register, index_register, scale) {
@@ -55,10 +55,10 @@ function Parameter(type) {
         alert("Tried to use indexed addressing for non-indexed param type");
     }
 
-    this.displacement = (displacement == "") ? 0 : displacement;
+    this.displacement = (displacement == "") ? 0 : Number(displacement);
     this.base_register = base_register;
     this.index_register = index_register;
-    this.scale = scale;
+    this.scale = Number(scale);
     
   }
   
@@ -72,7 +72,7 @@ function Parameter(type) {
         
         // the following two return memory addresses
         case PARAM_TYPE.DISPLACEMENT: return Number(registers.getContents(this.register)) + this.displacement;
-        case PARAM_TYPE.INDEXED: return Number(register.getContents(this.base_register)) + this.scale * Number(registers.getContents(this.index_register)) + this.displacement;
+        case PARAM_TYPE.INDEXED: return Number(registers.getContents(this.base_register)) + this.scale * Number(registers.getContents(this.index_register)) + this.displacement;
         default: alert("Tried to get location for param with no type");
     }
   }
@@ -82,13 +82,18 @@ function Parameter(type) {
    */
   this.getValue = function(memory, registers) {
     switch(this.type) {
-        case PARAM_TYPE.INTEGER: return goog.math.Integer.fromNumber(Number(this.literal));
+        case PARAM_TYPE.INTEGER: return this.literal;
         case PARAM_TYPE.REGISTER: return registers.getContents(this.register);
         case PARAM_TYPE.DISPLACEMENT: 
         case PARAM_TYPE.INDEXED: return memory.getContents(this.getLocation(registers)); 
         default: alert("Tried to get value for param with no type");
     }
   }
+
+  this.getType = function() {
+    return this.type;
+  }
+
 }
 
 
@@ -123,10 +128,15 @@ function verifyNumArgs(paramString, numExpectedArgs) {
 function parseSingleArgument(paramString) {
         var parameter = null;
         
-        // match for indexed addressing mode
-        var matches = paramString.match(/^(-?0x0*100|-?0x0*10|-?0x0*1|-?[124]|)\((?:%(eax|ebx|ecx|edx|esi|edi|esp|ebp)|) *, *%(eax|ebx|ecx|edx|esi|edi|ebp) *, *(0x0*1000|0x0*100|0x0*10|0x0*1|[1248])\)/);
+        // match for indexed addressing mode: displacement must be 1, or a multiple or 2
+        var matches = paramString.match(/^(-?0x[0-9a-f]{1,6}|-?[0-9]+|)\((?:%(eax|ebx|ecx|edx|esi|edi|esp|ebp)|) *, *%(eax|ebx|ecx|edx|esi|edi|ebp) *, *(0x0*1|0x0*2|0x0*4|0x0*8|[1248])\)/);
         //console.log("indexed: " + matches);
         if (matches != null) {
+            if (Number(matches[1]) != 1 && Number(matches[1]) % 2 == 1) {
+                // TODO: return parseerror
+                parseLine.error = "Displacement must be 0, 1 or a multiple of 2.";
+                return [parameter, ""];
+            }
             parameter = new Parameter(PARAM_TYPE.INDEXED);
             parameter.setIndexedValue(matches[1], matches[2], matches[3], matches[4]);
             return [parameter, matches[0]];
@@ -137,6 +147,11 @@ function parseSingleArgument(paramString) {
         matches = paramString.match(/^(-?0x[0-9a-f]{1,6}|-?[0-9]+|)\(%(eax|ebx|ecx|edx|esi|edi|esp|ebp)\)/);
         //console.log("displacement: " + matches);
         if (matches != null) {
+            if (Number(matches[1]) != 1 && Number(matches[1]) % 2 == 1) {
+                // TODO: return parseerror
+                parseLine.error = "Displacement must be 0, 1 or a multiple of 2.";
+                return [parameter, ""];
+            }
             parameter = new Parameter(PARAM_TYPE.DISPLACEMENT);
             parameter.setDisplacementValue(matches[1], matches[2]);
             return [parameter, matches[0]];
@@ -160,6 +175,7 @@ function parseSingleArgument(paramString) {
             return [parameter, matches[0]];
         }
         
+        parseLine.error = "Please check your syntax.";
         return [parameter, ""];
 }
 
@@ -172,9 +188,9 @@ function parseParameters(paramString, numExpectedArgs) {
     if (hasValidNumArgs) {
         var matchedParam = parseSingleArgument(paramString);
         if (matchedParam[0] == null) {
-            // TODO: return ParseError
-            alert("parsing error in finding arg 1!");
-        }
+            parseLine.error = "Error in parsing argument 1. " + parseLine.error;
+            return params;
+        } 
         
         params[0] = matchedParam[0];
         if (numExpectedArgs == 2) {
@@ -183,15 +199,15 @@ function parseParameters(paramString, numExpectedArgs) {
             matchedParam = parseSingleArgument(paramString.substring(nextIndex+1).trim());
             
             if (matchedParam[0] == null) {
-            // TODO: return ParseError
-                alert("parsing error in finding arg 2!");
+                parseLine.error = "Error parsing argument 2. " + parseLine.error;
+                params.length = 0; //clear contents
+                return params;
             }
         
             params[1] = matchedParam[0];
         }
     } else {
-        alert("invalid # of args :(");
-        // TODO: return ParseError
+        parseLine.error = "Instruction requires " + numExpectedArgs + " arguments.";
     }
     
     return params;
@@ -200,11 +216,14 @@ function parseParameters(paramString, numExpectedArgs) {
 function parseJmp(labaelStr) {
 //TODO: give errors to users
   if(labaelStr.indexOf(" ") != -1) {
-    console.log("can't have space in jmp");
+    parseLine.error = "Invalid space found in jmp instruction";
+    //console.log("can't have space in jmp");
   } else if(labaelStr.indexOf(":") != -1) {
-    console.log("can't have colon in jmp");
+    parseLine.error = "Invalid colon found in jmp instruction";
+    //console.log("can't have colon in jmp");
   } else if(labaelStr.indexOf(",") != -1) {
-    console.log("can't have comma in jmp");
+    parseLine.error = "Invalid comma found in jmp instruction";
+    //console.log("can't have comma in jmp");
   } else {
     return labaelStr;
   }
@@ -219,7 +238,9 @@ function parseLine(line) {
     if (firstSpace == -1) {
         var colon = line.indexOf(":");
         if(colon == -1) {
-            alert("invalid syntax: " + line);
+            // TODO: this returns Invalid syntax: jmp right now if we just type jmp, which is a bit confusing
+            parseLine.error = "Invalid syntax: " + line;
+            //alert("invalid syntax: " + line);
             return null;
         } else {
             //LABEL
@@ -228,7 +249,6 @@ function parseLine(line) {
     }
     // instruction parsing
     var instructionStr = line.substring(0, firstSpace);
-    // TODO: isValidInstruction
     
     var instruction = null;
     var parsedParams = undefined;
@@ -236,11 +256,19 @@ function parseLine(line) {
     if(instructionStr in instructionMap) {
         if(jmpInstructions[instructionStr]) parsedParams = parseJmp(paramStr);
         else parsedParams = parseParameters(paramStr, instructionArgumentMap[instructionStr]);
-        instruction = new instructionMap[instructionStr](parsedParams);
-        if(!instruction.valid) {
-            alert("invalid params for instruction");
-            instruction = null;
+        
+        if (parsedParams.length == 0) {
+            parseLine.error = instructionStr + ": " + parseLine.error;
+        } else {
+            instruction = new instructionMap[instructionStr](parsedParams);
+            if(!instruction.valid) {
+                parseLine.error = "Invalid params for instruction";
+                //alert("invalid params for instruction");
+                instruction = null;
+            }
         }
+    } else {
+        parseLine.error = instructionStr + " is not a valid instruction.";
     }
     return instruction;
 }

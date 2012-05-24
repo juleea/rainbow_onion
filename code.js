@@ -4,13 +4,28 @@ function Code() {
   var curLineNum = 0;
   codeLines = [];
   var breakPoints = {};
+  codeErrors = [];
 
+  // Returns true if all lines successfully parsed
   this.init = function(text) {
-   this.clear();
+    this.clear();
     var lines = text.split('\n');
-    for(var i = 0; i < lines.length ; i++) {
-      this.addLine(parseLine(lines[i]));
+    var errorsFound = false;
+    for(var i = 0; i < lines.length; i++) {
+      instruction = parseLine(lines[i]);
+      if (instruction) {
+        this.addLine(parseLine(lines[i]));
+      } else if (lines[i] != "") { // sometimes it picks up the last newline - TODO: should not ever try to parse empty line
+        codeErrors.push([i+1,parseLine.error]);
+        errorsFound = true;
+      }
     }
+    return !errorsFound;
+  }
+  
+  // Returns an array of (line number, error strings) objects
+  this.getCodeErrors = function() {
+    return codeErrors;
   }
 
   this.insertLine = function(lineNum, code) {
@@ -23,6 +38,7 @@ function Code() {
 
   this.clear = function() {
     codeLines.length = 0;
+    codeErrors.length = 0;
   }
 
   this.addBreakpoint = function(lineNum) {
@@ -72,22 +88,35 @@ function Code() {
     updateDisplay();
   }
 
-  this.cont = function() {
-    while(curLineNum < codeLines.length) {
-      this.step();
-      if(curLineNum in breakPoints) {
-        break;
-      }
+  this.cont = function(speed, fromRun) {
+    if (!fromRun) {
+      var fromRun = false;
+    }
+    var tempLineNum = curLineNum;
+    var ctr = 0;
+    var first = true;
+    while(tempLineNum < codeLines.length && (!fromRun || !(tempLineNum in breakPoints))) {
+      fromRun = true;
+      setTimeout(this.step, speed * ctr);
+      tempLineNum++;
+      ctr ++;
     }
   }
 
-  this.run = function() {
+  this.run = function(speed) {
     curLineNum = 0;
-    this.cont();
+    updateDisplay();
+    var t = this;
+    var f = function() {t.cont(speed, true);}
+    setTimeout(f, speed);
   }
 
   this.stop = function() {
     curLineNum = 0;
     updateDisplay();
+  }
+
+  this.getBP = function() {
+    return breakPoints;
   }
 }
