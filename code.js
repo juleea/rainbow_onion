@@ -73,13 +73,13 @@ function Code() {
   }
 
   this.cont = function(speed) {
-    while(curLineNum < codeLines.length) {
-      this.step();
-      if(curLineNum in breakPoints) {
-        break;
-      }
-      //pause before executing the next line
-      //setTimeout(function() {this.ready = true; console.log("ready");},speed/10  );
+    var tempLineNum = curLineNum;
+    var ctr = 0;
+
+    while(tempLineNum < codeLines.length && !(tempLineNum in breakPoints)) {
+      setTimeout(this.step, speed * 100 * ctr);
+      tempLineNum++;
+      ctr ++;
     }
   }
 
@@ -91,5 +91,9 @@ function Code() {
   this.stop = function() {
     curLineNum = 0;
     updateDisplay();
+  }
+
+  this.getBP = function() {
+    return breakPoints;
   }
 }

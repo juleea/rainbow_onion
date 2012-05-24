@@ -136,11 +136,35 @@ td {
   border: 3px solid white;
 }
 
-input#runSpeedSlider {
-  max: 10;
-  min: 1;
-  value: 5;
-  step: 1;
-  width: 150px;
-  left: 50px;
+#runSpeedSlider {
+  position: relative;
+  width: 100px;
+}
+
+#sliderWrapper {
+  padding:6px;
+  width: 100px;
+  display: inline;
+  float: right;
+}
+
+#runSpeed {
+  float: right;
+  padding-left: 3px;
+  width: 5px;
+}
+
+
+#runSpeedLabel {
+  float: right;
+  padding-top: 4px;
+  padding-left: 8px;
+}
+
+.ui-slider-horizontal  {
+  width: 100px; 
+}
+
+btn {
+  display: inline;
 }

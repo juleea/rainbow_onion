@@ -7,6 +7,18 @@ $(function() {
   memory = new Memory();
   registers = new Registers();
   
+  $("#runSpeedSlider").slider({
+    min: 1,
+    max: 10,
+    step: 1,
+    change: updateRunSpeed,
+    stop: updateRunSpeed
+  });
+
+  $("#runSpeed").text($("#runSpeedSlider").slider('value'));
+  
+
+
   // register observers
   registers.contentsUpdated.attach(updateReg);
   memory.contentsUpdated.attach(updateMemory);
@@ -45,12 +57,18 @@ $(function() {
   $('button#nextPageButton').click(tutorials.displayNextPage);
   $('button#prevPageButton').click(tutorials.displayPrevPage);
   $('button#injectCodeButton').click(tutorials.injectCode);
+
 });
+
+function updateRunSpeed(event, ui) {
+  var speed = $("#runSpeedSlider").slider('value')
+  $("#runSpeed").text(speed);
+}
 
 function bpClick(event) {
   var clickedId = event.srcElement.id;
   //cut out the word "line"
-  var clickedNum = parseInt(clickedId.substr(4));
+  var clickedNum = parseInt(clickedId.substr(4))-1;
   code.toggleBreakpoint(clickedNum);
   $("#" + clickedId).toggleClass("breakpoint");
 
@@ -93,7 +111,10 @@ function parseButton() {
 
 function runButton() {
   parseButton();
-  code.run($('input#runSpeedSlider').val());
+  var runSpeed = $("#runSpeedSlider").slider('value');
+  var maxRunSpeed = $("#runSpeedSlider").slider('value');
+  if (runSpeed === maxRunSpeed) runSpeed = 0;
+  code.run(runSpeed);
 }
 
 function stepButton() {
@@ -105,7 +126,10 @@ function stepButton() {
 
 function contButton() {
   parseButton();
-  code.cont($('input#runSpeedSlider').val());
+  var runSpeed = $("#runSpeedSlider").slider('value');
+  var maxRunSpeed = $("#runSpeedSlider").slider('value');
+  if (runSpeed === maxRunSpeed) runSpeed = 0;
+  code.cont(runSpeed);
 }
 
 function stopButton() {

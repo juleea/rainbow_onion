@@ -11,25 +11,28 @@
   <link rel="stylesheet" type="text/css" href="jquery.jscrollpane.css" />
 	<link rel="stylesheet" type="text/css" href="jquery-linedtextarea.css" />
 	<link href="docs/assets/css/bootstrap.css" rel="stylesheet">
-  
-  <script src="closure-library/closure/goog/base.js"></script>
-  <script src="jquery.jscrollpane.min.js"></script>
-  <script src="jquery-linedtextarea.js"></script>
-  <script src="jquery.mousewheel.js"></script>
+  <link type="text/css" href="jquery-ui-1.8.20.custom/css/ui-lightness/jquery-ui-1.8.20.custom.css" rel="stylesheet" />
+
+  <script type="text/javascript" src="closure-library/closure/goog/base.js"></script>
+  <script type="text/javascript" src="jquery.jscrollpane.min.js"></script>
+  <script type="text/javascript" src="jquery-linedtextarea.js"></script>
+  <script type="text/javascript" src="jquery.mousewheel.js"></script>
+<!--  <script type="text/javascript" src="jquery-ui-1.8.20.custom/js/jquery-1.7.2.min.js"></script>-->
+  <script type="text/javascript" src="jquery-ui-1.8.20.custom/js/jquery-ui-1.8.20.custom.min.js"></script>
 
   <script>goog.require('goog.math.Integer')</script>
 
-  <script src="observer.js"></script>
-	<script src="memory.js"></script>
-	<script src="douglas.js"></script>
-	<script src="instructions.js"></script>
-	<script src="registers.js"></script> 
-	<script src="parsing.js"></script>
-  <script src="controller.js"></script>
-  <script src="registers.js"></script>
-	<script src="code.js"></script>
-	<script src="tutorials.js"></script>
-  <script src="flags.js"></script>
+  <script type="text/javascript" src="observer.js"></script>
+	<script type="text/javascript" src="memory.js"></script>
+	<script type="text/javascript" src="douglas.js"></script>
+	<script type="text/javascript" src="instructions.js"></script>
+	<script type="text/javascript" src="registers.js"></script> 
+	<script type="text/javascript" src="parsing.js"></script>
+  <script type="text/javascript" src="controller.js"></script>
+  <script type="text/javascript" src="registers.js"></script>
+	<script type="text/javascript" src="code.js"></script>
+	<script type="text/javascript" src="tutorials.js"></script>
+  <script type="text/javascript" src="flags.js"></script>
 	
 </head>
 
@@ -49,7 +52,7 @@
     <div class='dropdown btn rightAlign'>
       <a class="dropdown-toggle" data-toggle="dropdown" href="#menu1">
         Select a tutorial
-        <b class="caret"></b>
+        <b class='caret'></b>
       </a>
       <ul class='dropdown-menu' id='tutorialNav'>
         <li id='tutorial0' class='tutorial'><a href='#'>Tutorial Information</a></li>
@@ -84,15 +87,16 @@
 </div>
 
 <div class='center'>
-  <div class='button_bar'>
-    <button class='topButtons run btn' id='runButton'>Run</button>
-    <!-- <button class='topButtons btn' id='parseButton'>Parse</button> -->
-    <button class='topButtons btn' id='stepButton'>Step</button>
-    <button class='topButtons btn' id='contButton'>Continue</button>
-    <button class='topButtons btn' id='stopButton'>Stop</button>
-    <input class='slider' id='runSpeedSlider' type='range' min='0' max='50' value='25' />
-  </div>
   <div class='text panel'>
+    <div class='button_bar'>
+      <button class='topButtons run btn' id='runButton'>Run</button>
+      <!-- <button class='topButtons btn' id='parseButton'>Parse</button> -->
+      <button class='topButtons btn' id='stepButton'>Step</button>
+      <button class='topButtons btn' id='contButton'>Continue</button>
+      <button class='topButtons btn' id='stopButton'>Stop</button>
+      <div id='runSpeedLabel'>run speed:<div id='runSpeed'></div></div>
+      <div id='sliderWrapper'><div id='runSpeedSlider' ></div></div>
+    </div>
     <textarea class='lined' id='mainText' ></textarea> 
   </div>
   <div class='help panel'>
@@ -131,18 +135,18 @@
 
 </div> <!-- main content-->
 
- <script src="docs/assets/js/bootstrap-transition.js"></script>
- <script src="docs/assets/js/bootstrap-alert.js"></script>
- <script src="docs/assets/js/bootstrap-modal.js"></script>
- <script src="docs/assets/js/bootstrap-dropdown.js"></script>
- <script src="docs/assets/js/bootstrap-scrollspy.js"></script>
- <script src="docs/assets/js/bootstrap-tab.js"></script>
- <script src="docs/assets/js/bootstrap-tooltip.js"></script>
- <script src="docs/assets/js/bootstrap-popover.js"></script>
- <script src="docs/assets/js/bootstrap-button.js"></script>
- <script src="docs/assets/js/bootstrap-collapse.js"></script>
- <script src="docs/assets/js/bootstrap-carousel.js"></script>
- <script src="docs/assets/js/bootstrap-typeahead.js"></script>
+ <script type="text/javascript" src="docs/assets/js/bootstrap-transition.js"></script>
+ <script type="text/javascript" src="docs/assets/js/bootstrap-alert.js"></script>
+ <script type="text/javascript" src="docs/assets/js/bootstrap-modal.js"></script>
+ <script type="text/javascript" src="docs/assets/js/bootstrap-dropdown.js"></script>
+ <script type="text/javascript" src="docs/assets/js/bootstrap-scrollspy.js"></script>
+ <script type="text/javascript" src="docs/assets/js/bootstrap-tab.js"></script>
+ <script type="text/javascript" src="docs/assets/js/bootstrap-tooltip.js"></script>
+ <script type="text/javascript" src="docs/assets/js/bootstrap-popover.js"></script>
+ <script type="text/javascript" src="docs/assets/js/bootstrap-button.js"></script>
+ <script type="text/javascript" src="docs/assets/js/bootstrap-collapse.js"></script>
+ <script type="text/javascript" src="docs/assets/js/bootstrap-carousel.js"></script>
+ <script type="text/javascript" src="docs/assets/js/bootstrap-typeahead.js"></script>
 
 </body>
 
