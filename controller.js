@@ -58,6 +58,8 @@ $(function() {
   $('button#prevPageButton').click(tutorials.displayPrevPage);
   $('button#injectCodeButton').click(tutorials.injectCode);
 
+  //$("#error_msg").tooltip({animation:true, trigger: 'hover', title: "our error msgs here"});
+  $("#error_alert").hide();
 });
 
 function updateRunSpeed(event, ui) {
@@ -71,7 +73,6 @@ function bpClick(event) {
   var clickedNum = parseInt(clickedId.substr(4))-1;
   code.toggleBreakpoint(clickedNum);
   $("#" + clickedId).toggleClass("breakpoint");
-
 }
 
 // updates contents of registers
@@ -106,7 +107,13 @@ function createMemory() {
 
 function parseButton() {
   var text = $('textarea#mainText').val();
-  code.init(text);
+  
+  if (!code.init(text)) {
+    displayCodeErrors();
+    return false;
+  }
+  
+  return true;
 }
 
 function runButton() {
@@ -163,7 +170,7 @@ function updateRegs() {
 // uncolors any highlighted registers
 function clearRegColors() {
     if (typeof updateReg.lastUpdatedReg != 'undefined') {
-        $("#" + updateReg.lastUpdatedReg).css('background-color', 'white');
+        $("#" + updateReg.lastUpdatedReg).animate({backgroundColor: "#f5f5f5"}, 'slow');
     }
 }
 
@@ -181,7 +188,7 @@ var updateReg = function updateReg(regs, args) {
     
     var reg = args.register;
     $("#" + reg).text(regs.getContents(reg));
-    $("#" + reg).css('background-color', '#88dddd');
+    $("#" + reg).animate({backgroundColor: "#88dddd"}, 'slow');
 
     updateReg.lastUpdatedReg = reg;
 };
@@ -190,7 +197,7 @@ var updateReg = function updateReg(regs, args) {
 function createRegisters() {    
     var registerValues = registers.getAll();
     for (var reg in registerValues) {
-      $('#registersPane').append('<tr><td>' + reg + '</td><td id="' + reg + '">'
+      $('#registersPane').append('<tr><td><span class="label">' + reg + '</span></td><td id="' + reg + '">'
        + registerValues[reg] + '</td></tr>');
     }
 }
@@ -204,9 +211,9 @@ function updateMemValues(address, bytes, color) {
 
 // loops through memory to change address backgrounds (used for highlighting)
 function updateMemColor(address, bytes, color) {
-    console.log(address, bytes, color);
+    //console.log(address, bytes, color);
     for(var i = address - address%4; i < address + bytes+ address%4; i+=4) {
-      $('#mem' + i).css('background-color', color);
+      $('#mem' + i).animate({backgroundColor: color}, 'slow');
     }
 }
 
@@ -228,4 +235,29 @@ function createMemory() {
       $('#memoryPane').append('<tr><td>0x' + i.toString(16) + '</td><td id="mem' + i + '">'
        + memory.getContents(i) + '</td></tr>');
     }
+}
+
+
+function displayCodeErrors() {
+    var errors = code.getCodeErrors();
+     // TODO: put these messages into the textbox next to each like error line (like Eclipse)
+    /*for (var i in errors) {
+        alert("Line " + errors[i][0] + ": " + errors[i][1]);
+    }*/
+    
+    // just show in tooltip for now
+    var errorString = "";
+    for (var i in errors) {
+        if (i != 0) errorString += "<br />";
+        var lineNo = errors[i][0];
+        var errorMsg = errors[i][1];
+        errorString += "Line " + lineNo + ": " + errorMsg;  
+        //$("#error_bar").append('<span class="badge badge-important" id="error_msg' + lineNo + '">!</span>');
+        //$("#error_msg" + lineNo).tooltip({animation:true, trigger: 'hover', title: errorMsg});  
+    }
+    $("#error_alert").empty();
+    $("#error_alert").append('<div class="alert alert-block alert-error"><a class="close" data-dismiss="alert" href="#">x</a>'
+        + '<strong>Error!</strong> There are errors in your code. Please fix them before proceeding:<br /><p style="margin-left: 3em">' + errorString + "</p></div>"); 
+    $("#error_alert").show();
+    
 }

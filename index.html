@@ -11,14 +11,18 @@
   <link rel="stylesheet" type="text/css" href="jquery.jscrollpane.css" />
 	<link rel="stylesheet" type="text/css" href="jquery-linedtextarea.css" />
 	<link href="docs/assets/css/bootstrap.css" rel="stylesheet">
-  <link type="text/css" href="jquery-ui-1.8.20.custom/css/ui-lightness/jquery-ui-1.8.20.custom.css" rel="stylesheet" />
+	
+	<link type="text/css" href="jquery-ui-1.8.20.custom/css/ui-lightness/jquery-ui-1.8.20.custom.css" rel="stylesheet" />
 
+  <script src="assets/js/bootstrap-tooltip.js"></script>
   <script type="text/javascript" src="closure-library/closure/goog/base.js"></script>
   <script type="text/javascript" src="jquery.jscrollpane.min.js"></script>
   <script type="text/javascript" src="jquery-linedtextarea.js"></script>
   <script type="text/javascript" src="jquery.mousewheel.js"></script>
-<!--  <script type="text/javascript" src="jquery-ui-1.8.20.custom/js/jquery-1.7.2.min.js"></script>-->
   <script type="text/javascript" src="jquery-ui-1.8.20.custom/js/jquery-ui-1.8.20.custom.min.js"></script>
+  
+  
+  <script src="jquery-ui.min.js"></script>
 
   <script>goog.require('goog.math.Integer')</script>
 
@@ -56,7 +60,6 @@
       </a>
       <ul class='dropdown-menu' id='tutorialNav'>
         <li id='tutorial0' class='tutorial'><a href='#'>Tutorial Information</a></li>
-
       </ul>
     </div>
     </div>
@@ -78,8 +81,8 @@
       <br/>
       <button class='btn' id='answerButton'>Validate Answer</button>
     </div>
-    <button class='btn' id='prevPageButton'><</button>
-    <button class='btn' id='nextPageButton'>></button>
+    <button class='btn' id='prevPageButton'> < </button>
+    <button class='btn' id='nextPageButton'> > </button>
 
       
     </div>
@@ -87,6 +90,7 @@
 </div>
 
 <div class='center'>
+
   <div class='text panel'>
     <div class='button_bar'>
       <button class='topButtons run btn' id='runButton'>Run</button>
@@ -97,6 +101,9 @@
       <div id='runSpeedLabel'>run speed:<div id='runSpeed'></div></div>
       <div id='sliderWrapper'><div id='runSpeedSlider' ></div></div>
     </div>
+  
+    <div id="error_alert"> </div>
+    <div class="error_bar" id="error_bar" align="right"></div>  
     <textarea class='lined' id='mainText' ></textarea> 
   </div>
   <div class='help panel'>
