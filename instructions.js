@@ -18,6 +18,7 @@ instructionMap['sub'] = Sub;
 instructionMap['imul'] = Imul;
 instructionMap['sal'] = Sal;
 instructionMap['shr'] = Shr;
+instructionMap['sar'] = Sar;
 instructionMap['xor'] = Xor;
 instructionMap['and'] = And;
 instructionMap['or'] = Or;
@@ -27,16 +28,28 @@ instructionMap['dec'] = Dec;
 instructionMap['jmp'] = Jmp;
 instructionMap['neg'] = Neg;
 instructionMap['cmp'] = Cmp;
+instructionMap['test'] = Test;
 instructionMap['jne'] = Jne;
 instructionMap['je'] = Je;
+instructionMap['jns'] = Jns;
+instructionMap['js'] = Js;
+instructionMap['jb'] = Jb;
+instructionMap['ja'] = Ja;
+instructionMap['jge'] = Jge;
+instructionMap['jg'] = Jg;
+instructionMap['jle'] = Jle;
+instructionMap['jl'] = Jl;
+instructionMap['lea'] = Lea;
 
 MAX_INT = goog.math.Integer.fromInt(214783647);
 MIN_INT = goog.math.Integer.fromInt(-214783648);
 
-instructionArgumentMap = {'mov': 2, 'add': 2, 'inc': 1, 'sub': 2, 
-  'sal': 2, 'shr': 2, 'xor': 2, 'and': 2, 'or': 2, 'not':1, 'dec':1, 
-  'jmp':1, 'neg': 1, 'cmp': 2, 'jne':1, 'je':2};
-jmpInstructions = {'jmp':true, 'je':true, 'jne':true} //should we parse this like a jmp?
+instructionArgumentMap = {'mov': 2, 'lea': 2, 'add': 2, 'inc': 1, 'sub': 2, 
+  'sal': 2, 'sar': 2, 'shr': 2, 'xor': 2, 'and': 2, 'or': 2, 'not':1, 'dec':1, 
+  'jmp':1, 'neg': 1, 'cmp': 2, 'test':2, 'jne':1, 'je':2};
+jmpInstructions = {'jmp':true, 'je':true, 'jne':true, 'ja':true, 
+'jb':true,'jle':true, 'jl': true, 'jg':true, 'jge': true, 'js':true, 
+  'jns':true} //should we parse this like a jmp?
 
 function createLabel(label) {
   var toReturn = {};
@@ -66,6 +79,31 @@ function Mov(parameters) {
     this.valid = false;
 }
 
+//TODO: this won't work if src is just a register!?
+Lea.prototype.execute = function(memory, registers) {
+  var src = goog.math.Integer.fromInt(this.parameters[0].getLocation(memory, registers));
+  var dest = this.parameters[1].getLocation(registers);
+  setContents(dest, src);
+}
+
+function Lea(parameters) {
+  this.parameters = parameters;
+  this.valid = true;
+  if(!(this.parameters && this.parameters.length == 2))
+    this.valid = false;
+}
+
+
+Arithmetic.prototype.execute = function(memory, registers) { 
+  var src = this.parameters[0].getValue(memory, registers);
+  var dest = this.parameters[1].getValue(memory, registers);
+  var result = this.arithFn.call(dest, src);
+  
+  // TODO: check whether dest is register or memory
+  dest = this.parameters[1].getLocation(registers);
+  setContents(dest, result);
+}
+
 function Arithmetic(parameters, arithFn)
 {
   this.parameters = parameters;
@@ -83,6 +121,15 @@ Arithmetic.prototype.execute = function(memory, registers) {
   // TODO: check whether dest is register or memory
   dest = this.parameters[1].getLocation(registers);
   setContents(dest, result);
+}
+
+function Arithmetic(parameters, arithFn)
+{
+  this.parameters = parameters;
+  this.valid = true;
+  if(!(this.parameters && this.parameters.length == 2))
+    this.valid = false;
+  this.arithFn = arithFn;
 }
 
 Add.prototype = new Arithmetic();
@@ -122,10 +169,23 @@ function Sal(parameters) {
   OneIntOp.call(this, parameters, goog.math.Integer.prototype.shiftLeft);
 }
 
-Shr.prototype = new OneIntOp();
+Sar.prototype = new OneIntOp();
+
+function Sar(parameters) {
+  OneIntOp.call(this, parameters, goog.math.Integer.prototype.shiftRight);
+}
+
+Shr.prototype.execute = function (memory, registers) {
+  var srcVal = this.parameters[0].getValue(memory, registers);
+  var destVal = this.parameters[1].getValue(memory, registers);
+  var destLoc = this.parameters[1].getLocation(registers);
+  var resultInt = srcVal.toInt() >>> destVal.toInt();
+  setContents(destLoc, goog.math.Integer.fromInt(resultInt));
+}
 
 function Shr(parameters) {
-  OneIntOp.call(this, parameters, goog.math.Integer.prototype.shiftRight);
+  this.parameters = parameters;
+  if(this.parameters.length == 2) this.valid = true;
 }
 
 Xor.prototype = new Arithmetic();
@@ -197,24 +257,119 @@ function Jmp(labelParam) {
   this.valid = labelParam;
 }
 
-Jne.prototype.execute = function() {
-  if(!flags.getContents('ZF'))
-  code.setLabelLine(this.targetLabel);
+OneFlagJmp.prototype.execute = function() {
+  if(flags.getContents(this.flag)==this.flagValue)
+    code.setLabelLine(this.targetLabel);
 }
+
+function OneFlagJmp (labelParam) {
+  this.targetLabel = labelParam;
+  this.valid = labelParam;
+}
+
+Jne.prototype = new OneFlagJmp();
 
 function Jne(labelParam) {
-  this.targetLabel = labelParam;
-  this.valid = labelParam;
+  this.flag = 'ZF';
+  this.flagValue = false;
+  OneFlagJmp.call(this, labelParam);
 }
 
-Je.prototype.execute = function() {
-  if(flags.getContents('ZF'))
-  code.setLabelLine(this.targetLabel);
-}
+Jne.prototype = new OneFlagJmp();
 
 function Je(labelParam) {
+  this.flag = 'ZF';
+  this.flagValue = true;
+  OneFlagJmp.call(this, labelParam);
+}
+
+Js.prototype = new OneFlagJmp();
+
+function Js(labelParam) {
+  this.flag = 'SF';
+  this.flagValue = true;
+  OneFlagJmp.call(this, labelParam);
+}
+
+Jns.prototype = new OneFlagJmp();
+
+function Jns(labelParam) {
+  this.flag = 'SF';
+  this.flagValue = false;
+  OneFlagJmp.call(this, labelParam);
+}
+
+Jb.prototype = new OneFlagJmp();
+
+function Jb(labelParam) {
+  this.flag = 'CF';
+  this.flagValue = true;
+  OneFlagJmp.call(this, labelParam);
+}
+
+Ja.prototype.execute = function() {
+  if(!flags.getContents('CF') && !flags.getContents('ZF'))
+    code.setLabelLine(this.targetLabel);
+}
+
+function Ja(labelParam) {
   this.targetLabel = labelParam;
   this.valid = labelParam;
+}
+
+Jg.prototype.execute = function() {
+  if(!flags.getContents('ZF') && (flags.getContents('SF') == flags.getContents('OF')))
+    code.setLabelLine(this.targetLabel);
+}
+
+function Jg(labelParam) {
+  this.targetLabel = labelParam;
+  this.valid = labelParam;
+}
+
+Jge.prototype.execute = function() {
+  if(flags.getContents('SF') == flags.getContents('OF'))
+    code.setLabelLine(this.targetLabel);
+}
+
+function Jge(labelParam) {
+  this.targetLabel = labelParam;
+  this.valid = labelParam;
+}
+
+Jle.prototype.execute = function() {
+  if(flags.getContents('SF') != flags.getContents('OF'))
+    code.setLabelLine(this.targetLabel);
+}
+
+function Jle(labelParam) {
+  this.targetLabel = labelParam;
+  this.valid = labelParam;
+}
+
+Jl.prototype.execute = function() {
+  if(flags.getContents('SF') != flags.getContents('OF') || flags.getContents('ZF'))
+    code.setLabelLine(this.targetLabel);
+}
+
+function Jl(labelParam) {
+  this.targetLabel = labelParam;
+  this.valid = labelParam;
+}
+
+Test.prototype.execute = function() {
+  var src2 = this.parameters[0].getValue(memory, registers);
+  var src1 = this.parameters[1].getValue(memory, registers);
+  var result = src1.and(src2);
+  flags.setContents("SF", result.isNegative());
+  flags.setContents("ZF", result.equals(goog.math.Integer.fromInt(0)));
+  flags.setContents("OF", false);
+  flags.setContents("CF", false);
+}
+
+function Test(parameters) {
+  this.valid = parameters.length == 2;
+  this.parameters = parameters;
 }
 
 Cmp.prototype.execute = function() {
