@@ -4,21 +4,30 @@ Tutorials = function() {
   var currTutorialNum = null;
   var currPageNum = 0;
   
+
   var readTutorials = function() {
     var tutNum = 1;
     for (file in tutorialFilenames) {
       var tut = new Tutorial(file);
       allTutorials.push(tut);
       //here tutorials are 1-indexed...
-      var tutId = "tutorial" + tutNum;
-      var tutTitle = tutNum + ' - ' + tut.getName();
-      $('#tutorialNav').append('<li id="'+tutId+'" class="tutorial"><a href="#">'+ tutTitle + '</a></li>');
+      var newTutorialListing = createNewListing(tutNum, tut);
       tutNum++;
     }
   }
   
+  var createNewListing = function(tutNum, tutorial) {
+    var tutId = "tutorial" + tutNum;
+    var tutTitle = tutNum + ' - ' + tutorial.getName();
+    $('#tutorialNav').append('<li id="'+tutId+'" class="tutorial"><a href="#">'+ tutTitle + '</a></li>');
+    var t = this;
+    $('#'+tutId).onclick = function() {t.displayTutorial(tutNum)};
+
+  }
+
   readTutorials();
   
+  //tutorialIds are 0-indexed
   this.displayTutorial = function(tutorialId) {    
     if (tutorialId >= allTutorials.length || tutorialId === currTutorialNum) return;
     currPageNum = 0;
@@ -43,6 +52,7 @@ Tutorials = function() {
   
   this.displayPrevPage = function() {
     var currTutorial = allTutorials[currTutorialNum];
+    $('#injectCodeButton').show();
     if (currPageNum > 0) {
       currPageNum--;
       $('textarea#answerText').html("");
@@ -83,14 +93,14 @@ Tutorial = function(file) {
   
     tutorialName = "mov and addressing"
     var fakePage1 = new Page();
-    fakePage1.setSubtitle ("mov and addressing");
+    fakePage1.setSubtitle ("Mov and Addressing");
     fakePage1.addLine("<b>mov src, dest</b>")
     fakePage1.addLine("The 'mov' instruction is used to copy a source value to a register. Source values can be specified in a number of ways.");
     fakePage1.addLine("1) Immediate values: <br/>   Source values can be as simple as constant integer values preceded by a $.");
     fakePage1.addLine("<i>Click 'Step' to store 30 in the %eax register.</i>");
     fakePage1.addLine("2) Register values: <br/>  The source can be a register, and mov will copy that register's value into the destination register.");
 
-    fakePage1.setQuestion("What value will be in %eax after this code is executed?");
+    fakePage1.setQuestion("What value will %eax hold after this code is executed?");
     fakePage1.setAnswer("42");
     fakePage1.addInstruction("mov $30, %eax");
     fakePage1.addInstruction(""); // TODO: add breakpoint
@@ -103,21 +113,27 @@ Tutorial = function(file) {
 
     
     var fakePage3 = new Page();
-    fakePage3.setSubtitle ("myFakeTutorial");
-    fakePage3.addLine("The source can also be specified using a register to access a value in a register or in memory.");
-    fakePage3.setQuestion ("What value will be in %eax?");
-    fakePage3.setAnswer ("4");
+    fakePage3.setSubtitle ("Addressing Modes");
+    fakePage3.addLine("The source can also be specified using a register to index into memory.");
+    fakePage3.addLine("1) Register R contains a memory address: <br/> <b>mov (R), %eax</b> will copy the value at address in r into %eax.");
+    fakePage3.addLine("2) Displacement from an address: <br/>  <b>mov D(R), %ecx</b> will add D bytes to the address in r before indexing into memory for a source value.");
+    fakePage3.addLine("3) D(Rb,Ri,S): <br/>In this mode, the source value is at the address Reg[Rb]+S*Reg[Ri]+D.");
 
     fakePage3.addInstruction("mov $1, %eax");
+    fakePage3.addInstruction("mov $5, %edx");
     fakePage3.addInstruction("mov (%eax), %ebx");
-    fakePage3.addInstruction("add %eax, %ebx");
-    fakePage3.addInstruction("sal %ebx, %eax");
+    fakePage3.addInstruction("mov 4(%ebx), %ecx");
+    fakePage3.addInstruction("mov 4(%ecx, %eax, 2), %edx");
+    fakePage3.setQuestion ("What value will be in %edx?");
+    fakePage3.setAnswer ("0");
 
 
     tutorialPages.push(fakePage1); 
 //    tutorialPages.push(fakePage2);
     tutorialPages.push(fakePage3);
         
+    
+
   }
   
   this.getName = function() {
@@ -224,8 +240,10 @@ Tutorial.prototype.displayTutorialPage = function(page, pagenum) {
   
   if (page.getQuestion() == null || page.getQuestion() == "") {
     $('#questionAnswer').hide();
+    $('#answerButton').hide();
   } else {
     $('#questionAnswer').show();
+    $('#answerButton').show();
     $('#question').html(page.getQuestion());
     $('#answer').html("");      
   }
@@ -252,6 +270,7 @@ Tutorial.prototype.lastPage.setSubtitle("Congratulations");
 Tutorial.prototype.lastPage.addLine("You've completed this activity!")
 Tutorial.prototype.displayLastPage = function() {
   this.displayTutorialPage(this.lastPage, null);
+  $('#injectCodeButton').hide();
 }
 
 

@@ -89,6 +89,11 @@ function Parameter(type) {
         default: alert("Tried to get value for param with no type");
     }
   }
+
+  this.getType = function() {
+    return this.type;
+  }
+
 }
 
 
