@@ -73,5 +73,5 @@
 }
 
 .linedwrap .codelines .breakpoint {
-	border: 1px solid green;
+	border-left: 3px solid green;
 }

@@ -40,20 +40,22 @@ instructionMap['jg'] = Jg;
 instructionMap['jle'] = Jle;
 instructionMap['jl'] = Jl;
 instructionMap['lea'] = Lea;
+instructionMap['push'] = Push;
+instructionMap['pop'] = Pop;
 
 MAX_INT = goog.math.Integer.fromInt(214783647);
 MIN_INT = goog.math.Integer.fromInt(-214783648);
 
 instructionArgumentMap = {'mov': 2, 'lea': 2, 'add': 2, 'inc': 1, 'sub': 2, 
   'sal': 2, 'sar': 2, 'shr': 2, 'xor': 2, 'and': 2, 'or': 2, 'not':1, 'dec':1, 
-  'jmp':1, 'neg': 1, 'cmp': 2, 'test':2, 'jne':1, 'je':2};
-jmpInstructions = {'jmp':true, 'je':true, 'jne':true, 'ja':true, 
+  'jmp':1, 'neg': 1, 'cmp': 2, 'test':2, 'jne':1, 'je':2, 'push': 1, 'pop': 1};
+jmpInstructions = {'jmp':true, 'je': true, 'jne':true, 'ja':true, 
 'jb':true,'jle':true, 'jl': true, 'jg':true, 'jge': true, 'js':true, 
   'jns':true} //should we parse this like a jmp?
 
 function createLabel(label) {
   var toReturn = {};
-  toReturn.execute = function () {};
+  toReturn.pageYcute = function () {};
   toReturn.label = label;
   toReturn.valid = true;
   return toReturn;
@@ -206,7 +208,7 @@ function Or(parameters) {
   OneIntOp.call(this, parameters, goog.math.Integer.prototype.or);
 }
 
-Not.prototype.execute = function() {
+Not.prototype.execute = function(memory, registers) {
   var srcVal = this.parameters[0].getValue(memory, registers);
   var destLoc = this.parameters[0].getLocation(registers);
   setContents(destLoc, srcVal.not());
@@ -248,7 +250,7 @@ function Neg(parameters) {
   Imul.call(this, parameters);
 }
 
-Jmp.prototype.execute = function() {
+Jmp.prototype.execute = function(memory, registers) {
   code.setLabelLine(this.targetLabel);
 }
 
@@ -257,7 +259,7 @@ function Jmp(labelParam) {
   this.valid = labelParam;
 }
 
-OneFlagJmp.prototype.execute = function() {
+OneFlagJmp.prototype.execute = function(memory, registers) {
   if(flags.getContents(this.flag)==this.flagValue)
     code.setLabelLine(this.targetLabel);
 }
@@ -275,7 +277,7 @@ function Jne(labelParam) {
   OneFlagJmp.call(this, labelParam);
 }
 
-Jne.prototype = new OneFlagJmp();
+Je.prototype = new OneFlagJmp();
 
 function Je(labelParam) {
   this.flag = 'ZF';
@@ -307,7 +309,7 @@ function Jb(labelParam) {
   OneFlagJmp.call(this, labelParam);
 }
 
-Ja.prototype.execute = function() {
+Ja.prototype.execute = function(memory, registers) {
   if(!flags.getContents('CF') && !flags.getContents('ZF'))
     code.setLabelLine(this.targetLabel);
 }
@@ -317,7 +319,7 @@ function Ja(labelParam) {
   this.valid = labelParam;
 }
 
-Jg.prototype.execute = function() {
+Jg.prototype.execute = function(memory, registers) {
   if(!flags.getContents('ZF') && (flags.getContents('SF') == flags.getContents('OF')))
     code.setLabelLine(this.targetLabel);
 }
@@ -327,7 +329,7 @@ function Jg(labelParam) {
   this.valid = labelParam;
 }
 
-Jge.prototype.execute = function() {
+Jge.prototype.execute = function(memory, registers) {
   if(flags.getContents('SF') == flags.getContents('OF'))
     code.setLabelLine(this.targetLabel);
 }
@@ -337,7 +339,7 @@ function Jge(labelParam) {
   this.valid = labelParam;
 }
 
-Jle.prototype.execute = function() {
+Jle.prototype.execute = function(memory, registers) {
   if(flags.getContents('SF') != flags.getContents('OF'))
     code.setLabelLine(this.targetLabel);
 }
@@ -347,7 +349,7 @@ function Jle(labelParam) {
   this.valid = labelParam;
 }
 
-Jl.prototype.execute = function() {
+Jl.prototype.execute = function(memory, registers) {
   if(flags.getContents('SF') != flags.getContents('OF') || flags.getContents('ZF'))
     code.setLabelLine(this.targetLabel);
 }
@@ -357,7 +359,7 @@ function Jl(labelParam) {
   this.valid = labelParam;
 }
 
-Test.prototype.execute = function() {
+Test.prototype.execute = function(memory, registers) {
   var src2 = this.parameters[0].getValue(memory, registers);
   var src1 = this.parameters[1].getValue(memory, registers);
   var result = src1.and(src2);
@@ -372,7 +374,7 @@ function Test(parameters) {
   this.parameters = parameters;
 }
 
-Cmp.prototype.execute = function() {
+Cmp.prototype.execute = function(memory, registers) {
   var src2 = this.parameters[0].getValue(memory, registers);
   var src1 = this.parameters[1].getValue(memory, registers);
   var result = src1.subtract(src2);
@@ -386,4 +388,25 @@ Cmp.prototype.execute = function() {
 function Cmp(parameters) {
   this.valid = parameters.length == 2;
   this.parameters = parameters;
+}
+
+Push.prototype.execute = function(memory, registers) {
+  new Sub(parseParameters("$4, %esp", 2)).execute(memory, registers);
+  memory.setContents(registers.getContents("esp").toInt(), this.parameters[0].getValue(memory, registers));
+}
+
+function Push(parameters) {
+  this.parameters = parameters;
+  this.valid = parameters.length == 1;
+}
+
+Pop.prototype.execute = function(memory, registers) {
+  var result = memory.getContents(registers.getContents("esp").toInt());
+  setContents(this.parameters[0].getLocation(registers), result);
+  new Add(parseParameters("$4, %esp", 2)).execute(memory, registers);
+}
+
+function Pop(parameters) {
+  this.parameters = parameters;
+  this.valid = parameters.length == 1;
 }
