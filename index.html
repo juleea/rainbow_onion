@@ -50,7 +50,7 @@
 <div class='maincontent'>
 
 <div class='left'>
-  <div id='tutorials'>
+  <div id='tutorials' class='well'>
     <div class='sectionHead'>
     <span class='tutorialhead'>Tutorials</span>
     <div class='dropdown btn rightAlign'>
@@ -70,7 +70,6 @@
       
       <div id='tutorialPageContentWrapper'>
         <div id='tutorialPageContent'></div>
-        <button class='btn' id='injectCodeButton'>Reset Code</button>
       </div>
     </div>
     <div id='questionAnswer'>
@@ -82,11 +81,9 @@
     </div>
     <div class='button_bar'>
       <button class='btn' id='answerButton'>Validate Answer</button>
-
+      <button class='btn' id='injectCodeButton'>Reset Code</button>
       <button class='btn navbtn' id='nextPageButton'> > </button>
       <button class='btn navbtn' id='prevPageButton'> < </button>
-    </div>
-      
     </div>
   </div>
 </div>
@@ -95,33 +92,24 @@
 
   <div class='textPanel'>
     <div class='button_bar'>
-      <button class='topButtons run btn' id='runButton'>Run</button>
-      <!-- <button class='topButtons btn' id='parseButton'>Parse</button> -->
-      <button class='topButtons btn' id='stepButton'>Step</button>
-      <button class='topButtons btn' id='contButton'>Continue</button>
-      <button class='topButtons btn' id='stopButton'>Stop</button>
-      <div id='runSpeedLabel'>run speed:<div id='runSpeed'></div></div>
-      <div id='sliderWrapper'><div id='runSpeedSlider' ></div></div>
+      <!--<button class='topButtons run btn' id='runButton'>Run</button>-->
+      <button class='topButtons btn' id='contButton'><img class="navimg" src="img/Crystal_Clear_action_forward.png" alt="play" /></button>
+      <button class='topButtons btn' id='stepButton'><img class="navimg" src="img/Crystal_Clear_action_build.png" alt="step" /></button>
+      <button class='topButtons btn' id='stopButton'><img class="navimg" src="img/Crystal_Clear_action_stop.png" alt="stop" /></button>
+      <div id='sliderWrapper' class="topButtons"><div id='runSpeedSlider' ></div></div>
     </div>
-  
-    <div id="error_alert"> </div>
-    <div class="error_bar" id="error_bar" align="right"></div>  
     <textarea class='lined' id='mainText' ></textarea> 
+    <div id="error_alert"> </div>
   </div>
   <div class='help panel'>
-    <div class='sectionHead'></div>
-    <div id='helpText'></div>
   </div>
 </div>
 
-<div class='right'>
+<div class='rightCenter'>
   <div class='well' id='registers'>  
     <span class='sectionHead'>Registers</span>
     <br />
-        <table class="table table-condensed" id="registersPane"></table>
-  </div>
-  <div class='condCodes panel' id='condCodes'> 
-    <span class='sectionHead'>Condition Codes</span><br />
+    <table class="table table-condensed" id="registersPane"></table>
     <table class='condTable'>
       <tr>
         <td class="CF condBox">CF: <span class="CF" id="CF"></span> </td>
@@ -133,11 +121,12 @@
       </tr>
     </table>    
   </div>
-
-  <div class='well'>
+</div>
+<div class='rightSide'>
+  <div id="memoryBox" class='well'>
     <span class='sectionHead'>Memory</span>
-    <div class="scroll-pane">
-      <table id="memoryPane"></table>
+    <div id="memoryScroll">
+      <table id="memoryPane" class="table table-condensed"></table>
     </div>
   </div>
 </div>

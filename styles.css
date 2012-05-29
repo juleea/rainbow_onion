@@ -6,7 +6,7 @@ body {
   float: left;
   position: relative; 
   width: 30%;
-  padding: 25px 25px 25px 40px;
+  padding: 25px 25px 25px 25px;
 }
 
 .sectionHead {
@@ -27,28 +27,37 @@ body {
 .center {
   position: relative; 
   float: left;
-  width: 40%;
+  width: 25%;
   padding: 25px 25px 25px 25px;
 }
 
 .textPanel {
   width:100%;
-  height:400px;
 }
 
 #mainText{
   width: 100%;
-  height: 300px;
+  height: 520px;
 }
 
-.right {
+.rightCenter {
   float: left;
-  padding: 25px 25px 25px 40px;
+  width: 10%;
+  padding: 25px 25px 25px 25px;
+}
+
+.rightSide {
+  float: left;
+  width: auto;
+  padding: 25px 0px 25px 25px;
 }
 
 #tutorialBox {
   position:relative;
-  height: 350px;
+}
+
+#tutorials {
+  height: 550px;
 }
 
 .tutorialIndent {
@@ -79,13 +88,12 @@ body {
 #answerText {
   width: 100%;
   resize:none;
-  height: 50px;
+  height: 20px;
 }
 
 .qa {
-  font-size: 14px;
+  font-size: 16px;
   font-weight: bold;
-  font-style:italic;
 }
 
 .tutorial {
@@ -96,11 +104,6 @@ body {
   width: 100%;
   height: 100px;
   border: 1px solid #CCC;
-}
-
-.panel .help {
-  padding-left: 0px;
-  padding-right: 0px;
 }
 
 .panel {
@@ -114,16 +117,23 @@ body {
   overflow: auto;
 }
 
+#memoryPane {
+  height: 550px;
+}
+
 #memoryPane td
 {
-  border: 2px solid gray;
   width: 30px;
 }
 
-button#injectCodeButton {
-  position: absolute;
-  right: 0;
-  bottom: 0;
+#memoryBox
+{
+  width: 100%;
+  height: 550px;
+  overflow: auto;
+}
+
+#memoryScroll {
 }
 
 .onFlag {
@@ -176,9 +186,17 @@ td {
   width: 100px; 
 }
 
-button_bar {
-  display: inline;
+.button_bar {
+  margin-bottom: 20px;
+}
 
+.topButtons {
+  padding: 10px 30px 10px 30px;
+}
+
+.navimg {
+  height: 20px;
+  width: 20px;
 }
 
 .navbtn {
@@ -188,4 +206,13 @@ button_bar {
 
 button {
   display: inline;
+}
+
+#questionAnswer {
+  padding-top: 15px;
+  padding-bottom: 15px;
+}
+
+#error_alert {
+  padding: 15px;
 }

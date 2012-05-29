@@ -1,7 +1,9 @@
-//jquery for onload
+MEM_DISPLAY = 400;
+
 $(window).load(function() {
- $('.scroll-pane').css('height', '200px').show().jScrollPane();
+  $('.scroll-pane').show().jScrollPane();
 });
+//jquery for onload
 
 $(function() {
   memory = new Memory();
@@ -101,8 +103,7 @@ function updateFlags() {
 }
 
 function createMemory() {    
-    var memoryValues = memory.getAll4Bytes();
-    for (var i = 0; i < memoryValues.length; i+=4) {
+    for (var i = 0; i < MEM_DISPLAY; i+=4) {
       $('#memoryPane').append('<tr><td>0x' + i.toString(16) + '</td><td id="mem' + i + '">'
        + memory.getContents(i) + '</td></tr>');
     }
@@ -201,13 +202,20 @@ var updateReg = function updateReg(regs, args) {
 function createRegisters() {    
     var registerValues = registers.getAll();
     for (var reg in registerValues) {
-      $('#registersPane').append('<tr><td><span class="label">' + reg + '</span></td><td id="' + reg + '">'
+      $('#registersPane').append('<tr><td><span class="regRow">' + reg + '</span></td><td id="' + reg + '">'
        + registerValues[reg] + '</td></tr>');
     }
 }
 
 // loops through to update address values and updates
 function updateMemValues(address, bytes, color) {
+    var newMem = address + bytes+ address%4 + 40;
+    for (var i = MEM_DISPLAY; i < newMem; i+=4) {
+      $('#memoryPane').append('<tr><td>0x' + i.toString(16) + '</td><td id="mem' + i + '">'
+       + memory.getContents(i) + '</td></tr>');
+      console.log("adding " + i);
+    }
+    MEM_DISPLAY = newMem;
     for(var i = address - address%4; i < address + bytes+ address%4; i+=4) {
       $('#mem' + i).text(memory.getContents(i));
     }
@@ -232,15 +240,6 @@ var updateMemory = function updateMemory(memory, args) {
 
     updateMemory.lastUpdatedMem = args;
 };
-
-function createMemory() {    
-    var memoryValues = memory.getAll4Bytes();
-    for (var i = 0; i < memoryValues.length; i+=4) {
-      $('#memoryPane').append('<tr><td>0x' + i.toString(16) + '</td><td id="mem' + i + '">'
-       + memory.getContents(i) + '</td></tr>');
-    }
-}
-
 
 function displayCodeErrors() {
     var errors = code.getCodeErrors();
