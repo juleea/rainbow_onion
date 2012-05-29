@@ -52,22 +52,21 @@
 <div class='left'>
   <div id='tutorials' class='well'>
     <div class='sectionHead'>
-    <span class='tutorialhead'>Tutorials</span>
-    <div class='dropdown btn rightAlign'>
-      <a class="dropdown-toggle" data-toggle="dropdown" href="#menu1">
-        Select a tutorial
-        <b class='caret'></b>
-      </a>
-      <ul class='dropdown-menu' id='tutorialNav'>
-        <li id='tutorial0' class='tutorial'><a href='#'>Tutorial Information</a></li>
-      </ul>
-    </div>
+      <span class='tutorialhead'>Tutorials</span>
+      <div class='dropdown btn rightAlign'>
+        <a class="dropdown-toggle" data-toggle="dropdown" href="#menu1">
+          Select a tutorial
+          <b class='caret'></b>
+        </a>
+        <ul class='dropdown-menu' id='tutorialNav'>
+          <li id='tutorial0' class='tutorial'><a href='#'>Tutorial Information</a></li>
+        </ul>
+      </div>
     </div>
     <div id='tutorialBox'>
       <div id='tutorialTitle'></div>
       <span id='tutorialPageTitle' class='sectionSubtitle'></span>
       <span id='pageNumber' class='sectionSubtitle rightAlign'></span>      
-      
       <div id='tutorialPageContentWrapper'>
         <div id='tutorialPageContent'></div>
       </div>
@@ -93,9 +92,9 @@
   <div class='textPanel'>
     <div class='button_bar'>
       <!--<button class='topButtons run btn' id='runButton'>Run</button>-->
-      <button class='topButtons btn' id='contButton'><img class="navimg" src="img/Crystal_Clear_action_forward.png" alt="play" /></button>
-      <button class='topButtons btn' id='stepButton'><img class="navimg" src="img/Crystal_Clear_action_build.png" alt="step" /></button>
-      <button class='topButtons btn' id='stopButton'><img class="navimg" src="img/Crystal_Clear_action_stop.png" alt="stop" /></button>
+      <button class='topButtons btn' id='contButton'><img class="navimg" src="img/Crystal_Clear_action_forward.png" alt="play" />&nbsp;Run</button>
+      <button class='topButtons btn' id='stepButton'><img class="navimg" src="img/Crystal_Clear_action_build.png" alt="step" /> &nbsp;Step</button>
+      <button class='topButtons btn' id='stopButton'><img class="navimg" src="img/Crystal_Clear_action_stop.png" alt="stop" />&nbsp;&nbsp;Stop</button>
       <div id='sliderWrapper' class="topButtons"><div id='runSpeedSlider' ></div></div>
     </div>
     <textarea class='lined' id='mainText' ></textarea> 
@@ -107,8 +106,7 @@
 
 <div class='rightCenter'>
   <div class='well' id='registers'>  
-    <span class='sectionHead'>Registers</span>
-    <br />
+    <div class='sectionHead'>Registers</div>
     <table class="table table-condensed" id="registersPane"></table>
     <table class='condTable'>
       <tr>
@@ -124,7 +122,7 @@
 </div>
 <div class='rightSide'>
   <div id="memoryBox" class='well'>
-    <span class='sectionHead'>Memory</span>
+    <div class='sectionHead'>Memory</div>
     <div id="memoryScroll">
       <table id="memoryPane" class="table table-condensed"></table>
     </div>

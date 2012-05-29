@@ -1,4 +1,4 @@
-MEM_DISPLAY = 400;
+MEM_DISPLAY = 100;
 
 $(window).load(function() {
   $('.scroll-pane').show().jScrollPane();
