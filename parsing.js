@@ -210,7 +210,7 @@ function parseParameters(paramString, numExpectedArgs) {
         if(numExpectedArgs > 1 && paramString.indexOf(',') == -1) {
            parseLine.error = "Missing comma between arguments."; 
         } else {
-        parseLine.error = "Instruction requires " + numExpectedArgs + " arguments.";
+           parseLine.error = "Instruction requires " + numExpectedArgs + " arguments.";
         }
     }
     

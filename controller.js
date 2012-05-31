@@ -56,7 +56,9 @@ $(function() {
 
   //$("#error_msg").tooltip({animation:true, trigger: 'hover', title: "our error msgs here"});
   $("#error_alert").hide();
-  setupHelpBox();
+  var pxToInt = function(pxStr) {return Number(pxStr.substr(0, pxStr.length - 2))};
+  $("#helpBox").css("height", $("#memoryBox").height() - $("#registers").height() -57);
+  createHelpBox("searchBar", "helpTarget", "mov");
 
 });
 
@@ -65,20 +67,6 @@ function updateRunSpeed(event, ui) {
   var maxSpeed = $('#runSpeedSlider').slider('option', 'max');
   if (dispSpeed === maxSpeed) dispSpeed = String.fromCharCode(8734);
   $('#runSpeed').text(dispSpeed);
-}
-
-function setupHelpBox() {
-  //This is a crap hack.  Hopefully we can figure out a better way to do sizing in general
-  var pxToInt = function(pxStr) {return Number(pxStr.substr(0, pxStr.length - 2))};
-  $("#helpBox").css("height", $("#memoryBox").height() - $("#registers").height() -57);
-  $('#searchBar').keyup(function(e) {
-    if(e.keyCode == 13){
-      var instr = $('#searchBar').val().toLowerCase();
-      if(instr in instructionMap) {
-        $('#helpTarget').html("<b>" + instr + "</b><br />" + instructionMap[instr].form + "<br />" + instructionMap[instr].help);
-      }
-    }
-  });
 }
 
 function bpClick(event) {
