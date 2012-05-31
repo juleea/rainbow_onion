@@ -45,7 +45,7 @@ $(function() {
   updateDisplay();
 
   $('button#runButton').click(runButton);
-  $('button#answerButton').click(function(){tutorials.displayAnswer()});
+  $('button#answerButton').click(function(){tutorials.displayAnswer($("#answerText").val())});
   $('button#stepButton').click(stepButton);
   $('button#contButton').click(contButton);
   $('button#parseButton').click(parseButton);

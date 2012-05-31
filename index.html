@@ -37,6 +37,7 @@
   <script type="text/javascript" src="controller.js"></script>
   <script type="text/javascript" src="registers.js"></script>
 	<script type="text/javascript" src="code.js"></script>
+  <script type="text/javascript" src="tutorialCreator.js"></script>
 	<script type="text/javascript" src="tutorials.js"></script>
   <script type="text/javascript" src="flags.js"></script>
 	
@@ -76,14 +77,13 @@
     <div id='questionAnswer'>
       <div id='question' class='qa'></div>
       <textarea id='answerText'></textarea>
-      <span id='answerLabel' class='qa'>Answer: </span>
       <span id='answer'></span>
       <br/>
     </div>
     <div class='button_bar'>
       <button class='btn' id='answerButton'>Validate Answer</button>
-      <button class='btn' id='injectCodeButton'>Reset Code</button>
-      <button class='btn navbtn' id='nextPageButton'> > </button>
+      <!-- <button class='btn' id='injectCodeButton'>Reset Code</button> -->
+      <button class='btn navbtn' id='nextPageButton' disabled="disabled"> > </button>
       <button class='btn navbtn' id='prevPageButton'> < </button>
     </div>
   </div>
@@ -95,9 +95,10 @@
     <div class='button_bar'>
       <!--<button class='topButtons run btn' id='runButton'>Run</button>-->
       <button class='topButtons btn' id='contButton'><img class="navimg" src="img/Crystal_Clear_action_forward.png" alt="play" />&nbsp;Run</button>
+      <button class='topButtons btn' id='runButton'><img class="navimg" src="img/Crystal_Clear_action_reload.png" alt="restart" />&nbsp;Restart</button>
       <button class='topButtons btn' id='stepButton'><img class="navimg" src="img/Crystal_Clear_action_build.png" alt="step" /> &nbsp;Step</button>
       <button class='topButtons btn' id='stopButton'><img class="navimg" src="img/Crystal_Clear_action_stop.png" alt="stop" />&nbsp;&nbsp;Stop</button>
-      <div id='sliderWrapper' class="topButtons"><div id='runSpeedSlider' ></div></div>
+      <div id='sliderWrapper' class="topButtons"><div>speed</div><div id='runSpeedSlider' ></div></div>
     </div>
     <textarea class='lined' id='mainText' ></textarea> 
     <div id="error_alert"> </div>
