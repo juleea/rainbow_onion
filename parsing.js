@@ -207,7 +207,11 @@ function parseParameters(paramString, numExpectedArgs) {
             params[1] = matchedParam[0];
         }
     } else {
+        if(numExpectedArgs > 1 && paramString.indexOf(',') == -1) {
+           parseLine.error = "Missing comma between arguments."; 
+        } else {
         parseLine.error = "Instruction requires " + numExpectedArgs + " arguments.";
+        }
     }
     
     return params;
