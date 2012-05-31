@@ -46,6 +46,7 @@ $(function() {
 
   $('button#runButton').click(runButton);
   $('button#answerButton').click(function(){tutorials.displayAnswer($("#answerText").val())});
+  $('#answerText').keyup(function (e) { if(e.keyCode == 13) tutorials.displayAnswer($("#answerText").val());});
   $('button#stepButton').click(stepButton);
   $('button#contButton').click(contButton);
   $('button#parseButton').click(parseButton);

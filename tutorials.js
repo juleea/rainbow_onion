@@ -42,7 +42,7 @@ Tutorials = function() {
     code.stop();
     if (currPageNum < currTutorial.numPages() - 1) {
       currPageNum++;
-      $('textarea#answerText').val("");
+      $('#answerText').val("");
       currTutorial.displayTutorialPageByNumber(currPageNum);
     } else if (currPageNum === currTutorial.numPages() - 1)  {
       currPageNum++;
@@ -58,7 +58,7 @@ Tutorials = function() {
     $('#injectCodeButton').show();
     if (currPageNum > 0) {
       currPageNum--;
-      $('textarea#answerText').html("");
+      $('#answerText').html("");
       currTutorial.displayTutorialPageByNumber(currPageNum);      
     } else {
       alert('error in page numbering!');

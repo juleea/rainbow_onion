@@ -76,12 +76,12 @@
     </div>
     <div id='questionAnswer'>
       <div id='question' class='qa'></div>
-      <textarea id='answerText'></textarea>
+      <input id='answerText'></input>
       <span id='answer'></span>
       <br/>
     </div>
     <div class='button_bar'>
-      <button class='btn' id='answerButton'>Validate Answer</button>
+      <button class='btn' id='answerButton'>Check Answer</button>
       <!-- <button class='btn' id='injectCodeButton'>Reset Code</button> -->
       <button class='btn navbtn' id='nextPageButton' disabled="disabled"> > </button>
       <button class='btn navbtn' id='prevPageButton'> < </button>
@@ -93,12 +93,11 @@
 
   <div class='textPanel'>
     <div class='button_bar'>
-      <!--<button class='topButtons run btn' id='runButton'>Run</button>-->
       <button class='topButtons btn' id='contButton'><img class="navimg" src="img/Crystal_Clear_action_forward.png" alt="play" />&nbsp;Run</button>
-      <button class='topButtons btn' id='runButton'><img class="navimg" src="img/Crystal_Clear_action_reload.png" alt="restart" />&nbsp;Restart</button>
+      <button class='topButtons btn' id='stopButton'><img class="navimg" src="img/Crystal_Clear_action_reload.png" alt="reset" />&nbsp;Reset</button>
       <button class='topButtons btn' id='stepButton'><img class="navimg" src="img/Crystal_Clear_action_build.png" alt="step" /> &nbsp;Step</button>
-      <button class='topButtons btn' id='stopButton'><img class="navimg" src="img/Crystal_Clear_action_stop.png" alt="stop" />&nbsp;&nbsp;Stop</button>
-      <div id='sliderWrapper' class="topButtons"><div>speed</div><div id='runSpeedSlider' ></div></div>
+      <!--<button class='topButtons btn' id='stopButton'><img class="navimg" src="img/Crystal_Clear_action_stop.png" alt="stop" />&nbsp;&nbsp;Stop</button>< -->
+      <div id='sliderWrapper' class="topButtons"><div>Speed</div><div id='runSpeedSlider' ></div></div>
     </div>
     <textarea class='lined' id='mainText' ></textarea> 
     <div id="error_alert"> </div>
@@ -109,14 +108,15 @@
   <div class='well' id='registers'>  
     <div class='sectionHead'>Registers</div>
     <table class="table table-condensed" id="registersPane"></table>
+    <div class='subtitle'>Condition Flags</div>
     <table class='condTable'>
       <tr>
-        <td class="CF condBox">CF: <span class="CF" id="CF"></span> </td>
-        <td class="ZF condBox">ZF: <span class="ZF" id="ZF"></span></td>
+        <td class="CF condBox"><abbr title="Carry flag">CF</abbr>: <span class="CF" id="CF"></span> </td>
+        <td class="ZF condBox"><abbr title="Zero flag">ZF</abbr>: <span class="ZF" id="ZF"></span></td>
       </tr>
       <tr>
-        <td class="SF condBox">SF: <span class="SF" id="SF"></span></td>
-        <td class="OF condBox">OF: <span class="OF" id="OF"></span></td>
+        <td class="SF condBox"><abbr title="Sign flag">SF</abbr>: <span class="SF" id="SF"></span></td>
+        <td class="OF condBox"><abbr title="Overflow flag">OF</abbr>: <span class="OF" id="OF"></span></td>
       </tr>
     </table>
   </div>

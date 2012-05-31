@@ -74,7 +74,7 @@ whatIsAssembly = function(tutorialName) {
     var fakePage3 = new Page();
     fakePage3.setSubtitle ("Moving Between Registers");
     fakePage3.addLine("You can also move things from one register to another.");
-    fakePage3.addLine("Check out the code on the right. Check out the code on the right.");
+    fakePage3.addLine("Check out the code on the right.");
     fakePage3.addInstruction("mov $15, %eax");
     fakePage3.addInstruction("mov %eax, %ebx");
     fakePage3.setQuestion ("What value is in %ebx after you run the code?");

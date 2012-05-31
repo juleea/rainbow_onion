@@ -9,6 +9,8 @@ function createHelpBox(inputId, outputId, initialValue) {
       var instr = inputElem.val().toLowerCase();
       if(instr in instructionMap) {
         outputElem.html("<b>" + instr + "</b><br />" + instructionMap[instr].form + "<br />" + instructionMap[instr].help);
+      } else {
+        outputElem.html("Instruction not found")
       }
     }
   }

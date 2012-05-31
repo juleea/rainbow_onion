@@ -219,3 +219,7 @@ button {
 #error_alert {
   padding: 15px;
 }
+
+#searchBar {
+  width:90%;
+}
