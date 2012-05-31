@@ -1,14 +1,9 @@
 MEM_DISPLAY = 100;
-
-$(window).load(function() {
-  $('.scroll-pane').show().jScrollPane();
-});
 //jquery for onload
 
 $(function() {
   memory = new Memory();
   registers = new Registers();
-  
   $("#runSpeedSlider").slider({
     min: 1,
     max: 10,
@@ -20,8 +15,6 @@ $(function() {
 
   $("#runSpeed").text($("#runSpeedSlider").slider('value'));
   
-
-
   // register observers
   registers.contentsUpdated.attach(updateReg);
   memory.contentsUpdated.attach(updateMemory);
@@ -63,6 +56,8 @@ $(function() {
 
   //$("#error_msg").tooltip({animation:true, trigger: 'hover', title: "our error msgs here"});
   $("#error_alert").hide();
+  setupHelpBox();
+
 });
 
 function updateRunSpeed(event, ui) {
@@ -70,6 +65,20 @@ function updateRunSpeed(event, ui) {
   var maxSpeed = $('#runSpeedSlider').slider('option', 'max');
   if (dispSpeed === maxSpeed) dispSpeed = String.fromCharCode(8734);
   $('#runSpeed').text(dispSpeed);
+}
+
+function setupHelpBox() {
+  //This is a crap hack.  Hopefully we can figure out a better way to do sizing in general
+  var pxToInt = function(pxStr) {return Number(pxStr.substr(0, pxStr.length - 2))};
+  $("#helpBox").css("height", $("#memoryBox").height() - $("#registers").height() -57);
+  $('#searchBar').keyup(function(e) {
+    if(e.keyCode == 13){
+      var instr = $('#searchBar').val().toLowerCase();
+      if(instr in instructionMap) {
+        $('#helpTarget').html("<b>" + instr + "</b><br />" + instructionMap[instr].form + "<br />" + instructionMap[instr].help);
+      }
+    }
+  });
 }
 
 function bpClick(event) {

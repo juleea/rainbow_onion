@@ -30,6 +30,7 @@
 	<script type="text/javascript" src="memory.js"></script>
 	<script type="text/javascript" src="douglas.js"></script>
 	<script type="text/javascript" src="instructions.js"></script>
+  <script type="text/javascript" src="instrData.js"></script>
 	<script type="text/javascript" src="registers.js"></script> 
 	<script type="text/javascript" src="parsing.js"></script>
   <script type="text/javascript" src="controller.js"></script>
@@ -100,8 +101,6 @@
     <textarea class='lined' id='mainText' ></textarea> 
     <div id="error_alert"> </div>
   </div>
-  <div class='help panel'>
-  </div>
 </div>
 
 <div class='rightCenter'>
@@ -117,9 +116,15 @@
         <td class="SF condBox">SF: <span class="SF" id="SF"></span></td>
         <td class="OF condBox">OF: <span class="OF" id="OF"></span></td>
       </tr>
-    </table>    
+    </table>
+  </div>
+  <div class="well" id="helpBox">
+    <p>Search:</p>
+    <p><input type="text" id="searchBar" class= "help" /></p>
+    <p class="help" id="helpTarget"></p>
   </div>
 </div>
+
 <div class='rightSide'>
   <div id="memoryBox" class='well'>
     <div class='sectionHead'>Memory</div>
