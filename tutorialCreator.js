@@ -42,6 +42,8 @@ movAndAddressing = function(tutorialName) {
     tutorialPages.push(fakePage1); 
 //    tutorialPages.push(fakePage2);
     tutorialPages.push(fakePage3);
+    tutorialPages.push(Tutorial.lastPage);
+    console.log(Tutorial.lastPage);
     return tutorialPages;
 }
 
@@ -61,6 +63,15 @@ whatIsAssembly = function(tutorialName) {
     fakePage1.setAnswer("eax");
 
 
+    var regs = new Registers();
+    regs.setContents('eax', 10);
+    fakePage1.setRegisters(regs);
+
+    var mem = new Memory();
+    mem.setContents(0, goog.math.Integer.fromNumber(30), 4);
+    fakePage1.setMemory(mem);
+
+
     var fakePage2 = new Page();
     fakePage2.setSubtitle ("Moving things around: <i>mov</i>");
     fakePage2.addLine("The simplest thing the computer can do is move things around.");
@@ -71,6 +82,10 @@ whatIsAssembly = function(tutorialName) {
     fakePage2.setQuestion ("What value is in %eax after you run the code?");
     fakePage2.setAnswer ("30");
     
+    var regs2 = new Registers();
+    regs.setContents('eax', 13);
+    fakePage1.setRegisters(regs);
+
     var fakePage3 = new Page();
     fakePage3.setSubtitle ("Moving Between Registers");
     fakePage3.addLine("You can also move things from one register to another.");
@@ -84,5 +99,7 @@ whatIsAssembly = function(tutorialName) {
     tutorialPages.push(fakePage1); 
     tutorialPages.push(fakePage2);
     tutorialPages.push(fakePage3);
+    tutorialPages.push(Tutorial.prototype.lastPage);
+    console.log(Tutorial.prototype.lastPage);
     return tutorialPages;
 }

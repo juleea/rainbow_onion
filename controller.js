@@ -79,7 +79,8 @@ function bpClick(event) {
 }
 
 // updates contents of registers
-function updateRegs() {    
+function updateRegs() {  
+  console.log("update regs");
   var registerValues = registers.getAll(); 
 
   for (var reg in registerValues) {
@@ -101,6 +102,9 @@ function updateFlags() {
 }
 
 function createMemory() {    
+    console.log("create memory");
+    $('#memoryPane tr').remove();
+    console.log($('#memoryPane'));
     for (var i = 0; i < MEM_DISPLAY; i+=4) {
       $('#memoryPane').append('<tr><td>0x' + i.toString(16) + '</td><td id="mem' + i + '">'
        + memory.getContents(i) + '</td></tr>');
@@ -160,15 +164,6 @@ function updateCurLine() {
   $('#line' + (code.curLineNum() + 1)).addClass('running');
 }
 
-
-// updates contents of registers
-function updateRegs() {    
-    var registerValues = registers.getAll(); 
-
-    for (var reg in registerValues) {
-        $("#" + reg).text(registerValues[reg]);
-    }
-}
 
 // uncolors any highlighted registers
 function clearRegColors() {
