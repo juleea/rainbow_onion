@@ -1,12 +1,13 @@
 Tutorials = function() {
-  var tutorialFilenames = [whatIsAssembly];
+  var tutorialFilenames = [whatIsAssembly, movAndAddressing];
   var allTutorials = [];
   var currTutorialNum = null;
   var currPageNum = 0;
+  var t = this;
   
 
   var readTutorials = function() {
-    var tutNum = 1;
+    var tutNum = 0;
     for (var i = 0; i < tutorialFilenames.length; i++) {
       var file = tutorialFilenames[i];
       var tut = new Tutorial(file);
@@ -17,46 +18,46 @@ Tutorials = function() {
     }
   }
   
+
   var createNewListing = function(tutNum, tutorial) {
     var tutId = "tutorial" + tutNum;
-    var tutTitle = tutNum + ' - ' + tutorial.getName();
-    $('#tutorialNav').append('<li id="'+tutId+'" class="tutorial"><a href="#">'+ tutTitle + '</a></li>');
-    var t = this;
-    $('#'+tutId).onclick = function() {t.displayTutorial(tutNum)};
+    var tutTitle = (tutNum+1) + ' - ' + tutorial.getName();
+    $('#tutorialNav').append('<li id="'+tutId+'" class="tutorial" ><a href="#">'+ tutTitle + '</a></li>');
+    $('#'+tutId).click(function() {t.displayTutorial(tutNum)});
+    console.log($('#'+tutId).click);
 
   }
 
   readTutorials();
   
   //tutorialIds are 0-indexed
-  this.displayTutorial = function(tutorialId) {    
+  this.displayTutorial = function(tutorialId) {   
+  console.log("display tutorial");
     if (tutorialId >= allTutorials.length || tutorialId === currTutorialNum) return;
     currPageNum = 0;
     currTutorialNum = tutorialId;
     allTutorials[tutorialId].displayTutorialPageByNumber(0);
 
   }
+
   
   this.displayNextPage = function() {
     var currTutorial = allTutorials[currTutorialNum];
     code.stop();
-    if (currPageNum < currTutorial.numPages() - 1) {
+    if (currTutorial.isValidTutorialPage(currPageNum+1)) {
       currPageNum++;
       $('#answerText').val("");
       currTutorial.displayTutorialPageByNumber(currPageNum);
-    } else if (currPageNum === currTutorial.numPages() - 1)  {
-      currPageNum++;
-      currTutorial.displayLastPage();
     } else {
       alert('error in page numbering!');
     }
   }
+
   
   this.displayPrevPage = function() {
     var currTutorial = allTutorials[currTutorialNum];
     code.stop();
-    $('#injectCodeButton').show();
-    if (currPageNum > 0) {
+    if (currTutorial.isValidTutorialPage(currTutorialNum, currPageNum-1)) {
       currPageNum--;
       $('#answerText').html("");
       currTutorial.displayTutorialPageByNumber(currPageNum);      
@@ -81,23 +82,34 @@ Tutorials = function() {
   
 }
 
-Tutorials.prototype.get
 
 
 Tutorial = function(initFn) {
   //var filename = file;
-  var tutorialName = "";
-
+  var tutorialName = initFn.tutorialName;
+  var tutorialPages = initFn(tutorialName);
   
   this.getName = function() {
     return tutorialName;
+  }
+
+  this.setName = function(name) {
+    this.tutoriaName = name;
+  }
+
+  this.setPages = function (pages) {
+    tutorialPages = pages;
   }
   
   this.displayTutorialPageByNumber = function(pageNumber) {
     this.displayTutorialPage (tutorialPages[pageNumber], pageNumber);
   }
 
-  
+  //page numbers are 0-indexed
+  this.isValidTutorialPage = function(pageNum) {
+    return pageNum >=0 && pageNum < tutorialPages.length;
+  }
+
   this.displayAnswer = function (pageNumber, userAnswer) {
     var responseText = "";
     if(tutorialPages[pageNumber].getAnswer().toLowerCase()==userAnswer.toLowerCase()) {
@@ -121,12 +133,13 @@ Tutorial = function(initFn) {
     return tutorialPages.length;
   }
   
-  var tutorialPages = initFn(tutorialName);
 }
 
 Page = function() {
   //if these values are null when the page is displayed, the dom element will be unchanged
   var subtitle = null;
+  var registers = null;
+  var memory = null;
   var text = "";
   var question = ""; // default is to remove the question and answer box
   var answer = "";
@@ -186,6 +199,22 @@ Page = function() {
     return answered;
   }
 
+  this.setRegisters = function (regs) {
+    registers = regs;
+  }
+
+  this.getRegisters = function() {
+    return registers;
+  }
+
+  this.setMemory = function (mem) {
+    memory = mem;
+  }
+
+  this.getMemory = function () {
+    return memory;
+  }
+
   this.instructionsAsString = function() {
     if (code == null) return null;
     var str = "";
@@ -197,17 +226,26 @@ Page = function() {
 }
 
 Tutorial.prototype.displayTutorialPage = function(page, pagenum) {
+  //check for null error
   if (page == null) {
     alert("error: page is null");
   }
+
+  //set the page subtitle.
   if (page.getSubtitle() != null) {
     $('#tutorialPageTitle').html(page.getSubtitle());
+  } else {
+    $('#tutorialPageTitle').html("");
   }
   
+  //set page main text 
   if (page.getText() != null) {
     $('#tutorialPageContent').html(page.getText());
+  } else {
+    $('#tutorialPageContent').html("");
   }
   
+  //hide the question/answer features if there is no question
   if (page.getQuestion() == null || page.getQuestion() == "") {
     $('#questionAnswer').hide();
     $('#answerButton').hide();
@@ -220,30 +258,51 @@ Tutorial.prototype.displayTutorialPage = function(page, pagenum) {
     $('#answer').html("");      
   }
   
-  if (pagenum != null) {
-    $('#nextPageButton').show();
-    $('#prevPageButton').show();
-    if(pagenum != 0) $('#prevPageButton').show();
-    else $('#prevPageButton').hide();
-  } else {
-    pagenum = this.numPages();
-    $('#nextPageButton').hide();
+  //show all buttons...
+  $('#nextPageButton').show();
+  $('#prevPageButton').show();
+  $('#injectCodeButton').show();
+
+  //selectively hide buttons...
+  if (pagenum === 0)  $('#prevPageButton').hide();   //hide "back" button on first page
+  if (pagenum === this.numPages() -1) {
+    $('#nextPageButton').hide();  //hide "next" button on last page
+    $('#injectCodeButton').hide();  //hide "reset" button on last page
   }
-  var totalPages = this.numPages() + 1;
+
+  var totalPages = this.numPages();
   $('#pageNumber').html(pagenum+1 + "/" + totalPages);
 
+  // update the code in the main textarea
   if (page.instructionsAsString() !=null) {
+    console.log("loading code");
     $('textarea#mainText').val(page.instructionsAsString());
-  }    
+  }
+
+  //update the register values associated with the page
+  if (page.getRegisters() != null) {
+    console.log("loading registers");
+    registers = page.getRegisters();
+    updateRegs();
+    registers.contentsUpdated.attach(updateReg);
+
+  } else {
+    //TODO: should we set to some default here or in the tutorial creater/file reader?
+  }
+
+  //update the memory values associated with the page (if they exist)
+  if (page.getMemory() != null) {
+    console.log("loading memory");
+    memory = page.getMemory();
+    createMemory();
+    memory.contentsUpdated.attach(updateMemory);
+  } else {
+    //TODO: should we set to some default here or in the tutorial creater/file reader?
+  }
 }
 
 Tutorial.prototype.lastPage = new Page();
 Tutorial.prototype.lastPage.setSubtitle("Congratulations");
-Tutorial.prototype.lastPage.addLine("You've completed this activity!")
-Tutorial.prototype.displayLastPage = function() {
-  this.displayTutorialPage(this.lastPage, null);
-  $('#injectCodeButton').hide();
-}
-
-
+Tutorial.prototype.lastPage.addLine("You've completed this activity!");
+console.log("last page loaded");
 

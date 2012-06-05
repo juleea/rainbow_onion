@@ -112,7 +112,8 @@ function updateFlags() {
   }
 }
 
-function createMemory() {    
+function createMemory() { 
+    $('#memoryPane tr').remove();   
     for (var i = 0; i < MEM_DISPLAY; i+=4) {
       $('#memoryPane').append('<tr><td>0x' + i.toString(16) + '</td><td id="mem' + i + '">'
        + memory.getContents(i) + '</td></tr>');
