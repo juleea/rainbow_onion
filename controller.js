@@ -60,6 +60,9 @@ $(function() {
   var pxToInt = function(pxStr) {return Number(pxStr.substr(0, pxStr.length - 2))};
   $("#helpBox").css("height", $("#memoryBox").height() - $("#registers").height() -57);
   createHelpBox("searchBar", "helpTarget", "mov");
+  
+  
+  $('#first_time_here').modal();
 
 });
 
