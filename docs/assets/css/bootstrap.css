@@ -1247,14 +1247,6 @@ table {
   width: 100%;
   margin-bottom: 20px;
 }
-.table th,
-.table td {
-  padding: 8px;
-  line-height: 20px;
-  text-align: left;
-  vertical-align: top;
-  border-top: 1px solid #1cafbd;
-}
 .table th {
   font-weight: bold;
 }
@@ -4379,11 +4371,7 @@ div.subnav-fixed {
 .add-on [class^="icon-"] {
   margin-left: 5px;
 }
-.table th,
-.table td,
-.table tbody + tbody {
-  border-top: 0px solid transparent;
-}
+
 .table-bordered {
   -webkit-border-radius: 0;
   -moz-border-radius: 0;
