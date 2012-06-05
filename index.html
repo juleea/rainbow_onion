@@ -8,7 +8,6 @@
   <script src="jquery-1.7.2.min.js"></script>
 
 	<link rel="stylesheet" type="text/css" href="styles.css" />
-  <link rel="stylesheet" type="text/css" href="jquery.jscrollpane.css" />
 	<link rel="stylesheet" type="text/css" href="jquery-linedtextarea.css" />
 	<link href="docs/assets/css/bootstrap.css" rel="stylesheet">
 	
@@ -16,9 +15,7 @@
 
   <script src="assets/js/bootstrap-tooltip.js"></script>
   <script type="text/javascript" src="closure-library/closure/goog/base.js"></script>
-  <script type="text/javascript" src="jquery.jscrollpane.min.js"></script>
   <script type="text/javascript" src="jquery-linedtextarea.js"></script>
-  <script type="text/javascript" src="jquery.mousewheel.js"></script>
   <script type="text/javascript" src="jquery-ui-1.8.20.custom/js/jquery-ui-1.8.20.custom.min.js"></script>
   
   
@@ -114,10 +111,10 @@
 
   <div class='textPanel'>
     <div class='button_bar'>
-      <button class='topButtons btn' id='contButton'><i class="icon-play"></i>&nbsp;Run</button>
+      <button class='topButtons btn' id='contButton'><i class="icon-play"></i>&nbsp;Play</button>
+      <button class='topButtons btn' id='runButton'><i class="icon-repeat"></i>&nbsp;&nbsp;Restart</button>
       <button class='topButtons btn' id='stopButton'><i class="icon-refresh"></i>&nbsp;Reset</button>
       <button class='topButtons btn' id='stepButton'><i class="icon-step-forward"></i>&nbsp;Step</button>
-      <!--<button class='topButtons btn' id='stopButton'><img class="navimg" src="img/Crystal_Clear_action_stop.png" alt="stop" />&nbsp;&nbsp;Stop</button>< -->
       <div id='sliderWrapper' class="topButtons"><div>Speed</div><div id='runSpeedSlider' ></div></div>
     </div>
     <textarea class='lined' id='mainText' ></textarea> 
