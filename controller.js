@@ -25,7 +25,6 @@ $(function() {
   var currTutorial = 0;
 
 //number textfield lines
-	$('.lined').linedtextarea();
 
 //display tutorial tabs and first first page of first tutorial
 //tutorials.displayTabs
@@ -61,7 +60,8 @@ $(function() {
   $("#helpBox").css("height", $("#memoryBox").height() - $("#registers").height() -57);
   createHelpBox("searchBar", "helpTarget", "mov");
   
-  
+  $('.lined').linedtextarea();
+
   $('#first_time_here').modal();
 
 });
