@@ -14,7 +14,7 @@
 	
 	<link type="text/css" href="jquery-ui-1.8.20.custom/css/ui-lightness/jquery-ui-1.8.20.custom.css" rel="stylesheet" />
 
-  <script src="assets/js/bootstrap-tooltip.js"></script>
+  <script type="text/javascript" src="assets/js/bootstrap-tooltip.js"></script>
   <script type="text/javascript" src="closure-library/closure/goog/base.js"></script>
   <script type="text/javascript" src="jquery.jscrollpane.min.js"></script>
   <script type="text/javascript" src="jquery-linedtextarea.js"></script>
@@ -26,6 +26,7 @@
 
   <script>goog.require('goog.math.Integer')</script>
 
+    <script type="text/javascript" src="nux.js"></script>
   <script type="text/javascript" src="searchBar.js"></script>
   <script type="text/javascript" src="observer.js"></script>
 	<script type="text/javascript" src="memory.js"></script>
@@ -76,7 +77,7 @@
 <div class='left'>
   <div id='tutorials' class='well'>
     <div class='sectionHead'>
-      <span class='tutorialhead'><h2>Tutorials</h2></span>
+      <span class='tutorialhead' id="tutorialhead"><h2>Tutorials</h2></span>
       <div class='dropdown btn rightAlign'>
         <a class="dropdown-toggle" data-toggle="dropdown" href="#menu1">
           Select a tutorial
@@ -120,16 +121,20 @@
       <!--<button class='topButtons btn' id='stopButton'><img class="navimg" src="img/Crystal_Clear_action_stop.png" alt="stop" />&nbsp;&nbsp;Stop</button>< -->
       <div id='sliderWrapper' class="topButtons"><div>Speed</div><div id='runSpeedSlider' ></div></div>
     </div>
-    <textarea class='lined' id='mainText' ></textarea> 
     <div id="error_alert"> </div>
+    <textarea class='lined' id='mainText' placeholder="Click to start typing!"></textarea> 
+    
   </div>
 </div>
 
 <div class='rightCenter'>
   <div class='well' id='registers'>  
-    <div class='sectionHead'><h2>Registers</h2></div>
+    <div class='sectionHead'><h2>Registers</h2>
+        <i class="icon-question-sign" id="registers-help"></i>
+    </div>
     <table class="table table-condensed" id="registersPane"></table>
-    <div class='subtitle'>Condition Flags</div>
+    <div class='subtitle'>Condition Flags
+        <i class="icon-question-sign" id="flags-help"></i></div>
     <table class='condTable'>
       <tr>
         <td class="CF condBox"><abbr title="Carry flag">CF</abbr>: <span class="CF" id="CF"></span> </td>
@@ -150,7 +155,10 @@
 
 <div class='rightSide'>
   <div id="memoryBox" class='well'>
-    <div class='sectionHead'><h2>Memory</h2></div>
+    <div class='sectionHead'>
+        <h2>Memory</h2>   
+        <i class="icon-question-sign" id="memory-help"></i>
+    </div>
     <div id="memoryScroll">
       <table id="memoryPane" class="table table-condensed"></table>
     </div>
