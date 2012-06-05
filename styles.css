@@ -12,7 +12,7 @@ body {
 .sectionHead {
   font-family:helvetica;
   font-size: 26px;
-  padding-bottom:15px;
+  padding-bottom:5px;
 }
 
 .sectionSubtitle {
@@ -33,6 +33,13 @@ body {
 
 .textPanel {
   width:100%;
+}
+
+#mainText {
+  background-color:#1ba7b4;
+  color: white;
+  outline:none;
+  font-family:'Cabin', Arial;
 }
 
 #mainText{
@@ -228,4 +235,8 @@ button {
 
 #searchBar {
   width:90%;
+}
+
+#tutorialhead h2, #sectionHead h2 {
+    display:inline;
 }

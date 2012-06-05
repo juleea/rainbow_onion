@@ -25,6 +25,7 @@ $(function() {
   var currTutorial = 0;
 
 //number textfield lines
+	$('.lined').linedtextarea();
 
 //display tutorial tabs and first first page of first tutorial
 //tutorials.displayTabs
@@ -54,14 +55,22 @@ $(function() {
   $('button#prevPageButton').click(tutorials.displayPrevPage);
   $('button#injectCodeButton').click(tutorials.injectCode);
 
-  //$("#error_msg").tooltip({animation:true, trigger: 'hover', title: "our error msgs here"});
+// Tooltips
+  $("#registers-help").tooltip({animation:true, trigger: 'hover', title: register_help_text});
+  $("#memory-help").tooltip({animation:true, trigger: 'hover', title: memory_help_text});
+  $("#flags-help").tooltip({animation:true, trigger: 'hover', title: flags_help_text});
+  $("#eax_label").tooltip({animation:true, trigger: 'hover', title: eax_help_text});
+  $("#eip_label").tooltip({animation:true, trigger: 'hover', title: eip_help_text});
+  
+  // Errors
   $("#error_alert").hide();
+  
+  // 
   var pxToInt = function(pxStr) {return Number(pxStr.substr(0, pxStr.length - 2))};
   $("#helpBox").css("height", $("#memoryBox").height() - $("#registers").height() -57);
   createHelpBox("searchBar", "helpTarget", "mov");
   
-  $('.lined').linedtextarea();
-
+  
   $('#first_time_here').modal();
 
 });
@@ -177,14 +186,14 @@ function updateRegs() {
 // uncolors any highlighted registers
 function clearRegColors() {
     if (typeof updateReg.lastUpdatedReg != 'undefined') {
-        $("#" + updateReg.lastUpdatedReg).animate({backgroundColor: "#f5f5f5"}, 'slow');
+        $("#" + updateReg.lastUpdatedReg).animate({backgroundColor: "#1ba7b4"}, 'slow');
     }
 }
 
 // uncolors any highlighted memory
 function clearMemColors() {
     if (typeof updateMemory.lastUpdatedMem != 'undefined') {
-        updateMemColor(updateMemory.lastUpdatedMem.address, updateMemory.lastUpdatedMem.bytes, 'white');
+        updateMemColor(updateMemory.lastUpdatedMem.address, updateMemory.lastUpdatedMem.bytes, '#1ba7b4');
     }
 }
 
@@ -204,7 +213,7 @@ var updateReg = function updateReg(regs, args) {
 function createRegisters() {    
     var registerValues = registers.getAll();
     for (var reg in registerValues) {
-      $('#registersPane').append('<tr><td><span class="regRow">' + reg + '</span></td><td id="' + reg + '">'
+      $('#registersPane').append('<tr><td id="' + reg + '_label"><span class="regRow">' + reg + '</span></td><td id="' + reg + '">'
        + registerValues[reg] + '</td></tr>');
     }
 }
