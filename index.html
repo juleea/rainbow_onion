@@ -129,12 +129,16 @@
 
 <div class='rightCenter'>
   <div class='well' id='registers'>  
-    <div class='sectionHead'><h2>Registers</h2>
-        <i class="icon-question-sign" id="registers-help"></i>
+    <div class='sectionHead'><h2>Registers <i class="icon-question-sign" id="registers-help"></i></h2>
+        
     </div>
     <table class="table table-condensed" id="registersPane"></table>
-    <div class='subtitle'>Condition Flags
-        <i class="icon-question-sign" id="flags-help"></i></div>
+    <div class='subtitle'>
+        <h3>
+            Condition Flags 
+            <i class="icon-question-sign" id="flags-help"></i>
+        </h3>
+        </div>
     <table class='condTable'>
       <tr>
         <td class="CF condBox"><abbr title="Carry flag">CF</abbr>: <span class="CF" id="CF"></span> </td>
@@ -147,7 +151,7 @@
     </table>
   </div>
   <div class="well" id="helpBox">
-    <div>Search:</div>
+    <div><h3>Search:</h3></div>
     <div><input type="text" id="searchBar" class= "help" /></div>
     <p class="help" id="helpTarget"></p>
   </div>
@@ -156,8 +160,10 @@
 <div class='rightSide'>
   <div id="memoryBox" class='well'>
     <div class='sectionHead'>
-        <h2>Memory</h2>   
-        <i class="icon-question-sign" id="memory-help"></i>
+        <h2>
+            Memory
+            <i class="icon-question-sign" id="memory-help"></i>
+        </h2>   
     </div>
     <div id="memoryScroll">
       <table id="memoryPane" class="table table-condensed"></table>
