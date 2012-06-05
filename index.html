@@ -45,29 +45,8 @@
 
 <body>
 
-<div class="modal show" id="first_time_here">
-    <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal">x</button>
-        <h3>First time here?</h3>
-    </div>
-    <div class="modal-body">
-        <p>Rainbow Onion is an x86 assembly simulator designed to help you learn and better. With an in-browser assembly code editor and real-time visualizations of register and memory contents as code executes.</p>
-        
-<p>Use our tutorials to familiarize yourself.</p>
-    </div>
-</div>
-
-<div class='navbar'>
-  <div class="navbar-inner">
-    <div class="container">
-        <a class="brand" href="#">rainbow onion</a>
-        <ul class="nav pull-right">
-            <li><a href="#">About</a></li>
-            <li><a href="#">Help</a></li>
-            <li><a href="#">Contact</a></li>
-        </ul>
-    </div>
-  </div>
+<div class='header'>
+  <div class='logo'>rainbow onion</div>
 </div>
 
 
@@ -76,7 +55,7 @@
 <div class='left'>
   <div id='tutorials' class='well'>
     <div class='sectionHead'>
-      <span class='tutorialhead'><h2>Tutorials</h2></span>
+      <span class='tutorialhead'>Tutorials</span>
       <div class='dropdown btn rightAlign'>
         <a class="dropdown-toggle" data-toggle="dropdown" href="#menu1">
           Select a tutorial
@@ -114,9 +93,9 @@
 
   <div class='textPanel'>
     <div class='button_bar'>
-      <button class='topButtons btn' id='contButton'><i class="icon-play"></i>&nbsp;Run</button>
-      <button class='topButtons btn' id='stopButton'><i class="icon-refresh"></i>&nbsp;Reset</button>
-      <button class='topButtons btn' id='stepButton'><i class="icon-step-forward"></i>&nbsp;Step</button>
+      <button class='topButtons btn' id='contButton'><img class="navimg" src="img/Crystal_Clear_action_forward.png" alt="play" />&nbsp;Run</button>
+      <button class='topButtons btn' id='stopButton'><img class="navimg" src="img/Crystal_Clear_action_reload.png" alt="reset" />&nbsp;Reset</button>
+      <button class='topButtons btn' id='stepButton'><img class="navimg" src="img/Crystal_Clear_action_build.png" alt="step" /> &nbsp;Step</button>
       <!--<button class='topButtons btn' id='stopButton'><img class="navimg" src="img/Crystal_Clear_action_stop.png" alt="stop" />&nbsp;&nbsp;Stop</button>< -->
       <div id='sliderWrapper' class="topButtons"><div>Speed</div><div id='runSpeedSlider' ></div></div>
     </div>
@@ -127,7 +106,7 @@
 
 <div class='rightCenter'>
   <div class='well' id='registers'>  
-    <div class='sectionHead'><h2>Registers</h2></div>
+    <div class='sectionHead'>Registers</div>
     <table class="table table-condensed" id="registersPane"></table>
     <div class='subtitle'>Condition Flags</div>
     <table class='condTable'>
@@ -150,7 +129,7 @@
 
 <div class='rightSide'>
   <div id="memoryBox" class='well'>
-    <div class='sectionHead'><h2>Memory</h2></div>
+    <div class='sectionHead'>Memory</div>
     <div id="memoryScroll">
       <table id="memoryPane" class="table table-condensed"></table>
     </div>
