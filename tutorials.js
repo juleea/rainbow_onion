@@ -1,12 +1,13 @@
 Tutorials = function() {
-  var tutorialFilenames = [whatIsAssembly];
+  var tutorialFilenames = [whatIsAssembly, movAndAddressing];
   var allTutorials = [];
   var currTutorialNum = null;
   var currPageNum = 0;
+  var t = this;
   
 
   var readTutorials = function() {
-    var tutNum = 1;
+    var tutNum = 0;
     for (var i = 0; i < tutorialFilenames.length; i++) {
       var file = tutorialFilenames[i];
       var tut = new Tutorial(file);
@@ -17,19 +18,21 @@ Tutorials = function() {
     }
   }
   
+
   var createNewListing = function(tutNum, tutorial) {
     var tutId = "tutorial" + tutNum;
-    var tutTitle = tutNum + ' - ' + tutorial.getName();
-    $('#tutorialNav').append('<li id="'+tutId+'" class="tutorial"><a href="#">'+ tutTitle + '</a></li>');
-    var t = this;
-    $('#'+tutId).onclick = function() {t.displayTutorial(tutNum)};
+    var tutTitle = (tutNum+1) + ' - ' + tutorial.getName();
+    $('#tutorialNav').append('<li id="'+tutId+'" class="tutorial" ><a href="#">'+ tutTitle + '</a></li>');
+    $('#'+tutId).click(function() {t.displayTutorial(tutNum)});
+    console.log($('#'+tutId).click);
 
   }
 
   readTutorials();
   
   //tutorialIds are 0-indexed
-  this.displayTutorial = function(tutorialId) {    
+  this.displayTutorial = function(tutorialId) {   
+  console.log("display tutorial");
     if (tutorialId >= allTutorials.length || tutorialId === currTutorialNum) return;
     currPageNum = 0;
     currTutorialNum = tutorialId;
@@ -83,12 +86,19 @@ Tutorials = function() {
 
 Tutorial = function(initFn) {
   //var filename = file;
-  var tutorialName = "";
+  var tutorialName = initFn.tutorialName;
   var tutorialPages = initFn(tutorialName);
-
   
   this.getName = function() {
     return tutorialName;
+  }
+
+  this.setName = function(name) {
+    this.tutoriaName = name;
+  }
+
+  this.setPages = function (pages) {
+    tutorialPages = pages;
   }
   
   this.displayTutorialPageByNumber = function(pageNumber) {

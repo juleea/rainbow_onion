@@ -2,7 +2,6 @@ movAndAddressing = function(tutorialName) {
   
   //TODO: make this actually read in the file
     var tutorialPages = [];
-    tutorialName = "mov and addressing"
     var fakePage1 = new Page();
     fakePage1.setSubtitle ("Mov and Addressing");
     fakePage1.addLine("<b>mov src, dest</b>")
@@ -44,12 +43,13 @@ movAndAddressing = function(tutorialName) {
     tutorialPages.push(fakePage3);
     tutorialPages.push(Tutorial.lastPage);
     console.log(Tutorial.lastPage);
+
     return tutorialPages;
 }
+movAndAddressing.tutorialName = "Mov and Addressing";
 
 whatIsAssembly = function(tutorialName) {
     var tutorialPages = [];
-    tutorialName = "What is Assembly?"
     var fakePage1 = new Page();
     fakePage1.setSubtitle ("Registers");
     fakePage1.addLine("<b>mov src, dest</b>")
@@ -103,3 +103,4 @@ whatIsAssembly = function(tutorialName) {
     console.log(Tutorial.prototype.lastPage);
     return tutorialPages;
 }
+whatIsAssembly.tutorialName = "What is Assembly?"
