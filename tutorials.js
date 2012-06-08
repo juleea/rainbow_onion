@@ -1,5 +1,5 @@
 Tutorials = function() {
-  var tutorialFilenames = [whatIsAssembly, movAndAddressing];
+  var tutorialFilenames = [TUTORIAL_FLAGS];
   var allTutorials = [];
   var currTutorialNum = null;
   var currPageNum = 0;
@@ -84,7 +84,7 @@ Tutorials = function() {
 
 
 
-Tutorial = function(initFn) {
+/*Tutorial = function(initFn) {
   //var filename = file;
   var tutorialName = initFn.tutorialName;
   var tutorialPages = initFn(tutorialName);
@@ -133,9 +133,64 @@ Tutorial = function(initFn) {
     return tutorialPages.length;
   }
   
+}*/
+
+Tutorial = function(jsonTutorial) {
+  //var filename = file;
+  var tutorialName = jsonTutorial.Name;
+  var tutorialPages = [];
+
+  for(var i = 0; i < jsonTutorial.Pages.length; i++) {
+    tutorialPages.push(new Page(jsonTutorial.Pages[i]));
+  }
+
+  this.getName = function() {
+    return tutorialName;
+  }
+
+  this.setName = function(name) {
+    this.tutoriaName = name;
+  }
+
+  this.setPages = function (pages) {
+    tutorialPages = pages;
+  }
+  
+  this.displayTutorialPageByNumber = function(pageNumber) {
+    this.displayTutorialPage (tutorialPages[pageNumber], pageNumber);
+  }
+
+  //page numbers are 0-indexed
+  this.isValidTutorialPage = function(pageNum) {
+    return pageNum >=0 && pageNum < tutorialPages.length;
+  }
+
+  this.displayAnswer = function (pageNumber, userAnswer) {
+    var responseText = "";
+    if(tutorialPages[pageNumber].getAnswer().toLowerCase()==userAnswer.toLowerCase()) {
+      responseText = "Nice work! Click the arrow to continue.";
+      $("#nextPageButton").attr("disabled", false);
+      tutorialPages[pageNumber].setAnswered();
+    } else {
+      responseText = "Try again";
+    }
+    $('#answer').html(responseText);
+  }
+
+  this.injectCode = function (pageNumber) {
+    var page = tutorialPages[pageNumber];
+    if (page.instructionsAsString() !=null) {
+      $('textarea#mainText').val(page.instructionsAsString());
+    }
+  }
+
+  this.numPages = function() {
+    return tutorialPages.length;
+  }
+  
 }
 
-Page = function() {
+/*Page = function() {
   //if these values are null when the page is displayed, the dom element will be unchanged
   var subtitle = null;
   var registers = null;
@@ -223,6 +278,120 @@ Page = function() {
     }
     return str;
   }
+}*/
+
+Page = function(jsonPage) {
+  this.setSubtitle = function(subt) {
+    subtitle = subt;
+  }
+  
+  this.addLine = function(str) {
+    if (text === "") {
+      this.addText(str);
+    } else {
+      this.addText("<br/><br/>" + str);
+    }
+  }
+  
+  this.addText = function(str) {
+    text = text + "  " + str;
+  }
+
+  this.setQuestion = function(str) {
+    question = str;
+  }
+  
+  this.setAnswer = function(ans) {
+    answer = ans;
+  }
+  
+  this.addInstruction = function(inst) {
+    if (code == null) code = [];
+    code.push(inst);
+  }
+  
+  this.getSubtitle = function() {
+    return subtitle;
+  }
+  
+  this.getText = function() {
+    return text;
+  }
+  
+  this.getQuestion = function() {
+    return question;
+  }
+  
+  this.getAnswer = function() {
+    return answer;
+  }
+
+  this.setAnswered = function() {
+    answered = true;
+  }
+  
+  this.answered = function() {
+    return answered;
+  }
+
+  this.setRegisters = function (regs) {
+    registers = regs;
+  }
+
+  this.getRegisters = function() {
+    return registers;
+  }
+
+  this.setMemory = function (mem) {
+    memory = mem;
+  }
+
+  this.getMemory = function () {
+    return memory;
+  }
+
+  this.instructionsAsString = function() {
+    if (code == null) return null;
+    var str = "";
+    for (var i=0; i<code.length; i++) {
+      str = str + code[i] + "\n";
+    }
+    return str;
+  }
+    //if these values are null when the page is displayed, the dom element will be unchanged
+  var subtitle = jsonPage.Title || null;
+  var registers = null;    
+  if(jsonPage.Registers) {
+    registers = new Registers();
+    for(var reg in jsonPage.Registers) {
+      registers.setContents(reg, jsonPage.Registers[reg]);
+    }
+  }
+
+  var memory = null;
+  if(jsonPage.Memory) {
+    memory = new Memory();
+    console.log("ADDING MEM");
+    for(var mem in jsonPage.Registers) {
+      var val = goog.math.Integer.fromNumber(jsonPage.Registers[mem]);
+      memory.setContents(Number(mem), val)
+    }
+  }
+
+  var text = "";
+  if(jsonPage.Text) {
+    for(var i = 0; i < jsonPage.Text.length; i++)
+      this.addLine(jsonPage.Text[i]);
+  }
+  var question = jsonPage.Question || ""; // default is to remove the question and answer box
+  var answer = jsonPage.Answer || "";
+  var code = null; // array of strings of code if new code should be displayed
+  if(jsonPage.Code) {
+    for(var i = 0; i < jsonPage.Code.length; i++) {
+      this.addInstruction(jsonPage.Code[i]);
+    }
+  }
+  var answered = false; //Has the user correctly answered this question?
 }
 
 Tutorial.prototype.displayTutorialPage = function(page, pagenum) {
@@ -301,8 +470,14 @@ Tutorial.prototype.displayTutorialPage = function(page, pagenum) {
   }
 }
 
-Tutorial.prototype.lastPage = new Page();
+/*Tutorial.prototype.lastPage = new Page();
 Tutorial.prototype.lastPage.setSubtitle("Congratulations");
 Tutorial.prototype.lastPage.addLine("You've completed this activity!");
 console.log("last page loaded");
-
+*/
+Tutorial.prototype.lastPage = new Page(
+  {
+    "Title":"Congratulations",
+    "Text": ["You've completed this activity!"],
+  }
+);
