@@ -12,6 +12,7 @@ $(function() {
     stop: updateRunSpeed,
     value: 5
   });
+  $('button#pauseButton').hide();
 
   $("#runSpeed").text($("#runSpeedSlider").slider('value'));
   
@@ -44,13 +45,14 @@ $(function() {
   createMemory();
   updateDisplay();
 
-  $('button#runButton').click(runButton);
+  $('button#restartButton').click(restartButton);
   $('button#answerButton').click(function(){tutorials.displayAnswer($("#answerText").val())});
   $('#answerText').keyup(function (e) { if(e.keyCode == 13) tutorials.displayAnswer($("#answerText").val());});
   $('button#stepButton').click(stepButton);
   $('button#contButton').click(contButton);
+  $('button#pauseButton').click(pauseButton);
   $('button#parseButton').click(parseButton);
-  $('button#stopButton').click(stopButton);
+  $('button#resetButton').click(resetButton);
   $('button#nextPageButton').click(tutorials.displayNextPage);
   $('button#prevPageButton').click(tutorials.displayPrevPage);
   $('button#injectCodeButton').click(tutorials.injectCode);
@@ -138,24 +140,36 @@ var getSpeed = function (sliderValue) {
   return 1/runSpeed * 2000;
 }
 
-function runButton() {
-  if(parseButton())
-    code.run(getSpeed());
+function restartButton() {
+  $('button#pauseButton').hide();
+  $('button#contButton').show();
+  if(parseButton()) {
+    code.stop();
+  }
 }
 
 function stepButton() {
-  //TODO: Figure out if somebody added a line, sync with curLineNum
-  //or whether that would actually be a nice feature and not confusing...
   parseButton();
   code.step();
 }
 
-function contButton() {
-  if(parseButton())
-    code.cont(getSpeed());
+function pauseButton() {
+  code.pause();
+  $('button#pauseButton').hide();
+  $('button#contButton').show();
 }
 
-function stopButton() {
+function contButton() {
+  if(parseButton()) {
+    $('button#contButton').hide();
+    $('button#pauseButton').show();
+    code.cont(getSpeed());
+  }
+}
+
+function resetButton() {
+  $('button#pauseButton').hide();
+  $('button#contButton').show();
   tutorials.refresh();
 }
 

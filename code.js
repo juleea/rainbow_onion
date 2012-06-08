@@ -5,6 +5,7 @@ function Code() {
   codeLines = [];
   var breakPoints = {};
   codeErrors = [];
+  var stopped = false;
 
   // Returns true if all lines successfully parsed
   this.init = function(text) {
@@ -92,30 +93,22 @@ function Code() {
     updateDisplay();
   }
 
+
+
   this.cont = function(speed, fromRun) {
-  /*  if (!fromRun) {
-      var fromRun = false;
-    }
-    var tempLineNum = curLineNum;
-    var ctr = 0;
-    var first = true;
-    while(tempLineNum < codeLines.length && (!fromRun || !(tempLineNum in breakPoints))) {
-      fromRun = true;
-      setTimeout(this.step, speed * ctr);
-      tempLineNum++;
-      ctr ++;
-    } */
+    stopped = false;
     this.stepSlow(speed, fromRun);
   }
 
-  var that = this;
 
   this.stepSlow = function(speed, fromRun) {
     if (!fromRun) {
       var fromRun = false;
     }
+    if(stopped) return;
     if(curLineNum < codeLines.length && (!fromRun || !(curLineNum in breakPoints))) {
       fromRun = true;
+      var that = this;
       that.step();
       var toRun = function () {
         that.stepSlow(speed, fromRun);
@@ -125,6 +118,7 @@ function Code() {
   }
 
   this.run = function(speed) {
+    stopped = false;
     curLineNum = 0;
     updateDisplay();
     var t = this;
@@ -133,7 +127,13 @@ function Code() {
   }
 
   this.stop = function() {
+    stopped = true;
     curLineNum = 0;
+    updateDisplay();
+  }
+
+  this.pause = function() {
+    stopped = true;
     updateDisplay();
   }
 
