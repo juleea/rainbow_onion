@@ -139,8 +139,8 @@ var getSpeed = function (sliderValue) {
 }
 
 function runButton() {
-  parseButton();
-  code.run(getSpeed());
+  if(parseButton())
+    code.run(getSpeed());
 }
 
 function stepButton() {
@@ -151,8 +151,8 @@ function stepButton() {
 }
 
 function contButton() {
-  parseButton();
-  code.cont(getSpeed());
+  if(parseButton())
+    code.cont(getSpeed());
 }
 
 function stopButton() {
