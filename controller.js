@@ -156,7 +156,7 @@ function contButton() {
 }
 
 function stopButton() {
-  code.stop();
+  tutorials.refresh();
 }
 
 function updateDisplay() {

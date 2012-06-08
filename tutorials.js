@@ -50,6 +50,28 @@ Tutorials = function() {
     }
   }
 
+  this.refresh = function() {
+    var currTutorial = allTutorials[currTutorialNum];
+    var page = currTutorial.getPage(currPageNum);
+    code.stop();
+    $('#answerText').val("");
+      //update the register values associated with the page
+    if (page.getRegisters() != null) {
+      registers.setAll(page.getRegisters());
+      updateRegs();
+    }
+
+    //update the memory values associated with the page (if they exist)
+    if (page.getMemory() != null) {
+      memory = page.getMemory();
+      createMemory();
+    } 
+    flags.clearAll();
+    updateDisplay();
+    //currTutorial.displayTutorialPageByNumber(currPageNum);
+  }
+
+
   
   this.displayPrevPage = function() {
     var currTutorial = allTutorials[currTutorialNum];
@@ -101,7 +123,6 @@ Tutorial = function(jsonTutorial) {
   }
   
   this.displayTutorialPageByNumber = function(pageNumber) {
-    console.log("Page: " + pageNumber);
     this.displayTutorialPage (tutorialPages[pageNumber], pageNumber);
   }
 
@@ -131,6 +152,10 @@ Tutorial = function(jsonTutorial) {
 
   this.numPages = function() {
     return tutorialPages.length;
+  }
+
+  this.getPage = function(index) {
+    return tutorialPages[index];
   }
   
 }
@@ -219,16 +244,16 @@ Page = function(jsonPage) {
   if(jsonPage.Registers) {
     registers = new Registers();
     for(var reg in jsonPage.Registers) {
-      registers.setContents(reg, jsonPage.Registers[reg]);
+      registers.setContents(reg, jsonPage.Registers[reg], true);
     }
   }
 
   var memory = null;
   if(jsonPage.Memory) {
     memory = new Memory();
-    for(var mem in jsonPage.Registers) {
-      var val = goog.math.Integer.fromNumber(jsonPage.Registers[mem]);
-      memory.setContents(Number(mem), val)
+    for(var mem in jsonPage.Memory) {
+      var val = goog.math.Integer.fromNumber(jsonPage.Memory[mem]);
+      memory.setContents(Number(mem), val);
     }
   }
 
@@ -303,10 +328,8 @@ Tutorial.prototype.displayTutorialPage = function(page, pagenum) {
 
   //update the register values associated with the page
   if (page.getRegisters() != null) {
-    registers = page.getRegisters();
+    registers.setAll(page.getRegisters());
     updateRegs();
-    registers.contentsUpdated.attach(updateReg);
-
   } else {
     //TODO: should we set to some default here or in the tutorial creater/file reader?
   }
@@ -315,10 +338,11 @@ Tutorial.prototype.displayTutorialPage = function(page, pagenum) {
   if (page.getMemory() != null) {
     memory = page.getMemory();
     createMemory();
-    memory.contentsUpdated.attach(updateMemory);
   } else {
     //TODO: should we set to some default here or in the tutorial creater/file reader?
   }
+
+  flags.clearAll();
 }
 
 Tutorial.prototype.lastPage = new Page(
