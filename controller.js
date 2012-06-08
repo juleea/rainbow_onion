@@ -1,4 +1,4 @@
-MEM_DISPLAY = 100;
+MEM_DISPLAY = 64;
 //jquery for onload
 
 $(function() {
