@@ -1,3 +1,54 @@
+
+/* Here is the format for a new tutorial.  To add a tutorial, copy and paste this template then fill
+in the areas below.  When you're done, go to tutorials.js and add the name of your tutorial to line 3
+below the comment "  //INSERT NEW TUTORIAL NAMES HERE"
+*/
+PUT_NAME_IN_CAPS_HERE = {
+  "Name": "Name Here",
+  "Pages": [ //Array of pages.  Each page must have a title, it can optionally have Text, Code, Question, Answer, Registers, and Memory
+    {
+      "Title"   :   "My first page",
+      "Text"    :   ["Put each paragraph of text on a separate line in its own quotes.",
+                    "Separate the lines by commas.",
+                    ],
+      "Code"    :   ["mov $30, %eax", //Add code that you want students to see here
+                    "mov $15, %ecx",  //This section is optional
+                    "mov %ecx, %ebx",
+                    "mov %edx, %ecx",
+                    "mov $19, %edx",
+                    "mov %ecx, %eax",
+                    ],
+      "Question":   "Put optional question here?", //Question and Answer are optional
+      "Answer"  :   "Optional answer here! Though if you have a question, it must have an answer",
+      "Registers":  {"eax": 15, "ebx" : 12},//If you want to specify any starting register values
+                                            // Do so here. Remove this line if not.
+      "Memory"  :   {"0": 15, "16": 14}     //Put the memory addresses and values here. Memory values optional.
+    },
+    { 
+      "Title"   :   "Page 2.  You can have as many or few pages as you like",
+      "Text"    :   ["The simplest thing the computer can do is move things around.",
+                    "Take a look at the code to the right. Do you see where it says <i>mov $30, %eax</i>?",
+                    "Click the run button to see what this does!",
+                    ],
+      "Code"    :   ["mov $30, %eax",
+                    ],
+      "Question":   "What is in %eax after you run the code?",
+      "Answer"  :   "30",
+    },
+    {
+      "Title"   :   "Moving Between Registers",
+      "Text"    :   ["You can also move things from one register to another.",
+                    "Check out the code on the right.",
+                    ],
+      "Code"    :   [ "mov %eax, %ebx"],
+      "Registers":  {"eax": 15},
+      "Question":   "What value is in %ebx after you run the code?",
+      "Answer":     "15"
+    }
+  ]
+}
+
+
 TUTORIAL_FLAGS = {
   "Name": "Condition Flags",
   "Pages": [

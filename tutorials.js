@@ -1,4 +1,5 @@
 Tutorials = function() {
+  //INSERT NEW TUTORIAL NAMES HERE
   var tutorialFilenames = [REG_TUTORIAL, MOV_TUTORIAL, TUTORIAL_FLAGS];
   var allTutorials = [];
   var currTutorialNum = null;
