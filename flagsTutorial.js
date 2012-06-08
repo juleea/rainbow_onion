@@ -43,3 +43,89 @@ TUTORIAL_FLAGS = {
     }
   ]
 }
+
+MOV_TUTORIAL = {
+  "Name": "Mov and Addressing",
+  "Pages": [
+    {
+      "Title"   :   "Mov and Addressing",
+      "Text"    :   [ "<b>mov src, dest</b>",
+                    "The 'mov' instruction is used to copy a source value to a register. Source values can be specified in a number of ways.",
+                    "<i>Click 'Step' to store 30 in the %eax register.</i>",
+                    "2) Register values: <br/>  The source can be a register, and mov will copy that register's value into the destination register.",
+                    ],
+      "Code"    :   ["mov $30, %eax",
+                    "mov $42, %edx",
+                    "mov $15, %ecx",
+                    "mov %ecx, %ebx",
+                    "mov %edx, %ecx",
+                    "mov $19, %edx",
+                    "mov %ecx, %eax",
+                    ],
+      "Question":   "What value will %eax hold after this code is executed?",
+      "Answer"  :   "42",
+    },
+    { 
+      "Title"   :   "Addressing Modes",
+      "Text"    :   [ "The source can also be specified using a register to index into memory.",
+                    "1) Register R contains a memory address: <br/> <b>mov (R), %eax</b> will copy the value at address in r into %eax.",
+                    "2) Displacement from an address: <br/>  <b>mov D(R), %ecx</b> will add D bytes to the address in r before indexing into memory for a source value.",
+                    "3) D(Rb,Ri,S): <br/>In this mode, the source value is at the address Reg[Rb]+S*Reg[Ri]+D."
+                    ],
+      "Code"    :   ["mov $1, %eax",
+                    "mov $5, %edx",
+                    "mov (%eax), %ebx",
+                    "mov 4(%ebx), %ecx",
+                    "mov 4(%ecx, %eax, 2), %edx",
+                    ],
+      "Question":   "What value will be in %edx after you run the code?",
+      "Answer"  :   "0",
+    }
+  ]
+}
+
+
+REG_TUTORIAL = {
+  "Name": "What is Assembly?",
+  "Pages": [
+    {
+      "Title"   :   "Registers",
+      "Text"    :   ["Deep down, your computer uses what we call <i>Registers</i> as scratch paper.",
+                    "(You can see the registers on the right of the page. They have funny names.)",
+                    "It uses some simple instructions to move things around on the scratch paper.",
+                    "This scratch work is what powers your computer!",
+                    "Let's see how these simple instructions work.",
+                    ],
+      "Code"    :   ["mov $30, %eax",
+                    "mov $15, %ecx",
+                    "mov %ecx, %ebx",
+                    "mov %edx, %ecx",
+                    "mov $19, %edx",
+                    "mov %ecx, %eax",
+                    ],
+      "Question":   "What is the name of the first register?",
+      "Answer"  :   "eax",
+    },
+    { 
+      "Title"   :   "Moving things around: <i>mov</i>",
+      "Text"    :   ["The simplest thing the computer can do is move things around.",
+                    "Take a look at the code to the right. Do you see where it says <i>mov $30, %eax</i>?",
+                    "Click the run button to see what this does!",
+                    ],
+      "Code"    :   ["mov $30, %eax",
+                    ],
+      "Question":   "What is in %eax after you run the code?",
+      "Answer"  :   "30",
+    },
+    {
+      "Title"   :   "Moving Between Registers",
+      "Text"    :   ["You can also move things from one register to another.",
+                    "Check out the code on the right.",
+                    ],
+      "Code"    :   [ "mov %eax, %ebx"],
+      "Registers":  {"eax": 15},
+      "Question":   "What value is in %ebx after you run the code?",
+      "Answer":     "15"
+    }
+  ]
+}
