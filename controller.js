@@ -129,7 +129,8 @@ function parseButton() {
     displayCodeErrors();
     return false;
   }
-  
+
+  displayCodeErrors();
   return true;
 }
 
@@ -143,14 +144,18 @@ var getSpeed = function (sliderValue) {
 function restartButton() {
   $('button#pauseButton').hide();
   $('button#contButton').show();
+  parseButton();
+  code.stop();
+
+/*
   if(parseButton()) {
     code.stop();
   }
+  */
 }
 
 function stepButton() {
-  parseButton();
-  code.step();
+  if (parseButton()) code.step();
 }
 
 function pauseButton() {
@@ -176,6 +181,11 @@ function resetButton() {
 function updateDisplay() {
   updateFlags();
   updateCurLine();
+  console.log(code.isStopped());
+  if (code.isStopped()) {
+    $('button#pauseButton').hide();
+    $('button#contButton').show();
+  }
 }
 
 function updateCurLine() {
@@ -273,6 +283,7 @@ function displayCodeErrors() {
         alert("Line " + errors[i][0] + ": " + errors[i][1]);
     }*/
     
+
     // just show in tooltip for now
     var errorString = "";
     for (var i in errors) {
@@ -283,9 +294,12 @@ function displayCodeErrors() {
         //$("#error_bar").append('<span class="badge badge-important" id="error_msg' + lineNo + '">!</span>');
         //$("#error_msg" + lineNo).tooltip({animation:true, trigger: 'hover', title: errorMsg});  
     }
+
     $("#error_alert").empty();
-    $("#error_alert").append('<div class="alert alert-block alert-error"><a class="close" data-dismiss="alert" href="#">x</a>'
+    if (errors.length > 0) {
+        $("#error_alert").show();
+        $("#error_alert").append('<div class="alert alert-block alert-error"><a class="close" data-dismiss="alert" href="#">x</a>'
         + '<strong>Error!</strong> There are errors in your code. Please fix them before proceeding:<br /><p style="margin-left: 3em">' + errorString + "</p></div>"); 
-    $("#error_alert").show();
+    }
     
 }

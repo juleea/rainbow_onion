@@ -40,6 +40,7 @@ function Code() {
   }
 
   this.clear = function() {
+    console.log("in code.clear");
     codeLines.length = 0;
     codeErrors.length = 0;
   }
@@ -78,17 +79,28 @@ function Code() {
   }
 
   this.step = function() {
+
+
     var curLine = codeLines[curLineNum];
+    console.log(curLine);
     if(curLine) {
+
       if(!curLine.execute){
         alert("instruction not valid or implemented");
       } else {
         curLine.execute(memory, registers);
       }
+    
+      curLineNum++;
+
+      //TODO: seems like breaking our code pattern to put this here but can't think of better;
+      updateDisplay();
     }
-    curLineNum++;
-    //TODO: seems like breaking our code pattern to put this here but can't think of better;
-    updateDisplay();
+
+    if (curLineNum >= codeLines.length) {
+      stopped = true;
+    }
+    
   }
 
 
@@ -113,8 +125,8 @@ function Code() {
         that.stepSlow(speed, fromRun);
       }
       setTimeout(toRun, speed);
-
     }
+    
   }
 
   this.run = function(speed) {
@@ -139,5 +151,9 @@ function Code() {
 
   this.getBP = function() {
     return breakPoints;
+  }
+
+  this.isStopped = function() {
+    return stopped;
   }
 }
