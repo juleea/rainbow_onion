@@ -1,6 +1,6 @@
 Tutorials = function() {
   //INSERT NEW TUTORIAL NAMES HERE
-  var tutorialFilenames = [REG_TUTORIAL, MOV_TUTORIAL, TUTORIAL_FLAGS];
+  var tutorialFilenames = [PUT_NAME_IN_CAPS_HERE, REG_TUTORIAL, MOV_TUTORIAL, TUTORIAL_FLAGS];
   var allTutorials = [];
   var currTutorialNum = null;
   var currPageNum = 0;
@@ -85,13 +85,16 @@ Tutorials = function() {
     $('#answerText').val("");
       //update the register values associated with the page
     if (page.getRegisters() != null) {
+      console.log("refresh registers");
       registers.setAll(page.getRegisters());
       updateRegs();
     }
 
     //update the memory values associated with the page (if they exist)
+    console.log(page);
     if (page.getMemory() != null) {
-      memory = page.getMemory();
+      console.log("refresh memory");
+      memory.setAll(page.getMemory());
       createMemory();
     } 
     flags.clearAll();
@@ -128,7 +131,6 @@ Tutorials = function() {
 }
 
 Tutorial = function(jsonTutorial) {
-  //var filename = file;
   var tutorialName = jsonTutorial.Name;
   var tutorialPages = [];
 
@@ -141,7 +143,7 @@ Tutorial = function(jsonTutorial) {
   }
 
   this.setName = function(name) {
-    this.tutoriaName = name;
+    this.tutorialName = name;
   }
 
   this.setPages = function (pages) {
@@ -252,6 +254,7 @@ Page = function(jsonPage) {
     return registers;
   }
 
+//TODO: delete??
   this.setMemory = function (mem) {
     memory = mem;
   }
@@ -279,12 +282,16 @@ Page = function(jsonPage) {
   }
 
   var memory = null;
+  //console.log("subtitle = " + subtitle)
+  //console.log("jsonPage.Memory = " + jsonPage.Memory)
   if(jsonPage.Memory) {
+
     memory = new Memory();
     for(var mem in jsonPage.Memory) {
       var val = goog.math.Integer.fromNumber(jsonPage.Memory[mem]);
       memory.setContents(Number(mem), val);
     }
+    //console.log(memory.getAll());
   }
 
   var text = "";
@@ -374,6 +381,7 @@ Tutorial.prototype.displayTutorialPage = function(page, pagenum) {
 
   //update the register values associated with the page
   if (page.getRegisters() != null) {
+    console.log("displayTutorialPage: setting registers")
     registers.setAll(page.getRegisters());
     updateRegs();
   } else {
@@ -382,7 +390,10 @@ Tutorial.prototype.displayTutorialPage = function(page, pagenum) {
 
   //update the memory values associated with the page (if they exist)
   if (page.getMemory() != null) {
-    memory = page.getMemory();
+    console.log("displayTutorialPage: page.getMemory() != null...")
+    console.log("old memory = " + memory.getAll());
+    memory.setAll(page.getMemory());
+    console.log("new memory = " + memory.getAll());
     createMemory();
   } else {
     //TODO: should we set to some default here or in the tutorial creater/file reader?

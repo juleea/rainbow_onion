@@ -34,6 +34,8 @@ PUT_NAME_IN_CAPS_HERE = {
                     ],
       "Question":   "What is in %eax after you run the code?",
       "Answer"  :   "30",
+            "Memory"  :   {"0": 20, "16": 21}     //Put the memory addresses and values here. Memory values optional.
+
     },
     {
       "Title"   :   "Moving Between Registers",
@@ -161,7 +163,7 @@ REG_TUTORIAL = {
       "Title"   :   "Moving things around: <i>mov</i>",
       "Text"    :   ["The simplest thing the computer can do is move things around.",
                     "Take a look at the code to the right. Do you see where it says <i>mov $30, %eax</i>?",
-                    "Click the run button to see what this does!",
+                    "Click the 'Play' button to see what this does!",
                     ],
       "Code"    :   ["mov $30, %eax",
                     ],

@@ -11,6 +11,15 @@ function Memory() {
     return (addr >= memory_start && addr < memory_end);
   }
 
+
+  //this takes in a memory object and assigns a copy of mem.contents to this.contents
+  this.setAll = function (mem) {
+    console.log("before = " + contents);
+    contents = mem.getAll().slice(); 
+    console.log("after = " + contents);
+  }
+
+
   //Must give valid address!
   this.setContents = function (address, data, bytes) {
     bytes = bytes||4;
@@ -24,6 +33,7 @@ function Memory() {
     
     this.contentsUpdated.notify({address: address, bytes: bytes});
   }
+
   
   this.getContents = function(address, bytes) {
     //TODO what if not multiple of 4?
