@@ -108,19 +108,19 @@ function Code() {
     if(stopped) return;
     if(curLineNum < codeLines.length && (!fromRun || !(curLineNum in breakPoints))) {
       fromRun = true;
-//<<<<<<< HEAD
+/*<<<<<<< HEAD
       setTimeout(this.step, speed * ctr);
       tempLineNum++;
       ctr++;
-/*=======
+=======*/
       var that = this;
       that.step();
       var toRun = function () {
         that.stepSlow(speed, fromRun);
       }
       setTimeout(toRun, speed);
->>>>>>> a2606cfef9d49b8ce8cad0a5c40da02f99adeb4b
-*/
+//>>>>>>> a2606cfef9d49b8ce8cad0a5c40da02f99adeb4b
+
     }
   }
 
