@@ -56,8 +56,8 @@ TEXT_AREA_HEIGHT = 0;
 					lineclasses = lineclasses + " " + opts.selectedClass;
 				if (lineNo==opts.runningLine)
 					lineclasses = lineclasses + " " + opts.runningClass;
-				var hexLineNo = "0x" + (codeStartAddr + (lineNo-1) * 4).toString(16);
-				codeLines.append("<div class='" + lineclasses + "' id='" + lineid + "'>" + hexLineNo + "</div>");
+				//var hexLineNo = "0x" + (codeStartAddr + (lineNo-1) * 4).toString(16);
+				codeLines.append("<div class='" + lineclasses + "' id='" + lineid + "'>" + lineNo + "</div>");
 				lineNo++;
 			}
 			TEXT_AREA_HEIGHT = lineNo;
@@ -83,7 +83,7 @@ TEXT_AREA_HEIGHT = 0;
 			var linedTextAreaDiv	= textarea.parent().wrap("<div class='linedwrap' style='width:" + originalTextAreaWidth + "px'></div>");
 			var linedWrapDiv 			= linedTextAreaDiv.parent();
 			
-			linedWrapDiv.prepend("<div class='lines' style='width:50px'></div>");
+			linedWrapDiv.prepend("<div class='lines'></div>");
 			
 			var linesDiv	= linedWrapDiv.find(".lines");
 			linesDiv.height( textarea.height() + 6 );
