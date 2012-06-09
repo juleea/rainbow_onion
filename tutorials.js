@@ -32,38 +32,65 @@ Tutorials = function() {
   
   //tutorialIds are 0-indexed
   this.displayTutorial = function(tutorialId) {   
-  console.log("display tutorial");
+    console.log("display tutorial");
     if (tutorialId >= allTutorials.length || tutorialId === currTutorialNum) return;
     currPageNum = 0;
     currTutorialNum = tutorialId;
+    this.createPaginationBtns(tutorialId, 0);
+    var currPage = 
     allTutorials[tutorialId].displayTutorialPageByNumber(0);
+  }
 
+  this.createPaginationBtns = function(tutorialId, activePageNum) {
+    $('#tutorialPageNav').empty();
+    $('#tutorialPageNav').append('<li id="prevPage" class="pageNav"><a href="#"> < </a></li>');
+    $('#prevPage').click(t.displayPrevPage);
+
+    var numPages = allTutorials[tutorialId].numPages();
+    for (var pageNum=0; pageNum<numPages; pageNum++) {
+      var dispNum = pageNum + 1;
+      $('#tutorialPageNav').append('<li id="page'+pageNum+'" class="pageNav"> <a href="#">'+ dispNum + '</a></li>');
+      if (pageNum === activePageNum) {
+        $('#page'+pageNum).addClass('active');
+      } else {
+        $('#page'+pageNum).addClass('disabled');
+      }
+      $('#page'+pageNum).click(
+        (function(pn) { return function() { 
+          if (pn ===0 || allTutorials[tutorialId].pageAnswered(pn-1)) {
+            allTutorials[tutorialId].displayTutorialPageByNumber(pn); 
+            t.currPageNum = pn; 
+          }}})(pageNum));
+    }
+    $('#tutorialPageNav').append('<li id="nextPage" class="pageNav"><a href="#"> > </a></li>');
+    $('#nextPage').click(t.displayNextPage);
   }
 
   
   this.displayNextPage = function() {
     var currTutorial = allTutorials[currTutorialNum];
-    code.stop();
-    if (currTutorial.isValidTutorialPage(currPageNum+1)) {
+    if (currTutorial.isValidTutorialPage(currPageNum+1) && currTutorial.pageAnswered(currPageNum)) {
+      //code.stop();
       currPageNum++;
-      $('#answerText').val("");
       currTutorial.displayTutorialPageByNumber(currPageNum);
     } else {
-      alert('error in page numbering!');
+      //cannot go to next page
     }
+    console.log(currPageNum);
   }
 
   
   this.displayPrevPage = function() {
     var currTutorial = allTutorials[currTutorialNum];
     code.stop();
-    if (currTutorial.isValidTutorialPage(currTutorialNum, currPageNum-1)) {
+    if (currTutorial.isValidTutorialPage(currPageNum-1)) {
       currPageNum--;
-      $('#answerText').html("");
+     // code.stop();
       currTutorial.displayTutorialPageByNumber(currPageNum);      
     } else {
-      alert('error in page numbering!');
+      //cannot go to a previous page
     }
+    console.log(currPageNum);
   }
 
   this.injectCode = function() {
@@ -76,10 +103,7 @@ Tutorials = function() {
   
   this.numTutorials = function() {
     return allTutorials.length;
-  }
-  
-  
-  
+  } 
 }
 
 
@@ -131,6 +155,10 @@ Tutorial = function(initFn) {
 
   this.numPages = function() {
     return tutorialPages.length;
+  }
+
+  this.pageAnswered = function(pageNumber) {
+    return tutorialPages[pageNumber].answered();
   }
   
 }
@@ -228,8 +256,12 @@ Page = function() {
 Tutorial.prototype.displayTutorialPage = function(page, pagenum) {
   //check for null error
   if (page == null) {
-    alert("error: page is null");
+    alert("error: page is null. page num = " +pagenum);
+    return;
   }
+
+  //clear answer box
+  $('#answerText').val("");
 
   //set the page subtitle.
   if (page.getSubtitle() != null) {
@@ -255,13 +287,26 @@ Tutorial.prototype.displayTutorialPage = function(page, pagenum) {
     $('#questionAnswer').show();
     $('#answerButton').show();
     $('#question').html(page.getQuestion());
-    $('#answer').html("");      
+    $('#answer').html("");    
+    $('#answerText').val(""); //clear answer box
+    
   }
   
   //show all buttons...
   $('#nextPageButton').show();
   $('#prevPageButton').show();
   $('#injectCodeButton').show();
+
+  var totalPages = this.numPages();
+
+  for (var i = 0; i < totalPages; i++) {
+    $('#page'+i).removeClass('active');
+    $('#page'+i).addClass('disabled');
+    if (i === pagenum) {
+      $('#page'+pagenum).addClass('active');
+    }
+  }
+ 
 
   //selectively hide buttons...
   if (pagenum === 0)  $('#prevPageButton').hide();   //hide "back" button on first page
@@ -270,7 +315,6 @@ Tutorial.prototype.displayTutorialPage = function(page, pagenum) {
     $('#injectCodeButton').hide();  //hide "reset" button on last page
   }
 
-  var totalPages = this.numPages();
   $('#pageNumber').html(pagenum+1 + "/" + totalPages);
 
   // update the code in the main textarea

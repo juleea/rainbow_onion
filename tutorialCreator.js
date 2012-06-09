@@ -52,7 +52,6 @@ whatIsAssembly = function(tutorialName) {
     var tutorialPages = [];
     var fakePage1 = new Page();
     fakePage1.setSubtitle ("Registers");
-    fakePage1.addLine("<b>mov src, dest</b>")
     fakePage1.addLine("Deep down, your computer uses what we call <i>Registers</i> as scratch paper.");
     fakePage1.addLine("(You can see the registers on the right of the page. They have funny names.)");
     fakePage1.addLine("It uses some simple instructions to move things around on the scratch paper.");

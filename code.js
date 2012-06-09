@@ -99,7 +99,7 @@ function Code() {
       fromRun = true;
       setTimeout(this.step, speed * ctr);
       tempLineNum++;
-      ctr ++;
+      ctr++;
     }
   }
 
