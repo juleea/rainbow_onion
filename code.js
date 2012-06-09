@@ -40,7 +40,6 @@ function Code() {
   }
 
   this.clear = function() {
-    console.log("in code.clear");
     codeLines.length = 0;
     codeErrors.length = 0;
   }
@@ -82,7 +81,6 @@ function Code() {
 
 
     var curLine = codeLines[curLineNum];
-    console.log(curLine);
     if(curLine) {
 
       if(!curLine.execute){
@@ -100,7 +98,7 @@ function Code() {
     if (curLineNum >= codeLines.length) {
       stopped = true;
     }
-    
+
   }
 
 
