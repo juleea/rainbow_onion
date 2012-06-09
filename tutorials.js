@@ -1,5 +1,6 @@
 Tutorials = function() {
-  var tutorialFilenames = [whatIsAssembly, movAndAddressing];
+  //INSERT NEW TUTORIAL NAMES HERE
+  var tutorialFilenames = [REG_TUTORIAL, MOV_TUTORIAL, TUTORIAL_FLAGS];
   var allTutorials = [];
   var currTutorialNum = null;
   var currPageNum = 0;
@@ -24,8 +25,6 @@ Tutorials = function() {
     var tutTitle = (tutNum+1) + ' - ' + tutorial.getName();
     $('#tutorialNav').append('<li id="'+tutId+'" class="tutorial" ><a href="#">'+ tutTitle + '</a></li>');
     $('#'+tutId).click(function() {t.displayTutorial(tutNum)});
-    console.log($('#'+tutId).click);
-
   }
 
   readTutorials();
@@ -79,6 +78,28 @@ Tutorials = function() {
     console.log(currPageNum);
   }
 
+  this.refresh = function() {
+    var currTutorial = allTutorials[currTutorialNum];
+    var page = currTutorial.getPage(currPageNum);
+    code.stop();
+    $('#answerText').val("");
+      //update the register values associated with the page
+    if (page.getRegisters() != null) {
+      registers.setAll(page.getRegisters());
+      updateRegs();
+    }
+
+    //update the memory values associated with the page (if they exist)
+    if (page.getMemory() != null) {
+      memory = page.getMemory();
+      createMemory();
+    } 
+    flags.clearAll();
+    updateDisplay();
+    //currTutorial.displayTutorialPageByNumber(currPageNum);
+  }
+
+
   
   this.displayPrevPage = function() {
     var currTutorial = allTutorials[currTutorialNum];
@@ -106,13 +127,15 @@ Tutorials = function() {
   } 
 }
 
-
-
-Tutorial = function(initFn) {
+Tutorial = function(jsonTutorial) {
   //var filename = file;
-  var tutorialName = initFn.tutorialName;
-  var tutorialPages = initFn(tutorialName);
-  
+  var tutorialName = jsonTutorial.Name;
+  var tutorialPages = [];
+
+  for(var i = 0; i < jsonTutorial.Pages.length; i++) {
+    tutorialPages.push(new Page(jsonTutorial.Pages[i]));
+  }
+  tutorialPages.push(Tutorial.prototype.lastPage);
   this.getName = function() {
     return tutorialName;
   }
@@ -159,21 +182,13 @@ Tutorial = function(initFn) {
 
   this.pageAnswered = function(pageNumber) {
     return tutorialPages[pageNumber].answered();
+  this.getPage = function(index) {
+    return tutorialPages[index];
   }
   
 }
 
-Page = function() {
-  //if these values are null when the page is displayed, the dom element will be unchanged
-  var subtitle = null;
-  var registers = null;
-  var memory = null;
-  var text = "";
-  var question = ""; // default is to remove the question and answer box
-  var answer = "";
-  var code = null; // array of strings of code if new code should be displayed
-  var answered = false; //Has the user correctly answered this question?
-
+Page = function(jsonPage) {
   this.setSubtitle = function(subt) {
     subtitle = subt;
   }
@@ -251,6 +266,39 @@ Page = function() {
     }
     return str;
   }
+    //if these values are null when the page is displayed, the dom element will be unchanged
+  var subtitle = jsonPage.Title || null;
+  var registers = null;    
+  if(jsonPage.Registers) {
+    registers = new Registers();
+    for(var reg in jsonPage.Registers) {
+      registers.setContents(reg, jsonPage.Registers[reg], true);
+    }
+  }
+
+  var memory = null;
+  if(jsonPage.Memory) {
+    memory = new Memory();
+    for(var mem in jsonPage.Memory) {
+      var val = goog.math.Integer.fromNumber(jsonPage.Memory[mem]);
+      memory.setContents(Number(mem), val);
+    }
+  }
+
+  var text = "";
+  if(jsonPage.Text) {
+    for(var i = 0; i < jsonPage.Text.length; i++)
+      this.addLine(jsonPage.Text[i]);
+  }
+  var question = jsonPage.Question || ""; // default is to remove the question and answer box
+  var answer = jsonPage.Answer || "";
+  var code = null; // array of strings of code if new code should be displayed
+  if(jsonPage.Code) {
+    for(var i = 0; i < jsonPage.Code.length; i++) {
+      this.addInstruction(jsonPage.Code[i]);
+    }
+  }
+  var answered = false; //Has the user cor
 }
 
 Tutorial.prototype.displayTutorialPage = function(page, pagenum) {
@@ -319,34 +367,31 @@ Tutorial.prototype.displayTutorialPage = function(page, pagenum) {
 
   // update the code in the main textarea
   if (page.instructionsAsString() !=null) {
-    console.log("loading code");
     $('textarea#mainText').val(page.instructionsAsString());
   }
 
   //update the register values associated with the page
   if (page.getRegisters() != null) {
-    console.log("loading registers");
-    registers = page.getRegisters();
+    registers.setAll(page.getRegisters());
     updateRegs();
-    registers.contentsUpdated.attach(updateReg);
-
   } else {
     //TODO: should we set to some default here or in the tutorial creater/file reader?
   }
 
   //update the memory values associated with the page (if they exist)
   if (page.getMemory() != null) {
-    console.log("loading memory");
     memory = page.getMemory();
     createMemory();
-    memory.contentsUpdated.attach(updateMemory);
   } else {
     //TODO: should we set to some default here or in the tutorial creater/file reader?
   }
+
+  flags.clearAll();
 }
 
-Tutorial.prototype.lastPage = new Page();
-Tutorial.prototype.lastPage.setSubtitle("Congratulations");
-Tutorial.prototype.lastPage.addLine("You've completed this activity!");
-console.log("last page loaded");
-
+Tutorial.prototype.lastPage = new Page(
+  {
+    "Title":"Congratulations",
+    "Text": ["You've completed this activity!"],
+  }
+);

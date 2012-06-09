@@ -21,4 +21,10 @@ function Flags() {
   this.getAll = function() {
     return contents;
   }
+
+  this.clearAll = function() {
+    for(var flag in contents) {
+      this.setContents(flag, false);
+    }
+  }
 }

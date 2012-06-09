@@ -1,5 +1,3 @@
-@import url('https://fonts.googleapis.com/css?family=Lobster');
-
 @import url('https://fonts.googleapis.com/css?family=Cabin:400,700');
 /*!
  * Bootstrap v2.0.3
@@ -364,7 +362,6 @@ h4,
 h5,
 h6 {
   margin: 0;
-  font-family: 'Lobster', cursive;
   font-weight: normal;
   color: inherit;
   text-rendering: optimizelegibility;
@@ -4223,10 +4220,6 @@ a.badge:hover {
 }
 .invisible {
   visibility: hidden;
-}
-.navbar .brand,
-legend {
-  font-family: 'Lobster', cursive;
 }
 h6 {
   color: rgba(255, 255, 255, 0.9);

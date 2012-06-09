@@ -21,11 +21,13 @@ function Registers() {
     return twoByteReg.indexOf(reg) > -1;
   }
 
-  this.setContents = function(reg, data) {
+  this.setContents = function(reg, data, noFlash) {
     //TODO what if not multiple of 4?
     if (contents[reg]) {
       contents[reg] = goog.math.Integer.fromNumber(data);
-      this.contentsUpdated.notify({register: reg});
+      if(noFlash!=true) {
+        this.contentsUpdated.notify({register: reg});
+      }
       return true;
     }
     else {
@@ -43,6 +45,12 @@ function Registers() {
 
   this.getAll = function() {
     return contents;
+  }
+
+  this.setAll = function(newRegs) {
+    for(reg in contents) {
+      this.setContents(reg, newRegs.getContents(reg), true);
+    }
   }
 
 }

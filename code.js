@@ -5,6 +5,7 @@ function Code() {
   codeLines = [];
   var breakPoints = {};
   codeErrors = [];
+  var stopped = false;
 
   // Returns true if all lines successfully parsed
   this.init = function(text) {
@@ -15,9 +16,13 @@ function Code() {
       instruction = parseLine(lines[i]);
       if (instruction) {
         this.addLine(parseLine(lines[i]));
-      } else if (lines[i] != "") { // sometimes it picks up the last newline - TODO: should not ever try to parse empty line
+      } else if (lines[i] != "") {
         codeErrors.push([i+1,parseLine.error]);
         errorsFound = true;
+        //When It is not the last line, we add a spacer for blank lines so that
+        //The number of lines in the textarea matches the number of lines of code
+      } else if(i != lines.length - 1) {
+        this.addLine(null);
       }
     }
     return !errorsFound;
@@ -78,32 +83,49 @@ function Code() {
     var curLine = codeLines[curLineNum];
     if(curLine) {
       if(!curLine.execute){
-        alert("instruction not implemented");
+        alert("instruction not valid or implemented");
       } else {
         curLine.execute(memory, registers);
       }
     }
-    //TODO: seems like breaking our code pattern to put this here but can't think of better;
     curLineNum++;
+    //TODO: seems like breaking our code pattern to put this here but can't think of better;
     updateDisplay();
   }
 
+
+
   this.cont = function(speed, fromRun) {
+    stopped = false;
+    this.stepSlow(speed, fromRun);
+  }
+
+
+  this.stepSlow = function(speed, fromRun) {
     if (!fromRun) {
       var fromRun = false;
     }
-    var tempLineNum = curLineNum;
-    var ctr = 0;
-    var first = true;
-    while(tempLineNum < codeLines.length && (!fromRun || !(tempLineNum in breakPoints))) {
+    if(stopped) return;
+    if(curLineNum < codeLines.length && (!fromRun || !(curLineNum in breakPoints))) {
       fromRun = true;
+//<<<<<<< HEAD
       setTimeout(this.step, speed * ctr);
       tempLineNum++;
       ctr++;
+/*=======
+      var that = this;
+      that.step();
+      var toRun = function () {
+        that.stepSlow(speed, fromRun);
+      }
+      setTimeout(toRun, speed);
+>>>>>>> a2606cfef9d49b8ce8cad0a5c40da02f99adeb4b
+*/
     }
   }
 
   this.run = function(speed) {
+    stopped = false;
     curLineNum = 0;
     updateDisplay();
     var t = this;
@@ -112,7 +134,13 @@ function Code() {
   }
 
   this.stop = function() {
+    stopped = true;
     curLineNum = 0;
+    updateDisplay();
+  }
+
+  this.pause = function() {
+    stopped = true;
     updateDisplay();
   }
 

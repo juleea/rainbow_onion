@@ -36,8 +36,8 @@ body {
 }
 
 #mainText {
-  background-color:#1ba7b4;
-  color: white;
+  background-color: white;
+  color: black;
   outline:none;
   font-family:'Cabin', Arial;
 }
@@ -130,10 +130,6 @@ body {
 .maincontent {
   width: 100%;
   height: 100%;
-}
-
-#memoryPane {
-  height: 550px;
 }
 
 #memoryPane td
@@ -237,6 +233,6 @@ button {
   width:90%;
 }
 
-#tutorialhead h2, #sectionHead h2 {
+#tutorialhead h2 {
     display:inline;
 }
