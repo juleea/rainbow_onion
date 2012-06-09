@@ -182,6 +182,8 @@ Tutorial = function(jsonTutorial) {
 
   this.pageAnswered = function(pageNumber) {
     return tutorialPages[pageNumber].answered();
+  }
+
   this.getPage = function(index) {
     return tutorialPages[index];
   }
