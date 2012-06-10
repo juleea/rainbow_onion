@@ -1,3 +1,35 @@
+#rRB {
+  color: red;
+}
+
+#aRB {
+  color: orange;
+}
+
+#iRB {
+  color: #E0DD1B;
+}
+
+#nRB {
+  color: green;
+}
+
+#bRB {
+  color: blue;
+}
+
+#oRB {
+  color: indigo;
+}
+#wRB {
+  color: violet;
+}
+
+#onion {
+  height: 20px;
+  width: 20px;
+}
+
 body {
   font-family: helvetica;
 }
@@ -13,6 +45,23 @@ body {
   font-family:helvetica;
   font-size: 26px;
   padding-bottom:5px;
+}
+
+#topNav {
+  background: white;
+  color: black;
+}
+
+#aboutBtn {
+  color: black;
+}
+
+#contactBtn {
+  color: black;
+}
+
+#helpBtn {
+  color: black;
 }
 
 .sectionSubtitle {
