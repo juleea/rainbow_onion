@@ -297,3 +297,14 @@ button {
 #usage {
   display: inline;
 }
+
+#team_table {
+    width: 100%;
+    text-align: center;
+}
+
+#team_pic {
+    width:50px;
+    height:50px;
+    border:1px solid #ADB3B2;
+}

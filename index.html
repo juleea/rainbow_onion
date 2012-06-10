@@ -41,6 +41,7 @@
 
 <body>
 
+<!-- FIRST TIME HERE -->
 <div class="modal show" id="first_time_here">
   <div class="modal-header">
     <button type="button" class="close" data-dismiss="modal">x</button>
@@ -53,18 +54,108 @@
   </div>
 </div>
 
+
+<!-- NAVIGATION -->
 <div class='navbar'>
   <div class="navbar-inner" id="topNav">
     <div class="container">
         <a class="brand" href="#"><span id="rRB">r</span><span id="aRB">a</span><span id="iRB">i</span><span id="nRB">n</span><span id="bRB">b</span><span id="oRB">o</span><span id="wRB">w</span> <img src="onion.png" id="onion" alt="o"></img>nion</a>
         <ul class="nav pull-right">
-            <li><a class="infoButton" id="aboutBtn" href="#">About</a></li>
-            <li><a class="infoButton" id="helpBtn" href="#">Help</a></li>
-            <li><a class="infoButton" id="contactBtn" href="#">Contact</a></li>
+            <li><a class="infoButton" data-toggle="modal" id="aboutBtn" href="#about">About</a></li>
+            <li><a class="infoButton" data-toggle="modal" id="helpBtn" href="#help">Help</a></li>
+            <li><a class="infoButton" data-toggle="modal" id="contactBtn" href="#contact">Contact</a></li>
         </ul>
     </div>
   </div>
 </div>
+
+
+<!-- ABOUT US -->
+<div class="modal hide" id="about">
+  <div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal">x</button>
+    <h3>About</h3>
+  </div>
+  <div class="modal-body">
+  <h4>Our Mission</h4>
+  <p>Rainbow Onion is the product of three Stanford students' efforts to ease learning and understanding assembly. Learning assembly is one of the more challenging endeavors in computer science education, we designed this product with computer science students in mind.</p>
+  
+  <p>Students we talked to found tools like gdb to be difficult and lacking for a first-timer learning assembly, so we built a tool that paralleled the IDEs many students are already familiar with. Our goal is to help students focus on learning the concepts instead of learning a new tool, and we hope you enjoy it!</p>
+  
+  <h4>The Team</h4>
+  <table id="team_table">
+  <tr>
+  
+  <td>
+  <img src="kat.jpg" id="team_pic"><br/>
+  Katherine Busch <br/>
+  <a href="http://www.linkedin.com/in/katherinebusch" style="text-decoration:none;"><span style="font: 80% Arial,sans-serif; color:#0783B6;"><img src="http://www.linkedin.com/img/webpromo/btn_in_20x15.png" width="20" height="15" alt="View Constance Duong's LinkedIn profile" style="vertical-align:middle" border="0"></span></a>
+  </td>
+  
+  <td>
+  <img src="constance.jpeg" id="team_pic"><br/>
+  Constance Duong <br/>
+  <a href="http://www.linkedin.com/in/constanced" style="text-decoration:none;"><span style="font: 80% Arial,sans-serif; color:#0783B6;"><img src="http://www.linkedin.com/img/webpromo/btn_in_20x15.png" width="20" height="15" alt="View Constance Duong's LinkedIn profile" style="vertical-align:middle" border="0"></span></a>
+  </td>
+  
+  <td>
+  [INSERT PIC]</br>
+  Julia Lee <br/>
+  <a href="http://www.linkedin.com/in/julia-lee" style="text-decoration:none;"><span style="font: 80% Arial,sans-serif; color:#0783B6;"><img src="http://www.linkedin.com/img/webpromo/btn_in_20x15.png" width="20" height="15" alt="View Constance Duong's LinkedIn profile" style="vertical-align:middle" border="0"></span></a>
+  </td>
+  </tr></table>
+
+  </div>
+</div>
+
+
+<!-- FIRST TIME HERE -->
+<div class="modal hide" id="help">
+  <div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal">x</button>
+    <h3>Help</h3>
+  </div>
+  <div class="modal-body">
+  <h4>Instruction Set</h4>
+  <p>Rainbow Onion currently supports a <a href="#" id="instruction_set">subset</a> of the x86 assembly instruction set.</p>
+  
+  <h4>Addressing Modes</h4>
+  <p>The editor accepts four addressing modes:
+  <ul>
+    <li>
+        <b>Immediate</b>: $value, e.g. $20 or $0x14 for the constant integer value 20
+    </li>
+    <li>
+        <b>Normal</b>: (register), e.g. (%ecx) to access the memory address stored in the ecx register.
+    </li>
+    <li>
+        <b>Displacement</b>: displacement(reg), e.g. 8(%ebp) to access the memory address stored at offset 8 from the address stored in the ebp register.
+    </li>
+    <li>
+        <b>Indexed</b>: displacement(base register, index register, scale), e.g. 8(%ecx, %eax, 4) to access the memory address stored at 8 offset from the address in ecx + 4 * the address in eax. 
+    </li>
+  </ul></p>
+  
+  <p>If you have any more questions, please email us at <a href="mailto:rainbowonion.stanford@gmail.com">rainbowonion.stanford@gmail.com</a>.</p>
+  
+  
+  </div>
+</div>
+
+
+<!-- CONTACT -->
+<div class="modal hide" id="contact">
+  <div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal">x</button>
+    <h3>Contact</h3>
+  </div>
+  <div class="modal-body">
+  <p>
+    We'd love to hear what you think of our product! Please email <a href="mailto:rainbowonion.stanford@gmail.com">rainbowonion.stanford@gmail.com</a> with any questions, feedback, or feature requests. 
+  </p>
+  </div>
+</div>
+
 
 
 <div class='maincontent'>
