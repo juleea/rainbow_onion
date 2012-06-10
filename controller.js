@@ -34,8 +34,9 @@ $(function() {
   $('.lineno').click(bpClick);
 
   $('textarea#mainText').keyup(function(e) {
-    if(e.keyCode == 13){
-      //might use for parsing on enter
+    var contents = $('textarea#mainText').val().trim().split("\n");
+    if(contents[contents.length - 1] in instructionMap) {
+      helpBox.search(contents[contents.length - 1]);
     }
   });
 
@@ -68,13 +69,11 @@ $(function() {
   
   // 
   var pxToInt = function(pxStr) {return Number(pxStr.substr(0, pxStr.length - 2))};
-  $("#helpBox").css("height", $("#memoryBox").height() - $("#registers").height() -57);
-  createHelpBox("searchBar", "helpTarget", "mov");
-  
+  $("#helpBox").css("height", 40);
+  helpBox = new HelpBox("searchBar", "helpTarget", "mov");
   
   $('#first_time_here').modal();
-
-
+  $('#searchBar').hide();
 });
 
 function updateRunSpeed(event, ui) {
