@@ -12,7 +12,6 @@ $(function() {
     stop: updateRunSpeed,
     value: 5
   });
-  $('button#pauseButton').hide();
 
   $("#runSpeed").text($("#runSpeedSlider").slider('value'));
   
@@ -29,7 +28,6 @@ $(function() {
 	$('.lined').linedtextarea();
 
 //display tutorial tabs and first first page of first tutorial
-//tutorials.displayTabs
   tutorials.displayTutorial(0);
 
   //lISTENERS
@@ -45,13 +43,14 @@ $(function() {
   createRegisters();
   createMemory();
   updateDisplay();
+  showPlayButton();
 
   $('button#restartButton').click(restartButton);
   $('button#answerButton').click(function(){tutorials.displayAnswer($("#answerText").val())});
   $('#answerText').keyup(function (e) { if(e.keyCode == 13) tutorials.displayAnswer($("#answerText").val());});
   $('button#stepButton').click(stepButton);
-  $('button#contButton').click(contButton);
-  $('button#pauseButton').click(pauseButton);
+  //$('button#contButton').click(contButton);
+  //$('button#pauseButton').click(pauseButton);
   $('button#parseButton').click(parseButton);
   $('button#resetButton').click(resetButton);
   $('button#nextPageButton').click(tutorials.displayNextPage);
@@ -141,16 +140,28 @@ var getSpeed = function (sliderValue) {
 }
 
 function restartButton() {
-  $('button#pauseButton').hide();
-  $('button#contButton').show();
+  showPlayButton();
   parseButton();
   code.stop();
 
-/*
-  if(parseButton()) {
-    code.stop();
-  }
-  */
+}
+
+function showPauseButton() {
+  $('button#pauseButton').remove();
+  $('button#contButton').remove();
+  var pauseBtnHTML = "<button class='topButtons btn' id='pauseButton'><abbr title='Pause code'><i class='icon-pause'></i>&nbsp;Pause</abbr></button>";
+  var pauseBtn = $(pauseBtnHTML);
+  pauseBtn.click(pauseButton);
+  $('#topBtns').prepend(pauseBtn);
+}
+
+function showPlayButton() {
+  $('button#pauseButton').remove();
+  $('button#contButton').remove();
+  var playBtnHTML = "<button class='topButtons btn' id='contButton'><abbr title='Run code'><i class='icon-play'></i>&nbsp;Play</abbr></button>";
+  var playBtn = $(playBtnHTML);
+  playBtn.click(contButton);
+  $('#topBtns').prepend(playBtn);
 }
 
 function stepButton() {
@@ -159,21 +170,18 @@ function stepButton() {
 
 function pauseButton() {
   code.pause();
-  $('button#pauseButton').hide();
-  $('button#contButton').show();
+  showPlayButton();
 }
 
 function contButton() {
   if(parseButton()) {
-    $('button#contButton').hide();
-    $('button#pauseButton').show();
+    showPauseButton();
     code.cont(getSpeed());
   }
 }
 
 function resetButton() {
-  $('button#pauseButton').hide();
-  $('button#contButton').show();
+  showPlayButton();
   tutorials.refresh();
 }
 
@@ -181,8 +189,9 @@ function updateDisplay() {
   updateFlags();
   updateCurLine();
   if (code.isStopped()) {
-    $('button#pauseButton').hide();
-    $('button#contButton').show();
+    showPlayButton();
+//    $('button#pauseButton').hide();
+//    $('button#contButton').show();
   }
 }
 

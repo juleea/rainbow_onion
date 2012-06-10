@@ -135,6 +135,11 @@
   font-size: 14px;
 }
 
+.dropdown-toggle {
+    color: #333;
+
+}
+
 #answerText {
   width: 60%;
   resize:none;
@@ -212,10 +217,9 @@ td {
 }
 
 #sliderWrapper {
-  padding:6px;
+  padding:5px;
   width: 100px;
-  display: inline;
-  float: right;
+  float: left;
 }
 
 #runSpeed {
@@ -235,12 +239,20 @@ td {
   width: 100px; 
 }
 
-.button_bar {
-  margin-bottom: 20px;
+table.button_bar {
   width: 100%;
 }
 
-.topButtons {
+div#topBtns {
+  float: left;
+}
+
+table{
+  background-color: white;
+}
+
+td.topButtons {
+  border: 0px;
   padding: 10px 30px 10px 30px;
 }
 

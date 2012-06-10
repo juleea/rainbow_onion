@@ -47,7 +47,7 @@
 	float: left;
 	overflow: hidden;
 	border-right: 1px solid #c0c0c0;
-	margin-right: 10px;
+	margin-right: 0px;
 }
 
 .linedwrap .codelines {
@@ -72,5 +72,9 @@
 }
 
 .linedwrap .codelines .breakpoint {
-	border-left: 3px solid green;
+	border-left: 3px solid white;
+}
+
+.linedwrap {
+	
 }
