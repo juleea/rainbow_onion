@@ -93,7 +93,7 @@ body {
 
 #mainText{
   width: 100%;
-  height: 520px;
+  height: 480px;
 }
 
 .rightCenter {
@@ -113,6 +113,10 @@ body {
 }
 
 #tutorials {
+  height: 550px;
+}
+
+#registers {
   height: 550px;
 }
 
@@ -158,7 +162,6 @@ body {
 
 #helpBox {
   height: 100%;
-  overflow: auto;
 }
 
 .help {
@@ -278,8 +281,8 @@ button {
   padding: 15px;
 }
 
-#searchBar {
-  width:90%;
+#helpBox {
+  margin: 10px;
 }
 
 #tutorialhead h2 {
