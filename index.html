@@ -115,14 +115,19 @@
 <div class='center'>
 
   <div class='textPanel'>
-    <div class='button_bar'>
-      <button class='topButtons btn' id='contButton'><abbr title="Run code"><i class="icon-play"></i>&nbsp;Play</abbr></button>
-      <button class='topButtons btn' id='pauseButton'><abbr title="Pause code"><i class="icon-pause"></i>&nbsp;Pause</abbr></button>
-      <button class='topButtons btn' id='restartButton'><abbr title="Set code back to line 1"><i class="icon-repeat"></i>&nbsp;&nbsp;Restart</button>
-      <button class='topButtons btn' id='resetButton'><i class="icon-refresh"></i><abbr title="Reset registers,flags, and memory">&nbsp;Reset</abbr></button>
-      <button class='topButtons btn' id='stepButton'><abbr title="Execute 1 line"><i class="icon-step-forward"></i>&nbsp;Step</abbr></button>
-      <div id='sliderWrapper' class="topButtons"><div>Speed</div><div id='runSpeedSlider' ></div></div>
-    </div>
+    <table cell-spacing='0' class='button_bar'>
+      <tr>
+      <td class='btn-group topButtons' id='topBtns'>
+        <button class='topButtons btn' id='restartButton'><abbr title="Set code back to line 1"><i class="icon-repeat"></i>&nbsp;&nbsp;Restart</button>
+        <button class='topButtons btn' id='resetButton'><i class="icon-refresh"></i><abbr title="Reset registers,flags, and memory">&nbsp;Reset</abbr></button>
+        <button class='topButtons btn' id='stepButton'><abbr title="Execute 1 line"><i class="icon-step-forward"></i>&nbsp;Step</abbr></button>
+      </td>
+      <td id='sliderWrapper' class='topButtons'>
+        <div>Speed</div>
+        <div id='runSpeedSlider' ></div>
+      </td>
+    </tr>
+  </table>
     <div id="error_alert"> </div>
     <textarea class='lined' id='mainText' placeholder="Click to start typing!"></textarea> 
     
