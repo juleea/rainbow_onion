@@ -88,10 +88,10 @@ function add_help_tooltips() {
   $("#esi_label").tooltip({animation:true, trigger: 'hover', title: esi_help_text});
   
   // flags
-  $("#CF").tooltip({animation:true, trigger: 'hover', title: cf_help_text});
-  $("#ZF").tooltip({animation:true, trigger: 'hover', title: zf_help_text});
-  $("#SF").tooltip({animation:true, trigger: 'hover', title: sf_help_text});
-  $("#OF").tooltip({animation:true, trigger: 'hover', title: of_help_text});
+  $("#CF_cell").tooltip({animation:true, trigger: 'hover', title: cf_help_text});
+  $("#ZF_cell").tooltip({animation:true, trigger: 'hover', title: zf_help_text});
+  $("#SF_cell").tooltip({animation:true, trigger: 'hover', title: sf_help_text});
+  $("#OF_cell").tooltip({animation:true, trigger: 'hover', title: of_help_text});
   
   $("#instruction_set").popover({animation: true, trigger: 'hover', title: instruction_help_title, content: instruction_help_text});
 }
