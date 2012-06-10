@@ -14,9 +14,7 @@ function Memory() {
 
   //this takes in a memory object and assigns a copy of mem.contents to this.contents
   this.setAll = function (mem) {
-    console.log("before = " + contents);
     contents = mem.getAll().slice(); 
-    console.log("after = " + contents);
   }
 
 

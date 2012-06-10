@@ -36,8 +36,7 @@ Tutorials = function() {
     currPageNum = 0;
     currTutorialNum = tutorialId;
     this.createPaginationBtns(tutorialId, 0);
-    var currPage = 
-    allTutorials[tutorialId].displayTutorialPageByNumber(0);
+    var currPage = allTutorials[tutorialId].displayTutorialPageByNumber(0);
   }
 
   this.createPaginationBtns = function(tutorialId, activePageNum) {
@@ -56,10 +55,9 @@ Tutorials = function() {
       }
       $('#page'+pageNum).click(
         (function(pn) { return function() { 
-          if (pn ===0 || allTutorials[tutorialId].pageAnswered(pn-1)) {
-            allTutorials[tutorialId].displayTutorialPageByNumber(pn); 
-            t.currPageNum = pn; 
-          }}})(pageNum));
+          allTutorials[tutorialId].displayTutorialPageByNumber(pn); 
+          currPageNum = pn; 
+          }})(pageNum));
     }
     $('#tutorialPageNav').append('<li id="nextPage" class="pageNav"><a href="#"> > </a></li>');
     $('#nextPage').click(t.displayNextPage);
@@ -68,14 +66,11 @@ Tutorials = function() {
   
   this.displayNextPage = function() {
     var currTutorial = allTutorials[currTutorialNum];
-    if (currTutorial.isValidTutorialPage(currPageNum+1) && currTutorial.pageAnswered(currPageNum)) {
+    if (currTutorial.isValidTutorialPage(currPageNum+1)) {
       //code.stop();
       currPageNum++;
       currTutorial.displayTutorialPageByNumber(currPageNum);
-    } else {
-      //cannot go to next page
     }
-    console.log(currPageNum);
   }
 
   this.refresh = function() {
@@ -91,7 +86,6 @@ Tutorials = function() {
     }
 
     //update the memory values associated with the page (if they exist)
-    console.log(page);
     if (page.getMemory() != null) {
       console.log("refresh memory");
       memory.setAll(page.getMemory());
@@ -381,7 +375,6 @@ Tutorial.prototype.displayTutorialPage = function(page, pagenum) {
 
   //update the register values associated with the page
   if (page.getRegisters() != null) {
-    console.log("displayTutorialPage: setting registers")
     registers.setAll(page.getRegisters());
     updateRegs();
   } else {
@@ -390,10 +383,7 @@ Tutorial.prototype.displayTutorialPage = function(page, pagenum) {
 
   //update the memory values associated with the page (if they exist)
   if (page.getMemory() != null) {
-    console.log("displayTutorialPage: page.getMemory() != null...")
-    console.log("old memory = " + memory.getAll());
     memory.setAll(page.getMemory());
-    console.log("new memory = " + memory.getAll());
     createMemory();
   } else {
     //TODO: should we set to some default here or in the tutorial creater/file reader?

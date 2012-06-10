@@ -181,7 +181,6 @@ function resetButton() {
 function updateDisplay() {
   updateFlags();
   updateCurLine();
-  console.log(code.isStopped());
   if (code.isStopped()) {
     $('button#pauseButton').hide();
     $('button#contButton').show();
@@ -248,7 +247,6 @@ function updateMemValues(address, bytes, color) {
     for (var i = MEM_DISPLAY; i < newMem; i+=4) {
       $('#memoryPane').append('<tr><td>0x' + i.toString(16) + '</td><td id="mem' + i + '">'
        + memory.getContents(i) + '</td></tr>');
-      console.log("adding " + i);
     }
     MEM_DISPLAY = newMem;
     for(var i = address - address%4; i < address + bytes+ address%4; i+=4) {
