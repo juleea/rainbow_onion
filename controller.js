@@ -57,12 +57,7 @@ $(function() {
   $('button#prevPageButton').click(tutorials.displayPrevPage);
   $('button#injectCodeButton').click(tutorials.injectCode);
 
-// Tooltips
-  $("#registers-help").tooltip({animation:true, trigger: 'hover', title: register_help_text});
-  $("#memory-help").tooltip({animation:true, trigger: 'hover', title: memory_help_text});
-  $("#flags-help").tooltip({animation:true, trigger: 'hover', title: flags_help_text});
-  $("#eax_label").tooltip({animation:true, trigger: 'hover', title: eax_help_text});
-  $("#eip_label").tooltip({animation:true, trigger: 'hover', title: eip_help_text});
+  add_help_tooltips();
   
   // Errors
   $("#error_alert").hide();
@@ -74,6 +69,30 @@ $(function() {
   $('#first_time_here').modal();
   $('#searchBar').hide();
 });
+
+
+function add_help_tooltips() {
+  $("#registers-help").tooltip({animation:true, trigger: 'hover', title: register_help_text});
+  $("#memory-help").tooltip({animation:true, trigger: 'hover', title: memory_help_text});
+  $("#flags-help").tooltip({animation:true, trigger: 'hover', title: flags_help_text});
+  
+  // registers
+  $("#eax_label").tooltip({animation:true, trigger: 'hover', title: eax_help_text});
+  $("#eip_label").tooltip({animation:true, trigger: 'hover', title: eip_help_text});
+  $("#ecx_label").tooltip({animation:true, trigger: 'hover', title: ecx_help_text});
+  $("#edx_label").tooltip({animation:true, trigger: 'hover', title: edx_help_text});
+  $("#ebx_label").tooltip({animation:true, trigger: 'hover', title: ebx_help_text});
+  $("#edi_label").tooltip({animation:true, trigger: 'hover', title: edi_help_text});
+  $("#esp_label").tooltip({animation:true, trigger: 'hover', title: esp_help_text});
+  $("#ebp_label").tooltip({animation:true, trigger: 'hover', title: ebp_help_text});
+  $("#esi_label").tooltip({animation:true, trigger: 'hover', title: esi_help_text});
+  
+  // flags
+  $("#CF").tooltip({animation:true, trigger: 'hover', title: cf_help_text});
+  $("#ZF").tooltip({animation:true, trigger: 'hover', title: zf_help_text});
+  $("#SF").tooltip({animation:true, trigger: 'hover', title: sf_help_text});
+  $("#OF").tooltip({animation:true, trigger: 'hover', title: of_help_text});
+}
 
 function updateRunSpeed(event, ui) {
   var dispSpeed = $('#runSpeedSlider').slider('value');
