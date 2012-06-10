@@ -8,7 +8,7 @@ function HelpBox(inputId, outputId, initialValue) {
     if(e.keyCode == 13){
       var instr = inputElem.val().toLowerCase();
       if(instr in instructionMap) {
-        outputElem.html("&nbsp;&nbsp;&nbsp;&nbsp; " + instructionMap[instr].form + "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;" + instructionMap[instr].help);
+        outputElem.html("&nbsp;&nbsp;&nbsp;&nbsp;<b>" + instructionMap[instr].form + "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;" + instructionMap[instr].help +"</b>");
       } else {
         outputElem.html("Instruction not found")
       }

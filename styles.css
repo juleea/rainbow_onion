@@ -30,21 +30,10 @@
   width: 20px;
 }
 
-body {
-  font-family: helvetica;
-}
-
-.left {
-  float: left;
-  position: relative; 
-  width: 400px;
-  padding: 25px 25px 25px 25px;
-}
-
 .sectionHead {
-  font-family:helvetica;
   font-size: 26px;
   padding-bottom:5px;
+  font-family: 'Cabin';
 }
 
 #topNav {
@@ -73,11 +62,19 @@ body {
   float: right;
 }
 
+.left {
+  float: left;
+  position: relative; 
+  width: 400px;
+  padding: 10px 15px 15px 15px;
+}
+
+
 .center {
   position: relative; 
   float: left;
   width: 500px;
-  padding: 25px 25px 25px 25px;
+  padding: 10px 15px 15px 15px;
 }
 
 .textPanel {
@@ -87,29 +84,23 @@ body {
 #mainText {
   background-color: white;
   color: black;
-  outline:none;
-  font-family: 'Cabin', Arial;
-}
-
-#mainText{
   width: 100%;
-  height: 480px;
+  height: 450px;
 }
 
 .rightCenter {
   float: left;
   width: 180px;
-  padding: 25px 25px 25px 25px;
+  padding: 10px 15px 15px 15px;
 }
 
 .rightSide {
   float: left;
   width: 160px;
-  padding: 25px 0px 25px 25px;
+  padding: 10px 15px 15px 15px;
 }
 
 #tutorialBox {
-  position:relative;
 }
 
 #tutorials {
@@ -129,7 +120,6 @@ body {
 }
 
 .logo {
-  font-family: helvetica;
   font-size: 24px;
   padding: 20px;
   text-align:right;
@@ -158,10 +148,6 @@ body {
 
 .tutorial {
   text-align: left;
-}
-
-#helpBox {
-  height: 100%;
 }
 
 .help {
@@ -272,6 +258,10 @@ button {
   display: inline;
 }
 
+#question {
+  margin-bottom: 15;
+}
+
 #questionAnswer {
   padding-top: 15px;
   padding-bottom: 15px;
@@ -282,9 +272,16 @@ button {
 }
 
 #helpBox {
-  margin: 10px;
+  margin-top: 10px;
+  width: 477px;
+  background-color: white;
+  border: 2px solid #ADB3B2;
 }
 
 #tutorialhead h2 {
     display:inline;
+}
+
+#usage {
+  display: inline;
 }

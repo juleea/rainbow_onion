@@ -27,7 +27,6 @@
   <script type="text/javascript" src="searchBar.js"></script>
   <script type="text/javascript" src="observer.js"></script>
 	<script type="text/javascript" src="memory.js"></script>
-	<script type="text/javascript" src="douglas.js"></script>
 	<script type="text/javascript" src="instructions.js"></script>
   <script type="text/javascript" src="instrData.js"></script>
 	<script type="text/javascript" src="registers.js"></script> 
@@ -99,15 +98,17 @@
 
       <br/>
     </div>
-    <div class='button_bar'>
-      <!-- <button class='btn' id='injectCodeButton'>Reset Code</button> -->
-      <div class='pagination pagination-centered'>
-        <ul id='tutorialPageNav'>
-          
-        </ul>
+    <div class="bottom-stuff">
+      <div class='button_bar'>
+        <!-- <button class='btn' id='injectCodeButton'>Reset Code</button> -->
+        <div class='pagination pagination-centered'>
+          <ul id='tutorialPageNav'>
+            
+          </ul>
+        </div>
+        <!--<button class='btn navbtn' id='nextPageButton' disabled="disabled"> > </button>
+        <button class='btn navbtn' id='prevPageButton'> < </button>-->
       </div>
-      <!--<button class='btn navbtn' id='nextPageButton' disabled="disabled"> > </button>
-      <button class='btn navbtn' id='prevPageButton'> < </button>-->
     </div>
   </div>
 </div>
@@ -125,8 +126,8 @@
     </div>
     <div id="error_alert"> </div>
     <textarea class='lined' id='mainText' placeholder="Click to start typing!"></textarea> 
-    <div id="helpBox">
-      <div><input type="text" id="searchBar" class= "help" />Usage&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+    <div class="well" id="helpBox">
+      <div><input type="text" id="searchBar" class= "help" /><h6 id="usage"><abbr title="Type a command to see its usage">Usage</abbr></h6>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
     <span class="help" id="helpTarget"></span></div>
     </div>
   </div>

@@ -32,7 +32,6 @@
 
 .linedtextarea textarea, .linedwrap .codelines .lineno {
 	font-size: 10pt;
-	font-family: Cabin, monospace;
 	line-height: normal !important;
 }
 
@@ -69,7 +68,7 @@
 }
 
 .linedwrap .codelines .running {
-	background-color: #F2D3D4;
+	background-color: orange;
 }
 
 .linedwrap .codelines .breakpoint {

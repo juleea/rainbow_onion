@@ -1,4 +1,4 @@
-MEM_DISPLAY = 64;
+MEM_DISPLAY = 72;
 //jquery for onload
 
 $(function() {
@@ -70,7 +70,6 @@ $(function() {
   
   // 
   var pxToInt = function(pxStr) {return Number(pxStr.substr(0, pxStr.length - 2))};
-  $("#helpBox").css("height", 40);
   helpBox = new HelpBox("searchBar", "helpTarget", "mov");
   
   $('#first_time_here').modal();
