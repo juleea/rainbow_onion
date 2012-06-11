@@ -124,7 +124,8 @@ TUTORIAL_FLAGS = {
     {
       "Title"   :   "Flags",
       "Text"    :   [ "Condition flags allow the processor to store state about the previous instructions. This can be very useful for if statements.",
-                    "Consider the C code <b> 4=4 </b> The comparison works by subtracting the first value from the second then setting flags based on the difference.",
+                    "Consider the C code <pre> if(4==4) </pre>. How will the code know whether they're equal. The if statement causes a comparison instruction: cmp. The comparison works by subtracting the first value from the second then setting flags based on the difference.",
+                    "While many instructions set flags, we will focus on the cmp statement for this tutorial."
                     "You will learn 4 flags: Carry Flag (CF), Zero Flag (ZF), Sign Flag (SF), and Overflow Flag (OF)."
                     ],
       "Code"    :   ["mov $4, %eax",
