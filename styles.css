@@ -101,6 +101,16 @@
 }
 
 #tutorialBox {
+  position: relative;
+}
+
+.bottom-stuff {
+  position: absolute; 
+  height: 100px; 
+  top: 100%; 
+  margin-top:-100px; 
+  text-align: center;
+  width: 85%;
 }
 
 #tutorials {
