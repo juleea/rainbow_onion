@@ -202,6 +202,7 @@ function contButton() {
 }
 
 function resetButton() {
+  console.log("reset button");
   showPlayButton();
   tutorials.refresh();
 }
