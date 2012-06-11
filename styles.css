@@ -342,4 +342,5 @@ button.active {
 #mainText {
     background-color: #f5f5f5;
     font-family: 'Monaco', 'Arial';
+  padding-left: 10px;
 }

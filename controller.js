@@ -72,8 +72,8 @@ $(function() {
 
 
 function add_help_tooltips() {
-  $("#registers-help").tooltip({animation:true, trigger: 'hover', title: register_help_text});
-  $("#memory-help").tooltip({animation:true, trigger: 'hover', title: memory_help_text});
+  $("#registers-help").tooltip({animation:true, trigger: 'hover', title: register_help_text, placement: 'bottom'});
+  $("#memory-help").tooltip({animation:true, trigger: 'hover', title: memory_help_text, placement: 'bottom'});
   $("#flags-help").tooltip({animation:true, trigger: 'hover', title: flags_help_text});
   
   // registers
@@ -239,14 +239,14 @@ function updateRegs() {
 // uncolors any highlighted registers
 function clearRegColors() {
     if (typeof updateReg.lastUpdatedReg != 'undefined') {
-        $("#" + updateReg.lastUpdatedReg).animate({backgroundColor: "#b7d19d"}, 'slow');
+        $("#" + updateReg.lastUpdatedReg).animate({backgroundColor: "#99cccc"}, 'slow');
     }
 }
 
 // uncolors any highlighted memory
 function clearMemColors() {
     if (typeof updateMemory.lastUpdatedMem != 'undefined') {
-        updateMemColor(updateMemory.lastUpdatedMem.address, updateMemory.lastUpdatedMem.bytes, '#b7d19d');
+        updateMemColor(updateMemory.lastUpdatedMem.address, updateMemory.lastUpdatedMem.bytes, '#99cccc');
     }
 }
 
@@ -257,7 +257,7 @@ var updateReg = function updateReg(regs, args) {
     
     var reg = args.register;
     $("#" + reg).text(regs.getContents(reg));
-    $("#" + reg).animate({backgroundColor: "#dde9d1"}, 'slow');
+    $("#" + reg).animate({backgroundColor: "#cce6e6"}, 'slow');
 
     updateReg.lastUpdatedReg = reg;
 };
@@ -298,7 +298,7 @@ var updateMemory = function updateMemory(memory, args) {
     clearRegColors();
     clearMemColors();
      
-    updateMemColor(args.address, args.bytes, '#dde9d1');
+    updateMemColor(args.address, args.bytes, '#cce6e6');
     updateMemValues(args.address, args.bytes);
 
     updateMemory.lastUpdatedMem = args;
