@@ -160,6 +160,8 @@ function numString(num, mode) {
   var str = num.toString(mode);
   if(mode == 16){
     str = '0x' + padZeros(str);
+  } else if (mode == 2) {
+    str = padZeros(str);
   }
   return str;
 }

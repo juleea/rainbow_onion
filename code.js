@@ -11,9 +11,11 @@ function Code() {
     var lines = text.split('\n');
     var errorsFound = false;
     for(var i = 0; i < lines.length; i++) {
-      instruction = parseLine(lines[i]);
+      var line = lines[i].trim();
+      if (line.length == 0) continue;
+      instruction = parseLine(line);
       if (instruction) {
-        this.addLine(parseLine(lines[i]));
+        this.addLine(parseLine(line));
       } else if (lines[i] != "") {
         codeErrors.push([i+1,parseLine.error]);
         errorsFound = true;

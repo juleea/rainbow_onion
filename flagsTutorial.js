@@ -60,36 +60,58 @@ LOGICAL_TUTORIAL = {
                     "<br/><b>and</b> src, dest: dest = dest & src" +
                     "<br/><b>or</b> src, dest: dest = dest | src" + 
                     "<br/><b>not</b> dest: dest = ~dest",
-                    "Note that the and, or, and xor instructions each take two operands, while the not instruction takes one."
+                    "Note that the and, or, and xor instructions each take two operands, while the not instruction takes one.",
+                    "Set the register display mode to binary!",
                     ],
       "Code"    :   ["mov $4, %eax",
                     "not %eax"
                     ],
-      "Question":   "What is the expected value of %eax?",
-      "Answer"  :   "-4",
+        "Registers":  {"eax": 76, "ebx" : 45, "ecx": 24},
+      "Question":   "What is the binary value of register %ecx, which contains decimal value 24?",
+      "Answer"  :   "00011000",
     },
     { 
-      "Title"   :   "Moving things around: <i>mov</i>",
+      "Title"   :   "and, or, xor",
       "Text"    :   ["The result of bitwise operations with two operands is obtained by performing the logical operation on each pair of corresponding bits in the two operands.",
-                    "<b>and</b>: the result in a position is 1 if both the first and second bits are 1, and 0 otherwise" +
-                    "<br/><b>or</b>: the result in a position is 1 if either the first bit is 1 or the second bit is 1, and 0 otherwise" + 
-                    "<br/><b>xor</b> (exclusive or): the result in a position is 1 if the first bit is 1 or the second bit is 1, but is 0 if the the two bits are both 0 or both 1",
-                    "Lastly, <b>not</b> takes one operand, and negates it (i.e. flips all the bits)."
+                    "<b>and</b>: the result in a position is 1 if both bits are 1, and 0 otherwise" +
+                    "<br/><b>or</b>: the result in a position is 1 if at least one of the two bits is 1, and 0 otherwise" + 
+                    "<br/><b>xor</b> (exclusive or): the result in a position is 1 if only one of two bits is 1, and 0 if the two bits are both 0 or both 1",
+                    "Let's take a closer look at the 'and' and 'or' instructions. Step through the code, which will 'and' and 'or' values in %eax and %ebx. Feel free to restart it to get a closer look at the bits!",
                     ],
-      "Code"    :   ["mov $30, %eax",
+      "Code"    :   ["mov $43, %eax",
+                    "mov $56, %ebx",
+                    "and %eax, %ebx",
+                    "mov $43, %eax",
+                    "mov $56, %ebx",
+                    "or %eax, %ebx",
                     ],
-      "Question":   "What is in %eax after you run the code?",
-      "Answer"  :   "30",
+      "Question":   "What is the binary value in %ebx after you run the code (after the or statement)?",
+      "Answer"  :   "00111011",
+    },
+    { 
+      "Title"   :   "xor",
+      "Text"    :   ["As a reminder, with <b>xor</b> (exclusive or), the result in a position is 1 if only one of two bits is 1, and 0 if the two bits are both 0 or both 1.",
+                    "xor is also an instruction that can affect the flags (can you see why?).",
+                    "xor can be used to swap two register values without using a third register. Switch the display to decimal mode and run the code to see register values in %eax and %edx swapped!"
+                    ],
+      "Code"    :   ["mov $25, %eax",
+                    "mov $119, %edx",
+                    "xor %eax, %edx",
+                    "xor %edx, %eax",
+                    "xor %eax, %edx"
+                    ],
+      "Question":   "What do you expect the value to be if you run 'xor %eax, %eax'?",
+      "Answer"  :   "0",
     },
     {
-      "Title"   :   "Moving Between Registers",
-      "Text"    :   ["You can also move things from one register to another.",
-                    "Check out the code on the right.",
+      "Title"   :   "not",
+      "Text"    :   ["Lastly, <b>not</b> takes one operand, and flips all its bits.",
+                    "Make sure you're still in binary mode, and step through the code!",
                     ],
-      "Code"    :   [ "mov %eax, %ebx"],
-      "Registers":  {"eax": 15},
-      "Question":   "What value is in %ebx after you run the code?",
-      "Answer":     "15"
+      "Code"    :   [ "mov $76, %eax",
+                        "not %eax"],
+      "Question":   "What *binary* value is in %eax after you run the code?",
+      "Answer":     "10110011"
     }
   ]
 }
