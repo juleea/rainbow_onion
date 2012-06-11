@@ -50,6 +50,51 @@ PUT_NAME_IN_CAPS_HERE = {
   ]
 }
 
+LOGICAL_TUTORIAL = {
+  "Name": "Logical Instructions",
+  "Pages": [
+    {
+      "Title"   :   "Introduction to Logical Operators",
+      "Text"    :   ["The following instructions perform logical bitwise operations using values in registers and memory:",
+                    "<b>xor</b> src, dest: dest = dest ^ src" +
+                    "<br/><b>and</b> src, dest: dest = dest & src" +
+                    "<br/><b>or</b> src, dest: dest = dest | src" + 
+                    "<br/><b>not</b> dest: dest = ~dest",
+                    "Note that the and, or, and xor instructions each take two operands, while the not instruction takes one."
+                    ],
+      "Code"    :   ["mov $4, %eax",
+                    "not %eax"
+                    ],
+      "Question":   "What is the expected value of %eax?",
+      "Answer"  :   "-4",
+    },
+    { 
+      "Title"   :   "Moving things around: <i>mov</i>",
+      "Text"    :   ["The result of bitwise operations with two operands is obtained by performing the logical operation on each pair of corresponding bits in the two operands.",
+                    "<b>and</b>: the result in a position is 1 if both the first and second bits are 1, and 0 otherwise" +
+                    "<br/><b>or</b>: the result in a position is 1 if either the first bit is 1 or the second bit is 1, and 0 otherwise" + 
+                    "<br/><b>xor</b> (exclusive or): the result in a position is 1 if the first bit is 1 or the second bit is 1, but is 0 if the the two bits are both 0 or both 1",
+                    "Lastly, <b>not</b> takes one operand, and negates it (i.e. flips all the bits)."
+                    ],
+      "Code"    :   ["mov $30, %eax",
+                    ],
+      "Question":   "What is in %eax after you run the code?",
+      "Answer"  :   "30",
+    },
+    {
+      "Title"   :   "Moving Between Registers",
+      "Text"    :   ["You can also move things from one register to another.",
+                    "Check out the code on the right.",
+                    ],
+      "Code"    :   [ "mov %eax, %ebx"],
+      "Registers":  {"eax": 15},
+      "Question":   "What value is in %ebx after you run the code?",
+      "Answer":     "15"
+    }
+  ]
+}
+
+
 ARITHMETIC_TUTORIAL = {
   "Name": "Arithmetic Instructions",
   "Pages": [ //Array of pages.  Each page must have a title, it can optionally have Text, Code, Question, Answer, Registers, and Memory
