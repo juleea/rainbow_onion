@@ -317,8 +317,20 @@ button.active {
     text-align: center;
 }
 
+.team_member {
+    width:33%;
+}
+
 #team_pic {
     width:50px;
     height:50px;
     border:1px solid #ADB3B2;
+}
+
+.instr_set_popup {
+    width=100%;
+}
+
+.view_cheat_sheet {
+    float: right;
 }

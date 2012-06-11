@@ -86,20 +86,20 @@
   <table id="team_table">
   <tr>
   
-  <td>
+  <td class="team_member">
   <img src="kat.jpg" id="team_pic"><br/>
   Katherine Busch <br/>
   <a href="http://www.linkedin.com/in/katherinebusch" style="text-decoration:none;"><span style="font: 80% Arial,sans-serif; color:#0783B6;"><img src="http://www.linkedin.com/img/webpromo/btn_in_20x15.png" width="20" height="15" alt="View Katherine Busch's LinkedIn profile" style="vertical-align:middle" border="0"></span></a>
   </td>
   
-  <td>
+  <td class="team_member"> 
   <img src="constance.jpeg" id="team_pic"><br/>
   Constance Duong <br/>
   <a href="http://www.linkedin.com/in/constanced" style="text-decoration:none;"><span style="font: 80% Arial,sans-serif; color:#0783B6;"><img src="http://www.linkedin.com/img/webpromo/btn_in_20x15.png" width="20" height="15" alt="View Constance Duong's LinkedIn profile" style="vertical-align:middle" border="0"></span></a>
   </td>
   
-  <td>
-    <img src="julia.jpg" id="team_pic"><br/>
+  <td class="team_member">
+  <img src="julia.jpeg" id="team_pic"></br>
   Julia Lee <br/>
   <a href="http://www.linkedin.com/in/juleea" style="text-decoration:none;"><span style="font: 80% Arial,sans-serif; color:#0783B6;"><img src="http://www.linkedin.com/img/webpromo/btn_in_20x15.png" width="20" height="15" alt="View Julia Lee's LinkedIn profile" style="vertical-align:middle" border="0"></span></a>
   </td>
@@ -156,6 +156,110 @@
   </div>
 </div>
 
+<!-- INSTRUCTION CHEAT SHEET -->
+<div class="modal hide" id="instruction_cheat_sheet">
+  <div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal">x</button>
+    <h3>Instruction Set</h3>
+  </div>
+  <div class="modal-body">
+    <table width=100%><tr><td>
+    mov Src, Dest   <br/>
+    &nbsp;&nbsp;
+    Dest = Src  <br/><br/>  
+    add Src, Dest   <br/> 
+    &nbsp;&nbsp;
+    Dest = Dest + Src <br/><br/>    
+    sub Src, Dest   <br/>  
+    &nbsp;&nbsp;
+    Dest = Dest - Src   <br/><br/>  
+    imul Src, Dest<br/> 
+    &nbsp;&nbsp;
+    Dest = Dest * Src<br/><br/>  
+    sal Src, Dest<br/>  
+    &nbsp;&nbsp;
+    Dest = Dest << Src<br/><br/>  
+    sar Src, Dest<br/>  
+    &nbsp;&nbsp;
+    Dest = Dest >> Src Arithmetic Shift<br/><br/>  
+    shr Src, Dest<br/>  
+    &nbsp;&nbsp;
+    Dest = Dest >> Src Logical Shift<br/><br/>  
+    xor Src, Dest<br/>  
+    &nbsp;&nbsp;
+    Dest = Dest ^ Src<br/><br/>  
+    and Src, Dest<br/>  
+    &nbsp;&nbsp;
+    Dest = Dest & Src<br/><br/>  
+    or Src, Dest<br/>   
+    &nbsp;&nbsp;
+    Dest = Dest | Src<br/><br/>  
+    inc Dest<br/>   
+    &nbsp;&nbsp;
+    Dest = Dest + 1<br/><br/>  
+    dec Dest<br/>   
+    &nbsp;&nbsp;
+    Dest = Dest - 1<br/><br/>  
+    neg Dest<br/>  
+    &nbsp;&nbsp; 
+    Dest = -Dest<br/><br/>  
+    not Dest<br/>   
+    &nbsp;&nbsp;
+    Dest = ~Dest<br/><br/>  
+    lea Src, Dest<br/>  
+    &nbsp;&nbsp;
+    Dest = address Src points to
+    </td><td>
+    cmp Src2, Src1<br/> 
+    &nbsp;&nbsp;
+    Set flags based on Src1-Src2<br/><br/>  
+    test Src2, Src1<br/>   
+    &nbsp;&nbsp; 
+    Set flags based on Src1&Src2<br/><br/>  
+    jmp label<br/>  
+    &nbsp;&nbsp;
+    run code at label<br/><br/>
+    je label<br/>   
+    &nbsp;&nbsp;
+    jump if compared values were equal (ZF on)<br/><br/>    
+    
+    jne label<br/>  
+    &nbsp;&nbsp;
+    jump if compared values were not equal (ZF off)<br/><br/>   
+    
+    js label<br/>   
+    &nbsp;&nbsp;
+    jump if comparison negative (SF on)<br/><br/>   
+    jns label<br/>  
+    &nbsp;&nbsp;
+    jump if comparison non-negative (SF off)<br/><br/>  
+    jg label<br/>   
+    &nbsp;&nbsp;
+    jump if second value greater<br/><br/>  
+    jge label<br/>  
+    &nbsp;&nbsp;
+    jump if second value greater or equal<br/><br/> 
+    jle label<br/>  
+    &nbsp;&nbsp;
+    jump if second value less<br/><br/> 
+    jle label<br/>  
+    &nbsp;&nbsp;
+    jump if second value less or equal<br/><br/>    
+    ja label<br/>   
+    &nbsp;&nbsp;
+    jump if second above first (unsigned greater)<br/><br/> 
+    jb label<br/>   
+    &nbsp;&nbsp;
+    jump if second below first (unsigned less)<br/><br/>    
+    push Src<br/>   
+    &nbsp;&nbsp;
+    Put contents of Src in Mem[%esp] and esp-=4<br/><br />  
+    pop Src<br/>    
+    &nbsp;&nbsp;
+    Put contents of Mem[%esp] in Src and esp+=4   
+    </td></tr></table>
+    </div>
+</div>
 
 
 <div class='maincontent'>
@@ -223,8 +327,14 @@
     <div id="error_alert"> </div>
     <textarea class='lined' id='mainText' placeholder="Click to start typing!"></textarea> 
     <div class="well" id="helpBox">
-      <div><input type="text" id="searchBar" class= "help" /><h6 id="usage"><abbr title="Type a command to see its usage">Usage</abbr></h6>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-    <span class="help" id="helpTarget"></span></div>
+      <div>
+      <span class="view_cheat_sheet" id="view_cheat_sheet">
+        <a data-toggle="modal" href="#instruction_cheat_sheet">view all</a>
+      </span>
+      <input type="text" id="searchBar" class= "help" /><h6 id="usage"><abbr title="Type a command to see its usage">Usage</abbr></h6>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+    <span class="help" id="helpTarget"></span>
+    
+    </div>
     </div>
   </div>
 </div>
@@ -243,12 +353,12 @@
         </div>
     <table class='condTable'>
       <tr>
-        <td class="CF condBox" id="CF"><abbr title="Carry flag">CF</abbr>: <span class="CF" id="CF"></span> </td>
-        <td class="ZF condBox" id="ZF"><abbr title="Zero flag">ZF</abbr>: <span class="ZF" id="ZF"></span></td>
+        <td class="CF condBox" id="CF_cell"><abbr title="Carry flag">CF</abbr>: <span class="CF" id="CF"></span> </td>
+        <td class="ZF condBox" id="ZF_cell"><abbr title="Zero flag">ZF</abbr>: <span class="ZF" id="ZF"></span></td>
       </tr>
       <tr>
-        <td class="SF condBox" id="SF"><abbr title="Sign flag">SF</abbr>: <span class="SF" id="SF"></span></td>
-        <td class="OF condBox" id="OF"><abbr title="Overflow flag">OF</abbr>: <span class="OF" id="OF"></span></td>
+        <td class="SF condBox" id="SF_cell"><abbr title="Sign flag">SF</abbr>: <span class="SF" id="SF"></span></td>
+        <td class="OF condBox" id="OF_cell"><abbr title="Overflow flag">OF</abbr>: <span class="OF" id="OF"></span></td>
       </tr>
     </table>
   </div>
@@ -269,6 +379,7 @@
 </div>
 
 </div> <!-- main content-->
+
 
  <script type="text/javascript" src="docs/assets/js/bootstrap-transition.js"></script>
  <script type="text/javascript" src="docs/assets/js/bootstrap-alert.js"></script>
