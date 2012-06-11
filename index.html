@@ -333,8 +333,8 @@
       <span class="view_cheat_sheet" id="view_cheat_sheet">
         <a data-toggle="modal" href="#instruction_cheat_sheet">view all</a>
       </span>
-      <input type="text" id="searchBar" class= "help" /><h6 id="usage"><abbr title="Type a command to see its usage">Usage</abbr></h6>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-    <span class="help" id="helpTarget"></span>
+      <input type="text" id="searchBar" class= "help" /><h6 id="usage"><abbr title="Type a command or click it to see its usage">Usage</abbr></h6>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+    <span class="help" id="helpTarget">click on or type an instruction to see its usage</span>
     
     </div>
     </div>
@@ -345,6 +345,11 @@
   <div class='well' id='registers'>  
     <div class='sectionHead'><h2>registers <i class="icon-question-sign" id="registers-help"></i></h2>
         
+    </div>
+    <div class="btn-group" id="numBtnBar" data-toggle="buttons-radio">
+      <button class="btn numBtn" id="regbin">binary</button>
+      <button class="btn numBtn" id="regdec">decimal</button>
+      <button class="btn numBtn" id="reghex">hex</button>
     </div>
     <table class="table table-condensed" id="registersPane"></table>
     <div class='subtitle'>
@@ -373,6 +378,11 @@
             memory
             <i class="icon-question-sign" id="memory-help"></i>
         </h2>   
+    </div>
+    <div class="btn-group" id="numBtnBar" data-toggle="buttons-radio">
+      <button class="btn numBtn" id="bin">binary</button>
+      <button class="btn numBtn" id="dec">decimal</button>
+      <button class="btn numBtn" id="hex">hex</button>
     </div>
     <div id="memoryScroll">
       <table id="memoryPane" class="table table-condensed"></table>

@@ -1,4 +1,6 @@
-MEM_DISPLAY = 72;
+MEM_DISPLAY = 64;
+MEM_MODE = 10;
+REG_MODE = 10
 //jquery for onload
 
 $(function() {
@@ -57,6 +59,17 @@ $(function() {
   $('button#prevPageButton').click(tutorials.displayPrevPage);
   $('button#injectCodeButton').click(tutorials.injectCode);
 
+
+  $("#bin").click(function() {MEM_MODE = 2; createMemory();});
+  $("#dec").click(function() {MEM_MODE = 10; createMemory();});
+  $("#hex").click(function() {MEM_MODE = 16; createMemory();});
+  $("#dec").button('toggle');
+
+  $("#regbin").click(function() {REG_MODE = 2; updateRegs();});
+  $("#regdec").click(function() {REG_MODE = 10; updateRegs();});
+  $("#reghex").click(function() {REG_MODE = 16; updateRegs();});
+  $("#regdec").button('toggle');
+
   add_help_tooltips();
   
   // Errors
@@ -64,10 +77,11 @@ $(function() {
   
   // 
   var pxToInt = function(pxStr) {return Number(pxStr.substr(0, pxStr.length - 2))};
-  helpBox = new HelpBox("searchBar", "helpTarget", "mov");
+  helpBox = new HelpBox("searchBar", "helpTarget");
   
   $('#first_time_here').modal();
   $('#searchBar').hide();
+  $("#mainText").get(0).onclick = findLineFromCursor;
 });
 
 
@@ -116,7 +130,7 @@ function updateRegs() {
   var registerValues = registers.getAll(); 
 
   for (var reg in registerValues) {
-      $("#" + reg).text(registerValues[reg]);
+      $("#" + reg).text(numString(registerValues[reg], REG_MODE));
   }
 }
 
@@ -133,12 +147,29 @@ function updateFlags() {
   }
 }
 
-function createMemory() { 
-    $('#memoryPane tr').remove();   
-    for (var i = 0; i < MEM_DISPLAY; i+=4) {
-      $('#memoryPane').append('<tr><td>0x' + i.toString(16) + '</td><td id="mem' + i + '">'
-       + memory.getContents(i) + '</td></tr>');
-    }
+function createMemory() {
+  $('#memoryPane tr').remove();   
+  for (var i = 0; i < MEM_DISPLAY; i+=4) {
+    $('#memoryPane').append('<tr><td>0x' + padZeros(i.toString(16)) + '</td><td id="mem' + i + '">'
+     + numString(memory.getContents(i), MEM_MODE) + '</td></tr>');
+  }
+}
+
+//Takes a number and returns its representation in the given base: 0x stuff for hex, regular for binary and decimal
+function numString(num, mode) {
+  var str = num.toString(mode);
+  if(mode == 16){
+    str = '0x' + padZeros(str);
+  }
+  return str;
+}
+
+function padZeros(str, len) {
+  len = len || 8;
+  while(str.length < len) {
+    str = "0" + str;
+  }
+  return str;
 }
 
 function parseButton() {
@@ -232,7 +263,7 @@ function updateRegs() {
     var registerValues = registers.getAll(); 
 
     for (var reg in registerValues) {
-        $("#" + reg).text(registerValues[reg]);
+        $("#" + reg).text(numString(registerValues[reg], REG_MODE));
     }
 }
 
@@ -256,7 +287,7 @@ var updateReg = function updateReg(regs, args) {
     clearMemColors();
     
     var reg = args.register;
-    $("#" + reg).text(regs.getContents(reg));
+    $("#" + reg).text(numString(regs.getContents(reg), REG_MODE));
     $("#" + reg).animate({backgroundColor: "#cce6e6"}, 'slow');
 
     updateReg.lastUpdatedReg = reg;
@@ -267,7 +298,7 @@ function createRegisters() {
     var registerValues = registers.getAll();
     for (var reg in registerValues) {
       $('#registersPane').append('<tr><td id="' + reg + '_label"><span class="regRow">' + reg + '</span></td><td id="' + reg + '">'
-       + registerValues[reg] + '</td></tr>');
+       + numString(registerValues[reg], REG_MODE) + '</td></tr>');
     }
 }
 
@@ -276,11 +307,11 @@ function updateMemValues(address, bytes, color) {
     var newMem = address + bytes+ address%4 + 40;
     for (var i = MEM_DISPLAY; i < newMem; i+=4) {
       $('#memoryPane').append('<tr><td>0x' + i.toString(16) + '</td><td id="mem' + i + '">'
-       + memory.getContents(i) + '</td></tr>');
+       + numString(memory.getContents(i), MEM_MODE) + '</td></tr>');
     }
     MEM_DISPLAY = newMem;
     for(var i = address - address%4; i < address + bytes+ address%4; i+=4) {
-      $('#mem' + i).text(memory.getContents(i));
+      $('#mem' + i).text(numString(memory.getContents(i), MEM_MODE));
     }
 }
 

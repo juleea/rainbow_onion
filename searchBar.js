@@ -25,3 +25,18 @@ function HelpBox(inputId, outputId, initialValue) {
   }
 }
 
+findLineFromCursor = function() {
+  console.log("aiming for finding");
+  var cursorIndex = $("#mainText").get(0).selectionStart;
+  var text = $("#mainText").val().trim().split("\n");
+  var lineStart = 0;
+  for(var i = 0; i < text.length; i++) {
+    var instr = text[i].split(' ')[0];
+    var instrEnd = lineStart + instr.length;
+    if (cursorIndex + 1 > lineStart && cursorIndex - 1 < instrEnd) {
+      if (instr in instructionMap) helpBox.search(instr);
+      return;
+    }
+    lineStart = lineStart + text[i].length + 1;
+  }
+}
