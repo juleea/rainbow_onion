@@ -46,7 +46,7 @@ instructionMap['pop'] = Pop;
 MAX_INT = goog.math.Integer.fromInt(214783647);
 MIN_INT = goog.math.Integer.fromInt(-214783648);
 
-instructionArgumentMap = {'mov': 2, 'lea': 2, 'add': 2, 'inc': 1, 'sub': 2, 
+instructionArgumentMap = {'mov': 2, 'lea': 2, 'add': 2, 'imul':2, 'inc': 1, 'sub': 2, 
   'sal': 2, 'sar': 2, 'shr': 2, 'xor': 2, 'and': 2, 'or': 2, 'not':1, 'dec':1, 
   'jmp':1, 'neg': 1, 'cmp': 2, 'test':2, 'jne':1, 'je':2, 'push': 1, 'pop': 1};
 jmpInstructions = {'jmp':true, 'je': true, 'jne':true, 'ja':true, 
@@ -58,6 +58,7 @@ function createLabel(label) {
   toReturn.pageYcute = function () {};
   toReturn.label = label;
   toReturn.valid = true;
+  toReturn.execute = function(){};
   return toReturn;
 }
 
