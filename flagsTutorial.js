@@ -50,6 +50,73 @@ PUT_NAME_IN_CAPS_HERE = {
   ]
 }
 
+JMP_TUTORIAL = {
+  "Name": "Jump, if statements, and for loops",
+  "Pages": [
+    {
+      "Title"   :   "Jmp and labels",
+      "Text"    :   ["When you want to repeat code or skip code, it's nice to be able to execute from a specific spot.",
+                    "In x86, you can give a line of code a label.  Then, when you jump to the label, you skip right too it, no matter where it is in the code.",
+                    "Try playing the code. You might want to slow it down or step through so you see exactly what is happening.",
+                    ],
+      "Code"    :   ["mov $0, %eax",
+                    "mov $0, %ebx",
+                    "jmp myLabel",
+                    "inc %eax",
+                    "myLabel:",
+                    "inc %ebx",
+                    ],
+      "Question":   "What value is in %eax after the code runs?",
+      "Answer"  :   "0",
+      "Registers":  {"eax": 10, "ebx" : 10, "ecx": 0},//If you want to specify any starting register values
+                                            // Do so here. Remove this line if not.
+    },
+    { 
+      "Title"   :   "Making an if statement",
+      "Text"    :   ["While jumping alone happens from time to time, usually a jump instruction is preceeded by a comparison or test. <i>(See the flags tutorial for more on cmp before you continue)</i>.",
+                    '<pre>if(x==y) x = x + y;\nelse y = y * 2;\nx++</pre>',
+                    "This code might be compiled to the assembly displayed to the left.  Jne means jump if the compared values are not equal.  That means jump when the zero flag is not on.",
+                    "In this code, x is in eax and y in ebx.  Feel free to play with their values and rerun the code. Try changing jne to je: jump if equal."
+                    ],
+      "Code"    :   ["cmp %eax, %ebx",
+                    "jne notEqualLabel",
+                    "add %ebx, %eax",
+                    "jmp endIf",
+                    "notEqualLabel:",
+                    "imul $2, %ebx",
+                    "endIf:",
+                    "inc %eax"
+                    ],
+      "Question":   "Which label represents the <i>else</i> part?",
+      "Answer"  :   "notEqualLabel",
+      "Registers":  {"eax":7, "ebx":4}
+    },
+    {
+      "Title"   :   "Makeing a for loop",
+      "Text"    :   ["Let's see how you can make a for loop with assembly. Consider the following C code:",
+                    "<pre>int result = 1; for(int i = 0; i < exponent; i++) {\n\tresult*=base;\n}</pre>",
+                    "You make recognize this as code that raises the number in base to the power in exponent.",
+                    "In this code, base is in eax, exponent is in ecx, and result is in edx."
+                    ],
+      "Code"    :   [ "mov $1, %edx",  //eax is base, ecx is exp, edx is result, ebx is i
+                      "mov $0, %ebx",
+                      "loopStart:",
+                      "cmp %ecx, %ebx",
+                      "jge loopEnd",
+                      "imul %eax, %edx",
+                      "inc %ebx",
+                      "jmp loopStart",
+                      "loopEnd:",
+                    ],
+      "Registers":  {"eax": 3, "ecx": 4},
+
+      "Question":   "Which register represents <i>i</i>?",
+      "Answer":     "ebx"
+    }
+  ]
+}
+
+
 
 TUTORIAL_FLAGS = {
   "Name": "Condition Flags",
