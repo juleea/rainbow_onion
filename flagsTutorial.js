@@ -50,6 +50,75 @@ PUT_NAME_IN_CAPS_HERE = {
   ]
 }
 
+ARITHMETIC_TUTORIAL = {
+  "Name": "Arithmetic Instructions",
+  "Pages": [ //Array of pages.  Each page must have a title, it can optionally have Text, Code, Question, Answer, Registers, and Memory
+    {
+      "Title"   :   "Introduction to Arithmetic Instructions",
+      "Text"    :   ["The following assembly instructions perform arithmetic operations using values in registers and in memory",
+                     "<b>add</b> performs addition" +
+                     "<br/><b>sub</b> performs subtraction" +
+                     "<br/><b>imul</b> performs multiplication" +
+                     "<br/><b>inc</b> increments by 1" +
+                     "<br/><b>dec</b> decrements by 1" +
+                     "<br/><b>neg</b> performs negation",
+
+                     "Go to the next page to learn more!"
+
+                    ],
+      "Code"    :   ["",
+                    ],
+      "Registers":  {},//If you want to specify any starting register values
+                                            // Do so here. Remove this line if not.
+      "Memory"  :   {}     //Put the memory addresses and values here. Memory values optional.
+    },
+    { 
+      "Title"   :   "add, sub, and imul",
+      "Text"    :   ["add, sub, and imul each take 2 parameters -- a source and a destination -- and performs the following operations:",
+                     "<b>add</b> dest = dest + src<br/>" +
+                     "<b>sub</b> dest = dest - src<br/>" +
+                     "<b>imul</b> dest = dest * src",
+
+                     "as with <b>mov</b>, at least one parameter must be a register. The other values can be registers and addresses and sources can immediate values.",
+                    "The code to the right contains a variety of source and destination types. See if you can calculate the value that will be in %eax at the end and check your answer by running the code!",
+                    
+                    ],
+      "Registers":  {"eax":4, "ecx":8, "edx":4, "ebx":1},
+      "Code"    :   ["add %eax, %ecx",
+                     "add $24, %eax",
+                     "sub %ecx, %eax",
+                     "add 4(%edx, %ecx, 2), %edx",
+                     "imul %edx, %eax",
+                     "imul $2, %eax"
+                    ],
+      "Question":   "What value does %eax hold after you run the code?",
+      "Answer"  :   "464",
+      "Memory"  :   {"32": 42, "16": 21}     //Put the memory addresses and values here. Memory values optional.
+
+    },
+    {
+      "Title"   :   "inc, dec, and neg",
+      "Text"    :   ["<b>inc</b> and <b>dec</b> add and subtract 1, respectively, to the single register or memory address parameter.",
+                      "Both instructions can be implemented with <b>add</b> and <b>sub</b>, but <b>inc</b> and <b>dec</b> do so more efficiently.",
+                    "<b>neg</b> negates the value in a given register or memory address.",
+                    "As you step through the code, notice that arithmetic operations also affect condition flags."
+                    ],
+      "Code"    :   [ "inc %ecx",
+                      "dec %ebx",
+                      "neg %ebx",
+                      "add %ebx, %ecx",
+                      "dec %ecx",
+                      "imul %ecx, %edx",
+                      "inc %edx",
+                      "sub $55, %edx",
+                      "imul %ebx, %edx"],
+      "Registers":  {"eax": 10, "ecx":12, "edx":20, "ebx":5},
+      "Question":   "What value is in %ebx after you run the code?",
+      "Answer":     "-424"
+    }
+  ]
+}
+
 JMP_TUTORIAL = {
   "Name": "Jump, if statements, and for loops",
   "Pages": [
@@ -95,7 +164,7 @@ JMP_TUTORIAL = {
       "Title"   :   "Makeing a for loop",
       "Text"    :   ["Let's see how you can make a for loop with assembly. Consider the following C code:",
                     "<pre>int result = 1; for(int i = 0; i < exponent; i++) {\n\tresult*=base;\n}</pre>",
-                    "You make recognize this as code that raises the number in base to the power in exponent.",
+                    "You migth recognize this as code that raises the number in base to the power in exponent.",
                     "In this code, base is in eax, exponent is in ecx, and result is in edx."
                     ],
       "Code"    :   [ "mov $1, %edx",  //eax is base, ecx is exp, edx is result, ebx is i
@@ -172,7 +241,7 @@ MOV_TUTORIAL = {
       "Title"   :   "Mov and Addressing",
       "Text"    :   [ "<b>mov src, dest</b>",
                     "The 'mov' instruction is used to copy a source value to a register. Source values can be specified in a number of ways.",
-                    "1) Immediate values: <br/>   Source values can be as simple as constant integer values preceded by a $.",
+                    "1) Immediate values: <br/>   Source values can be as simple as constant postive integer values preceded by a $.",
                     "<i>Click 'Step' to store 30 in the %eax register.</i>",
                     "2) Register values: <br/>  The source can be a register, and mov will copy that register's value into the destination register.",
                     ],

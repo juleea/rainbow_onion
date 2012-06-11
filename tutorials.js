@@ -1,6 +1,6 @@
 Tutorials = function() {
   //INSERT NEW TUTORIAL NAMES HERE
-  var tutorialFilenames = [REG_TUTORIAL, MOV_TUTORIAL, TUTORIAL_FLAGS, JMP_TUTORIAL];
+  var tutorialFilenames = [REG_TUTORIAL, MOV_TUTORIAL, TUTORIAL_FLAGS, JMP_TUTORIAL, ARITHMETIC_TUTORIAL];
   var allTutorials = [];
   var currTutorialNum = null;
   var currPageNum = 0;
