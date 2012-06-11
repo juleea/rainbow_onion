@@ -167,7 +167,7 @@ function numString(num, mode) {
 }
 
 function padZeros(str, len) {
-  len = len || 8;
+  len = len || 4;
   while(str.length < len) {
     str = "0" + str;
   }
