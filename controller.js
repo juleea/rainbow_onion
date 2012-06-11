@@ -64,10 +64,11 @@ $(function() {
   
   // 
   var pxToInt = function(pxStr) {return Number(pxStr.substr(0, pxStr.length - 2))};
-  helpBox = new HelpBox("searchBar", "helpTarget", "mov");
+  helpBox = new HelpBox("searchBar", "helpTarget");
   
   $('#first_time_here').modal();
   $('#searchBar').hide();
+  $("#mainText").get(0).onclick = findLineFromCursor;
 });
 
 
