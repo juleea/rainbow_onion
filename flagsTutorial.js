@@ -51,7 +51,7 @@ PUT_NAME_IN_CAPS_HERE = {
 }
 
 JMP_TUTORIAL = {
-  "Name": "Skipping around in code: the jump instructions",
+  "Name": "Jump, if statements, and for loops",
   "Pages": [
     {
       "Title"   :   "Jmp and labels",
@@ -72,7 +72,7 @@ JMP_TUTORIAL = {
                                             // Do so here. Remove this line if not.
     },
     { 
-      "Title"   :   "Comparison-jump pattern",
+      "Title"   :   "Making an if statement",
       "Text"    :   ["While jumping alone happens from time to time, usually a jump instruction is preceeded by a comparison or test. <i>(See the flags tutorial for more on cmp before you continue)</i>.",
                     '<pre>if(x==y) x = x + y;\nelse y = y * 2;\nx++</pre>',
                     "This code might be compiled to the assembly displayed to the left.  Jne means jump if the compared values are not equal.  That means jump when the zero flag is not on.",
@@ -92,7 +92,7 @@ JMP_TUTORIAL = {
       "Registers":  {"eax":7, "ebx":4}
     },
     {
-      "Title"   :   "For loop with cmp and jumps",
+      "Title"   :   "Makeing a for loop",
       "Text"    :   ["Let's see how you can make a for loop with assembly. Consider the following C code:",
                     "<pre>int result = 1; for(int i = 0; i < exponent; i++) {\n\tresult*=base;\n}</pre>",
                     "You make recognize this as code that raises the number in base to the power in exponent.",
