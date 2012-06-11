@@ -202,7 +202,7 @@ function parseParameters(paramString, numExpectedArgs) {
                 parseLine.error = "Error parsing argument 2. " + parseLine.error;
                 params.length = 0; //clear contents
                 return params;
-            } // TODO: Check that "dest" value is NEVER an integer!
+            } // TODO: Check that "dest" value is NEVER an integer!g
         
             params[1] = matchedParam[0];
         }
