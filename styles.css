@@ -326,3 +326,11 @@ button.active {
     height:50px;
     border:1px solid #ADB3B2;
 }
+
+.instr_set_popup {
+    width=100%;
+}
+
+.view_cheat_sheet {
+    float: right;
+}

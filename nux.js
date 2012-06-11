@@ -23,66 +23,36 @@ var of_help_text = "Overflow flag: indicates whether an arithmetic overflow occu
 var instruction_help_title = "Instructions";
 
 // work in progress
-var instruction_help_text = "\
-    mov Src, Dest   <br/>\
-    &nbsp;&nbsp;Dest = Src  <br/><br/>  \
-    add Src, Dest   <br/> \
-    &nbsp;&nbsp;Dest = Dest + Src <br/>    \
-    add Src, Dest   <br/>  \
-    Dest = Dest + Src   <br/><br/>  \
-    sub Src, Dest   <br/>  \
-    Dest = Dest - Src   <br/><br/>  \
-    imul Src, Dest<br/> \
-    Dest = Dest * Src<br/><br/>  \
-    sal Src, Dest<br/>  \
-    Dest = Dest << Src<br/><br/>  \
-    sar Src, Dest<br/>  \
-    Dest = Dest >> Src Arithmetic Shift<br/><br/>  \
-    shr Src, Dest<br/>  \
-    Dest = Dest >> Src Logical Shift<br/><br/>  \
-    xor Src, Dest<br/>  \
-    Dest = Dest ^ Src<br/><br/>  \
-    and Src, Dest<br/>  \
-    Dest = Dest & Src<br/><br/>  \
-    or Src, Dest<br/>   \
-    Dest = Dest | Src<br/><br/>  \
-    inc Dest<br/>   \
-    Dest = Dest + 1<br/><br/>  \
-    dec Dest<br/>   \
-    Dest = Dest - 1<br/><br/>  \
-    neg Dest<br/>   \
-    Dest = -Dest<br/><br/>  \
-    not Dest<br/>   \
-    Dest = ~Dest<br/><br/>  \
-    lea Src, Dest<br/>  \
-    Dest = address Src points to<br/><br/>  \
-    cmp Src2, Src1<br/> \
-    Set flags based on Src1-Src2<br/><br/>  \
-    test Src2, Src1<br/>    \
-    Set flags based on Src1&Src2<br/><br/>  \
-    jmp label<br/>  \
-    run code at label<br/><br/>\
-    je label<br/>   \
-    jump if compared values were equal (ZF on)<br/><br/>    \
-    jne label<br/>  \
-    jump if compared values were not equal (ZF off)<br/><br/>   \
-    js label<br/>   \
-    jump if comparison negative (SF on)<br/><br/>   \
-    jns label<br/>  \
-    jump if comparison non-negative (SF off)<br/><br/>  \
-    jg label<br/>   \
-    jump if second value greater<br/><br/>  \
-    jge label<br/>  \
-    jump if second value greater or equal<br/><br/> \
-    jle label<br/>  \
-    jump if second value less<br/><br/> \
-    jle label<br/>  \
-    jump if second value less or equal<br/><br/>    \
-    ja label<br/>   \
-    jump if second above first (unsigned greater)<br/><br/> \
-    jb label<br/>   \
-    jump if second below first (unsigned less)<br/><br/>    \
-    push Src<br/>   \
-    Put contents of Src in Mem[%esp] and esp-=4<br/><br />  \
-    pop Src<br/>    \
-    Put contents of Mem[%esp] in Src and esp+=4<br/>";
+var instruction_help_text = " <table width=100%><tr><td>   \
+    mov<br/>    \
+    add<br/>    \
+    sub<br/>    \
+    imul<br/>   \
+    sal<br/>    \
+    shr<br/>    \
+    sar<br/>    \
+    xor<br/>    \
+    and<br/>    \
+    or<br/> \
+    not<br/>    \
+    inc<br/>    \
+    dec<br/>    \
+    jmp<br/>    \
+    neg<br/>    \
+    </td><td>   \
+    cmp<br/>    \
+    test<br/>   \
+    jne<br/>    \
+    je<br/> \
+    jns<br/>    \
+    js<br/> \
+    jb<br/> \
+    ja<br/> \
+    jge<br/>    \
+    jg<br/> \
+    jle<br/>    \
+    jl<br/> \
+    lea<br/>    \
+    push<br/>   \
+    pop<br/>    \
+    </td></tr></table>";

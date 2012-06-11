@@ -156,6 +156,110 @@
   </div>
 </div>
 
+<!-- INSTRUCTION CHEAT SHEET -->
+<div class="modal hide" id="instruction_cheat_sheet">
+  <div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal">x</button>
+    <h3>Instruction Set</h3>
+  </div>
+  <div class="modal-body">
+    <table width=100%><tr><td>
+    mov Src, Dest   <br/>
+    &nbsp;&nbsp;
+    Dest = Src  <br/><br/>  
+    add Src, Dest   <br/> 
+    &nbsp;&nbsp;
+    Dest = Dest + Src <br/><br/>    
+    sub Src, Dest   <br/>  
+    &nbsp;&nbsp;
+    Dest = Dest - Src   <br/><br/>  
+    imul Src, Dest<br/> 
+    &nbsp;&nbsp;
+    Dest = Dest * Src<br/><br/>  
+    sal Src, Dest<br/>  
+    &nbsp;&nbsp;
+    Dest = Dest << Src<br/><br/>  
+    sar Src, Dest<br/>  
+    &nbsp;&nbsp;
+    Dest = Dest >> Src Arithmetic Shift<br/><br/>  
+    shr Src, Dest<br/>  
+    &nbsp;&nbsp;
+    Dest = Dest >> Src Logical Shift<br/><br/>  
+    xor Src, Dest<br/>  
+    &nbsp;&nbsp;
+    Dest = Dest ^ Src<br/><br/>  
+    and Src, Dest<br/>  
+    &nbsp;&nbsp;
+    Dest = Dest & Src<br/><br/>  
+    or Src, Dest<br/>   
+    &nbsp;&nbsp;
+    Dest = Dest | Src<br/><br/>  
+    inc Dest<br/>   
+    &nbsp;&nbsp;
+    Dest = Dest + 1<br/><br/>  
+    dec Dest<br/>   
+    &nbsp;&nbsp;
+    Dest = Dest - 1<br/><br/>  
+    neg Dest<br/>  
+    &nbsp;&nbsp; 
+    Dest = -Dest<br/><br/>  
+    not Dest<br/>   
+    &nbsp;&nbsp;
+    Dest = ~Dest<br/><br/>  
+    lea Src, Dest<br/>  
+    &nbsp;&nbsp;
+    Dest = address Src points to
+    </td><td>
+    cmp Src2, Src1<br/> 
+    &nbsp;&nbsp;
+    Set flags based on Src1-Src2<br/><br/>  
+    test Src2, Src1<br/>   
+    &nbsp;&nbsp; 
+    Set flags based on Src1&Src2<br/><br/>  
+    jmp label<br/>  
+    &nbsp;&nbsp;
+    run code at label<br/><br/>
+    je label<br/>   
+    &nbsp;&nbsp;
+    jump if compared values were equal (ZF on)<br/><br/>    
+    
+    jne label<br/>  
+    &nbsp;&nbsp;
+    jump if compared values were not equal (ZF off)<br/><br/>   
+    
+    js label<br/>   
+    &nbsp;&nbsp;
+    jump if comparison negative (SF on)<br/><br/>   
+    jns label<br/>  
+    &nbsp;&nbsp;
+    jump if comparison non-negative (SF off)<br/><br/>  
+    jg label<br/>   
+    &nbsp;&nbsp;
+    jump if second value greater<br/><br/>  
+    jge label<br/>  
+    &nbsp;&nbsp;
+    jump if second value greater or equal<br/><br/> 
+    jle label<br/>  
+    &nbsp;&nbsp;
+    jump if second value less<br/><br/> 
+    jle label<br/>  
+    &nbsp;&nbsp;
+    jump if second value less or equal<br/><br/>    
+    ja label<br/>   
+    &nbsp;&nbsp;
+    jump if second above first (unsigned greater)<br/><br/> 
+    jb label<br/>   
+    &nbsp;&nbsp;
+    jump if second below first (unsigned less)<br/><br/>    
+    push Src<br/>   
+    &nbsp;&nbsp;
+    Put contents of Src in Mem[%esp] and esp-=4<br/><br />  
+    pop Src<br/>    
+    &nbsp;&nbsp;
+    Put contents of Mem[%esp] in Src and esp+=4   
+    </td></tr></table>
+    </div>
+</div>
 
 
 <div class='maincontent'>
@@ -223,8 +327,14 @@
     <div id="error_alert"> </div>
     <textarea class='lined' id='mainText' placeholder="Click to start typing!"></textarea> 
     <div class="well" id="helpBox">
-      <div><input type="text" id="searchBar" class= "help" /><h6 id="usage"><abbr title="Type a command to see its usage">Usage</abbr></h6>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-    <span class="help" id="helpTarget"></span></div>
+      <div>
+      <span class="view_cheat_sheet" id="view_cheat_sheet">
+        <a data-toggle="modal" href="#instruction_cheat_sheet">view all</a>
+      </span>
+      <input type="text" id="searchBar" class= "help" /><h6 id="usage"><abbr title="Type a command to see its usage">Usage</abbr></h6>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+    <span class="help" id="helpTarget"></span>
+    
+    </div>
     </div>
   </div>
 </div>
@@ -269,6 +379,7 @@
 </div>
 
 </div> <!-- main content-->
+
 
  <script type="text/javascript" src="docs/assets/js/bootstrap-transition.js"></script>
  <script type="text/javascript" src="docs/assets/js/bootstrap-alert.js"></script>

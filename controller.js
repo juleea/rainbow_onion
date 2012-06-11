@@ -93,7 +93,7 @@ function add_help_tooltips() {
   $("#SF_cell").tooltip({animation:true, trigger: 'hover', title: sf_help_text});
   $("#OF_cell").tooltip({animation:true, trigger: 'hover', title: of_help_text});
   
-  $("#instruction_set").popover({animation: true, trigger: 'hover', title: instruction_help_title, content: instruction_help_text});
+  $("#instruction_set").popover({animation: true, trigger: 'hover', placement: 'bottom', title: instruction_help_title, content: instruction_help_text});
 }
 
 function updateRunSpeed(event, ui) {
