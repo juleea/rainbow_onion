@@ -73,7 +73,7 @@
 .center {
   position: relative; 
   float: left;
-  width: 500px;
+  width: 450px;
   padding: 10px 15px 15px 15px;
 }
 
@@ -299,7 +299,7 @@ button.active {
 
 #helpBox {
   margin-top: 10px;
-  width: 477px;
+  width: 429px;
   background-color: white;
   border: 2px solid #ADB3B2;
 }
