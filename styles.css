@@ -36,6 +36,7 @@
   font-family: 'Cabin';
 }
 
+
 /*#topNav {
   background: white;
   color: black;
@@ -198,7 +199,7 @@
 {
   width: 100%;
   height: 550px;
-  overflow: hidden;
+  overflow: auto;
 }
 
 #memoryScroll {
@@ -284,12 +285,20 @@ button {
   display: inline;
 }
 
+#numBtnBar {
+  margin-bottom: 8px;
+}
+
+button.numBtn {
+  padding: 4px;
+}
+
 button.active {
   color:black;
 }
 
 #question {
-  margin-bottom: 15;
+  margin-bottom: 15px;
 }
 
 #questionAnswer {
@@ -299,6 +308,10 @@ button.active {
 
 #error_alert {
   padding: 15px;
+}
+
+#answerText {
+  margin-bottom: 0px;
 }
 
 #helpBox {
