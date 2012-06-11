@@ -22,6 +22,9 @@
 
 .linedwrap {
 	border: 1px solid #c0c0c0;
+	-webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    border-radius: 5px;
 	padding: 3px;
 }
 
@@ -72,7 +75,7 @@
 }
 
 .linedwrap .codelines .breakpoint {
-	border-left: 3px solid green;
+	border-left: 4px solid #b79dd1;
 }
 
 .linedwrap {

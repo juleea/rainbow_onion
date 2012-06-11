@@ -238,14 +238,14 @@ function updateRegs() {
 // uncolors any highlighted registers
 function clearRegColors() {
     if (typeof updateReg.lastUpdatedReg != 'undefined') {
-        $("#" + updateReg.lastUpdatedReg).animate({backgroundColor: "#1ba7b4"}, 'slow');
+        $("#" + updateReg.lastUpdatedReg).animate({backgroundColor: "#b7d19d"}, 'slow');
     }
 }
 
 // uncolors any highlighted memory
 function clearMemColors() {
     if (typeof updateMemory.lastUpdatedMem != 'undefined') {
-        updateMemColor(updateMemory.lastUpdatedMem.address, updateMemory.lastUpdatedMem.bytes, '#1ba7b4');
+        updateMemColor(updateMemory.lastUpdatedMem.address, updateMemory.lastUpdatedMem.bytes, '#b7d19d');
     }
 }
 
@@ -256,7 +256,7 @@ var updateReg = function updateReg(regs, args) {
     
     var reg = args.register;
     $("#" + reg).text(regs.getContents(reg));
-    $("#" + reg).animate({backgroundColor: "#88dddd"}, 'slow');
+    $("#" + reg).animate({backgroundColor: "#dde9d1"}, 'slow');
 
     updateReg.lastUpdatedReg = reg;
 };
@@ -297,7 +297,7 @@ var updateMemory = function updateMemory(memory, args) {
     clearRegColors();
     clearMemColors();
      
-    updateMemColor(args.address, args.bytes, '#88dddd');
+    updateMemColor(args.address, args.bytes, '#dde9d1');
     updateMemValues(args.address, args.bytes);
 
     updateMemory.lastUpdatedMem = args;
