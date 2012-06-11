@@ -171,6 +171,7 @@ MOV_TUTORIAL = {
       "Title"   :   "Mov and Addressing",
       "Text"    :   [ "<b>mov src, dest</b>",
                     "The 'mov' instruction is used to copy a source value to a register. Source values can be specified in a number of ways.",
+                    "1) Immediate values: <br/>   Source values can be as simple as constant integer values preceded by a $.",
                     "<i>Click 'Step' to store 30 in the %eax register.</i>",
                     "2) Register values: <br/>  The source can be a register, and mov will copy that register's value into the destination register.",
                     ],
