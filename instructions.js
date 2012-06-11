@@ -105,25 +105,7 @@ Arithmetic.prototype.execute = function(memory, registers) {
   // TODO: check whether dest is register or memory
   dest = this.parameters[1].getLocation(registers);
   setContents(dest, result);
-}
-
-function Arithmetic(parameters, arithFn)
-{
-  this.parameters = parameters;
-  this.valid = true;
-  if(!(this.parameters && this.parameters.length == 2))
-    this.valid = false;
-  this.arithFn = arithFn;
-}
-
-Arithmetic.prototype.execute = function(memory, registers) { 
-  var src = this.parameters[0].getValue(memory, registers);
-  var dest = this.parameters[1].getValue(memory, registers);
-  var result = this.arithFn.call(dest, src);
-  
-  // TODO: check whether dest is register or memory
-  dest = this.parameters[1].getLocation(registers);
-  setContents(dest, result);
+  setFlags(result);
 }
 
 function Arithmetic(parameters, arithFn)
@@ -164,6 +146,7 @@ OneIntOp.prototype.execute = function(memory, registers) {
   var destLoc = this.parameters[1].getLocation(registers);
   var result = this.arithFn.call(srcVal, destVal);
   setContents(destLoc, result);
+  setFlags(result);
 }
 
 Sal.prototype = new OneIntOp();
@@ -183,7 +166,9 @@ Shr.prototype.execute = function (memory, registers) {
   var destVal = this.parameters[1].getValue(memory, registers);
   var destLoc = this.parameters[1].getLocation(registers);
   var resultInt = srcVal.toInt() >>> destVal.toInt();
-  setContents(destLoc, goog.math.Integer.fromInt(resultInt));
+  var result = goog.math.Integer.fromInt(resultInt);
+  setContents(destLoc, result);
+  setFlags(result);
 }
 
 function Shr(parameters) {
@@ -213,6 +198,7 @@ Not.prototype.execute = function(memory, registers) {
   var srcVal = this.parameters[0].getValue(memory, registers);
   var destLoc = this.parameters[0].getLocation(registers);
   setContents(destLoc, srcVal.not());
+  setFlags(srcVal.not());
 }
 
 function Not(parameters) {
@@ -375,15 +361,20 @@ function Test(parameters) {
   this.parameters = parameters;
 }
 
-Cmp.prototype.execute = function(memory, registers) {
-  var src2 = this.parameters[0].getValue(memory, registers);
-  var src1 = this.parameters[1].getValue(memory, registers);
-  var result = src1.subtract(src2);
+//Takes a google Integer and sets flags based on its properties
+function setFlags(result) {
   flags.setContents("SF", result.isNegative());
   flags.setContents("ZF", result.equals(goog.math.Integer.fromInt(0)));
   var overflow = result.greaterThan(MAX_INT) || result.lessThan(MIN_INT);
   flags.setContents("OF", overflow);
   flags.setContents("CF", overflow);
+}
+
+Cmp.prototype.execute = function(memory, registers) {
+  var src2 = this.parameters[0].getValue(memory, registers);
+  var src1 = this.parameters[1].getValue(memory, registers);
+  var result = src1.subtract(src2);
+  setFlags(result);
 }
 
 function Cmp(parameters) {
