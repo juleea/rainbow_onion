@@ -270,6 +270,10 @@ button {
   display: inline;
 }
 
+button.active {
+  color:black;
+}
+
 #question {
   margin-bottom: 15;
 }
