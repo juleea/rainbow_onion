@@ -37,23 +37,23 @@ function Parameter(type) {
         // TODO: convert value to decimal (might be hex)
         case PARAM_TYPE.INTEGER: this.literal = goog.math.Integer.fromNumber(Number(value)); break;
         case PARAM_TYPE.REGISTER: this.register = value; break;
-        default: alert("Tried to set value for param with no type");
+        default: break;//alert("Tried to set value for param with no type");
     }
   }
   
   this.setDisplacementValue = function(displacement, register) {
-    if (this.type != PARAM_TYPE.DISPLACEMENT) {
+    /*if (this.type != PARAM_TYPE.DISPLACEMENT) {
         alert("Tried to use displacement addressing for non-displacement param type");
-    }
+    }*/
     
     this.register = register;
     this.displacement = (displacement == "") ? 0 : Number(displacement);
   }
   
   this.setIndexedValue = function(displacement, base_register, index_register, scale) {
-   if (this.type != PARAM_TYPE.INDEXED) {
+   /*if (this.type != PARAM_TYPE.INDEXED) {
         alert("Tried to use indexed addressing for non-indexed param type");
-    }
+    }*/
 
     this.displacement = (displacement == "") ? 0 : Number(displacement);
     this.base_register = base_register;
@@ -67,13 +67,13 @@ function Parameter(type) {
    */
   this.getLocation = function(registers) {
     switch(this.type) {
-        case PARAM_TYPE.INTEGER: alert("Cannot get location for integer parameter"); break;
+        case PARAM_TYPE.INTEGER: break;//alert("Cannot get location for integer parameter"); break;
         case PARAM_TYPE.REGISTER: return this.register; 
         
         // the following two return memory addresses
         case PARAM_TYPE.DISPLACEMENT: return Number(registers.getContents(this.register)) + this.displacement;
         case PARAM_TYPE.INDEXED: return Number(registers.getContents(this.base_register)) + this.scale * Number(registers.getContents(this.index_register)) + this.displacement;
-        default: alert("Tried to get location for param with no type");
+        default: break;// alert("Tried to get location for param with no type");
     }
   }
   
@@ -86,7 +86,7 @@ function Parameter(type) {
         case PARAM_TYPE.REGISTER: return registers.getContents(this.register);
         case PARAM_TYPE.DISPLACEMENT: 
         case PARAM_TYPE.INDEXED: return memory.getContents(this.getLocation(registers)); 
-        default: alert("Tried to get value for param with no type");
+        default: break;//alert("Tried to get value for param with no type");
     }
   }
 
@@ -202,7 +202,7 @@ function parseParameters(paramString, numExpectedArgs) {
                 parseLine.error = "Error parsing argument 2. " + parseLine.error;
                 params.length = 0; //clear contents
                 return params;
-            }
+            } // TODO: Check that "dest" value is NEVER an integer!g
         
             params[1] = matchedParam[0];
         }
