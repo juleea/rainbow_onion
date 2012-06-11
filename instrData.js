@@ -88,5 +88,5 @@ Jb.help = "jump if second below first (unsigned less)"
 Push.form = "push Src"
 Push.help = "Put contents of Src in Mem[%esp] and esp-=4"
 
-Push.form = "pop Src"
-Push.help = "Put contents of Mem[%esp] in Src and esp+=4"
+Pop.form = "pop Src"
+Pop.help = "Put contents of Mem[%esp] in Src and esp+=4"
