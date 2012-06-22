@@ -79,11 +79,11 @@ $(function() {
   var pxToInt = function(pxStr) {return Number(pxStr.substr(0, pxStr.length - 2))};
   helpBox = new HelpBox("searchBar", "helpTarget");
   
-  if(document.cookie == "") {
-    $('#first_time_here').modal();
-    document.cookie = "visited=true";
+  if(localStorage.visited) {
+      $('#first_time_here').hide();
   } else {
-    $('#first_time_here').hide();
+    $('#first_time_here').modal();
+    localStorage.visited = true;
   }
   $('#searchBar').hide();
   $("#mainText").get(0).onclick = findLineFromCursor;
