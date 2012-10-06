@@ -68,7 +68,7 @@ LOGICAL_TUTORIAL = {
                     ],
         "Registers":  {"eax": 76, "ebx" : 45, "ecx": 24},
       "Question":   "What is the binary value of register %ecx, which contains decimal value 24?",
-      "Answer"  :   "00011000",
+      "Answer"  :   "11000",
     },
     { 
       "Title"   :   "and, or, xor",
@@ -86,7 +86,7 @@ LOGICAL_TUTORIAL = {
                     "or %eax, %ebx",
                     ],
       "Question":   "What is the binary value in %ebx after you run the code (after the or statement)?",
-      "Answer"  :   "00111011",
+      "Answer"  :   "111011",
     },
     { 
       "Title"   :   "xor",

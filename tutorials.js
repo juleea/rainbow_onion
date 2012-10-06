@@ -31,7 +31,6 @@ Tutorials = function() {
   
   //tutorialIds are 0-indexed
   this.displayTutorial = function(tutorialId) {   
-    console.log("display tutorial");
     if (tutorialId >= allTutorials.length || tutorialId === currTutorialNum) return;
     currPageNum = 0;
     currTutorialNum = tutorialId;

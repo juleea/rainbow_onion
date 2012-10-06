@@ -1,6 +1,6 @@
 function Code() {
   var curLineNum = 0;
-  codeLines = [];
+  var codeLines = [];
   var breakPoints = {};
   codeErrors = [];
   var stopped = false;
@@ -80,18 +80,16 @@ function Code() {
   }
 
   this.step = function() {
-
-
     var curLine = codeLines[curLineNum];
     if(curLine) {
-
       if(!curLine.execute){
         alert("instruction not valid or implemented");
       } else {
         curLine.execute(memory, registers);
       }
-    
-      curLineNum++;
+      //Must check length again since execute may have been a jmp, which changes everything
+      if(curLineNum < codeLines.length)
+        curLineNum++;
 
       //TODO: seems like breaking our code pattern to put this here but can't think of better;
       updateDisplay();
@@ -103,13 +101,10 @@ function Code() {
 
   }
 
-
-
   this.cont = function(speed, fromRun) {
     stopped = false;
     this.stepSlow(speed, fromRun);
   }
-
 
   this.stepSlow = function(speed, fromRun) {
     if (!fromRun) {
@@ -118,7 +113,6 @@ function Code() {
     if(stopped) return;
     if(curLineNum < codeLines.length && (!fromRun || !(curLineNum in breakPoints))) {
       fromRun = true;
-
       var that = this;
       that.step();
       var toRun = function () {

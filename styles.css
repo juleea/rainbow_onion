@@ -70,7 +70,7 @@
 .left {
   float: left;
   position: relative; 
-  width: 400px;
+  width: 390px;
   padding: 10px 15px 15px 15px;
 }
 
@@ -78,7 +78,7 @@
 .center {
   position: relative; 
   float: left;
-  width: 480px;
+  width: 465px;
   padding: 10px 15px 15px 15px;
 }
 
@@ -316,7 +316,7 @@ button.active {
 
 #helpBox {
   margin-top: 10px;
-  width: 450px;
+  width: 445px;
   background-color: white;
   border: 2px solid #ADB3B2;
 }

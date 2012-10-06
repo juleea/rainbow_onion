@@ -79,7 +79,12 @@ $(function() {
   var pxToInt = function(pxStr) {return Number(pxStr.substr(0, pxStr.length - 2))};
   helpBox = new HelpBox("searchBar", "helpTarget");
   
-  $('#first_time_here').modal();
+  if(localStorage.visited) {
+      $('#first_time_here').hide();
+  } else {
+    $('#first_time_here').modal();
+    localStorage.visited = true;
+  }
   $('#searchBar').hide();
   $("#mainText").get(0).onclick = findLineFromCursor;
 });
@@ -160,8 +165,6 @@ function numString(num, mode) {
   var str = num.toString(mode);
   if(mode == 16){
     str = '0x' + padZeros(str);
-  } else if (mode == 2) {
-    str = padZeros(str);
   }
   return str;
 }
