@@ -228,9 +228,9 @@ JMP_TUTORIAL = {
       "Registers":  {"eax":7, "ebx":4}
     },
     {
-      "Title"   :   "Makeing a for loop",
+      "Title"   :   "Making a for loop",
       "Text"    :   ["Let's see how you can make a for loop with assembly. Consider the following C code:",
-                    "<pre>int result = 1; for(int i = 0; i < exponent; i++) {\n\tresult*=base;\n}</pre>",
+                    "<pre>int result = 1;<br/>for(int i = 0; i < exponent; i++) {\n\tresult*=base;\n}</pre>",
                     "You migth recognize this as code that raises the number in base to the power in exponent.",
                     "In this code, base is in eax, exponent is in ecx, and result is in edx."
                     ],
