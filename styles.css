@@ -71,7 +71,7 @@
   float: left;
   position: relative; 
   width: 390px;
-  padding: 10px 15px 15px 15px;
+  padding: 10px 5px 15px 5px;
 }
 
 
@@ -79,7 +79,7 @@
   position: relative; 
   float: left;
   width: 465px;
-  padding: 10px 15px 15px 15px;
+  padding: 10px 5px 15px 5px;
 }
 
 .textPanel {
@@ -96,13 +96,13 @@
 .rightCenter {
   float: left;
   width: 200px;
-  padding: 10px 15px 15px 15px;
+  padding: 10px 5px 15px 5px;
 }
 
 .rightSide {
   float: left;
   width: 160px;
-  padding: 10px 15px 15px 15px;
+  padding: 10px 5px 15px 5px;
 }
 
 #tutorialBox {
@@ -316,9 +316,10 @@ button.active {
 
 #helpBox {
   margin-top: 10px;
-  width: 445px;
+  width: 420px;
   background-color: white;
-  border: 2px solid #ADB3B2;}
+  border: 2px solid #ADB3B2;
+}
 
 #tutorialhead h2 {
     display:inline;
@@ -353,4 +354,7 @@ button.active {
 
 #mainText {
     background-color: #f5f5f5;
+}
+
+div.well {
 }
