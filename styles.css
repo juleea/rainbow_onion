@@ -318,8 +318,7 @@ button.active {
   margin-top: 10px;
   width: 445px;
   background-color: white;
-  border: 2px solid #ADB3B2;
-}
+  border: 2px solid #ADB3B2;}
 
 #tutorialhead h2 {
     display:inline;
@@ -354,8 +353,4 @@ button.active {
 
 #mainText {
     background-color: #f5f5f5;
-    font-family: 'Monaco', 'Arial';
-    font-size:9pt;
-    padding-left: 10px;
-    padding-top: 5px;
 }
