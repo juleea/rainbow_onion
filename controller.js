@@ -206,7 +206,7 @@ function restartButton() {
 function showPauseButton() {
   $('button#pauseButton').remove();
   $('button#contButton').remove();
-  var pauseBtnHTML = "<button class='topButtons btn' id='pauseButton'><abbr title='Pause code'><i class='icon-pause'></i>&nbsp;Pause</abbr></button>";
+  var pauseBtnHTML = "<button class='topButtons btn' id='pauseButton'><abbr title='Pause code'><i class='icon-pause'></i></abbr></button>";
   var pauseBtn = $(pauseBtnHTML);
   pauseBtn.click(pauseButton);
   $('#topBtns').prepend(pauseBtn);
@@ -215,7 +215,7 @@ function showPauseButton() {
 function showPlayButton() {
   $('button#pauseButton').remove();
   $('button#contButton').remove();
-  var playBtnHTML = "<button class='topButtons btn' id='contButton'><abbr title='Run code'><i class='icon-play'></i>&nbsp;Play</abbr></button>";
+  var playBtnHTML = "<button class='topButtons btn' id='contButton'><abbr title='Run code'><i class='icon-play'></i></abbr></button>";
   var playBtn = $(playBtnHTML);
   playBtn.click(contButton);
   $('#topBtns').prepend(playBtn);

@@ -120,7 +120,9 @@ function Code() {
       }
       setTimeout(toRun, speed);
     }
-    
+    if (curLineNum in breakPoints) {
+      this.pause();
+    }
   }
 
   this.run = function(speed) {
