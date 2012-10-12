@@ -126,6 +126,10 @@
   height: 550px;
 }
 
+.register {
+  width: 60px;
+}
+
 .tutorialIndent {
   padding-left: 10px;
 }
