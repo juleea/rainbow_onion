@@ -33,6 +33,7 @@ Tutorials = function() {
   this.displayTutorial = function(tutorialId) {   
     if (tutorialId >= allTutorials.length || tutorialId === currTutorialNum) return;
     currPageNum = 0;
+    restartButton();
     currTutorialNum = tutorialId;
     this.createPaginationBtns(tutorialId, 0);
     var currPage = allTutorials[tutorialId].displayTutorialPageByNumber(0);
