@@ -379,10 +379,11 @@ Tutorial.prototype.displayTutorialPage = function(page, pagenum) {
   //update the register values associated with the page
   if (page.getRegisters() != null) {
     registers.setAll(page.getRegisters());
-    updateRegs();
   } else {
-    //TODO: should we set to some default here or in the tutorial creater/file reader?
+    //sets registers to be default empty
+    registers.setAll(new Registers());
   }
+  updateRegs();
 
   //update the memory values associated with the page (if they exist)
   if (page.getMemory() != null) {
@@ -390,6 +391,7 @@ Tutorial.prototype.displayTutorialPage = function(page, pagenum) {
     createMemory();
   } else {
     //TODO: should we set to some default here or in the tutorial creater/file reader?
+//    memory.setAll(new Memory());
   }
 
   flags.clearAll();
