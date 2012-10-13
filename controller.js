@@ -302,11 +302,11 @@ var updateReg = function updateReg(regs, args) {
     updateReg.lastUpdatedReg = reg;
 };
 
-// initalizes register HTML and values
+// initializes register HTML and values
 function createRegisters() {    
     var registerValues = registers.getAll();
     for (var reg in registerValues) {
-      $('#registersPane').append('<tr><td id="' + reg + '_label"><span class="regRow">' + reg + '</span></td><td id="' + reg + '">'
+      $('#registersPane').append('<tr><td class="register" id="' + reg + '_label"><span class="regRow">' + reg + '</span></td><td id="' + reg + '">'
        + numString(registerValues[reg], REG_MODE) + '</td></tr>');
     }
 }

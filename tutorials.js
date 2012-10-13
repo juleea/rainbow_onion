@@ -1,6 +1,6 @@
 Tutorials = function() {
   //INSERT NEW TUTORIAL NAMES HERE
-  var tutorialFilenames = [REG_TUTORIAL, MOV_TUTORIAL, TUTORIAL_FLAGS, JMP_TUTORIAL, ARITHMETIC_TUTORIAL, LOGICAL_TUTORIAL];
+  var tutorialFilenames = [REG_TUTORIAL, MOV_TUTORIAL, TUTORIAL_FLAGS, JMP_TUTORIAL, ARITHMETIC_TUTORIAL];
   var allTutorials = [];
   var currTutorialNum = null;
   var currPageNum = 0;
@@ -33,6 +33,7 @@ Tutorials = function() {
   this.displayTutorial = function(tutorialId) {   
     if (tutorialId >= allTutorials.length || tutorialId === currTutorialNum) return;
     currPageNum = 0;
+    restartButton();
     currTutorialNum = tutorialId;
     this.createPaginationBtns(tutorialId, 0);
     var currPage = allTutorials[tutorialId].displayTutorialPageByNumber(0);
@@ -378,10 +379,11 @@ Tutorial.prototype.displayTutorialPage = function(page, pagenum) {
   //update the register values associated with the page
   if (page.getRegisters() != null) {
     registers.setAll(page.getRegisters());
-    updateRegs();
   } else {
-    //TODO: should we set to some default here or in the tutorial creater/file reader?
+    //sets registers to be default empty
+    registers.setAll(new Registers());
   }
+  updateRegs();
 
   //update the memory values associated with the page (if they exist)
   if (page.getMemory() != null) {
@@ -389,6 +391,7 @@ Tutorial.prototype.displayTutorialPage = function(page, pagenum) {
     createMemory();
   } else {
     //TODO: should we set to some default here or in the tutorial creater/file reader?
+//    memory.setAll(new Memory());
   }
 
   flags.clearAll();

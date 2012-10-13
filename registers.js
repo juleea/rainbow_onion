@@ -4,14 +4,14 @@ function Registers() {
   //Private
   var contents = {
     eax:goog.math.Integer.fromNumber(0),
-    ecx:goog.math.Integer.fromNumber(1), 
-    edx:goog.math.Integer.fromNumber(2), 
-    ebx:goog.math.Integer.fromNumber(3), 
-    esi:goog.math.Integer.fromNumber(4), 
-    edi:goog.math.Integer.fromNumber(5), 
-    esp:goog.math.Integer.fromNumber(6), 
-    ebp:goog.math.Integer.fromNumber(7),
-    eip:goog.math.Integer.fromNumber(8)
+    ecx:goog.math.Integer.fromNumber(0), 
+    edx:goog.math.Integer.fromNumber(0), 
+    ebx:goog.math.Integer.fromNumber(0), 
+    esi:goog.math.Integer.fromNumber(0), 
+    edi:goog.math.Integer.fromNumber(0), 
+    esp:goog.math.Integer.fromNumber(0), 
+    ebp:goog.math.Integer.fromNumber(0),
+    eip:goog.math.Integer.fromNumber(0)
   };
   
   // Public

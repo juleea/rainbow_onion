@@ -12,7 +12,7 @@ function Code() {
     var errorsFound = false;
     for(var i = 0; i < lines.length; i++) {
       var line = lines[i].trim();
-      if (line.length == 0) continue;
+//      if (line.length == 0) continue;
       instruction = parseLine(line);
       if (instruction) {
         this.addLine(parseLine(line));
@@ -24,6 +24,7 @@ function Code() {
       } else if(i != lines.length - 1) {
         this.addLine(null);
       }
+      console.log(codeLines);
     }
     return !errorsFound;
   }
@@ -87,14 +88,14 @@ function Code() {
       } else {
         curLine.execute(memory, registers);
       }
-      //Must check length again since execute may have been a jmp, which changes everything
-      if(curLineNum < codeLines.length)
-        curLineNum++;
-
-      //TODO: seems like breaking our code pattern to put this here but can't think of better;
-      updateDisplay();
     }
+    //Must check length again since execute may have been a jmp, which changes everything
+    if(curLineNum < codeLines.length)
+    curLineNum++;
 
+    //TODO: seems like breaking our code pattern to put this here but can't think of better;
+    updateDisplay();
+    
     if (curLineNum >= codeLines.length) {
       stopped = true;
     }
