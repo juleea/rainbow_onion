@@ -162,7 +162,12 @@ function createMemory() {
 
 //Takes a number and returns its representation in the given base: 0x stuff for hex, regular for binary and decimal
 function numString(num, mode) {
-  var str = num.toString(mode);
+  var str;
+  if(mode!=10) {
+    str = num.toString(mode);
+  } else {
+    str = num.toInt().toString();
+  }
   if(mode == 16){
     str = '0x' + padZeros(str);
   }
@@ -200,7 +205,6 @@ function restartButton() {
   showPlayButton();
   parseButton();
   code.stop();
-
 }
 
 function showPauseButton() {
