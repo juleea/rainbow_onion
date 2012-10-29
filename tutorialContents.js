@@ -158,7 +158,7 @@ ARITHMETIC_TUTORIAL = {
                      "imul %edx, %eax",
                      "imul $2, %eax"
                     ],
-      "Question":   "What value will %eax hold after you execute these instructions?",
+      "Question":   "What value will %eax hold after all these instructions execute?",
       "Answer"  :   "464",
       "Memory"  :   {"32": 42, "16": 21}     //Put the memory addresses and values here. Memory values optional.
 
@@ -180,7 +180,7 @@ ARITHMETIC_TUTORIAL = {
                       "sub $55, %edx",
                       "imul %ebx, %edx"],
       "Registers":  {"eax": 10, "ecx":12, "edx":20, "ebx":5},
-      "Question":   "What value will be in %ebx after you execute these instructions?",
+      "Question":   "What value will be in %ebx after all these instructions are executed?",
       "Answer":     "-424"
     }
   ]
@@ -202,7 +202,7 @@ JMP_TUTORIAL = {
                     "myLabel:",
                     "inc %ebx",
                     ],
-      "Question":   "What value will be in %eax after these instructions are executed?",
+      "Question":   "What value will be in %eax after these instructions all execute?",
       "Answer"  :   "0",
       "Registers":  {"eax": 10, "ebx" : 10, "ecx": 0},//If you want to specify any starting register values
                                             // Do so here. Remove this line if not.
@@ -320,7 +320,7 @@ MOV_TUTORIAL = {
                     "mov $19, %edx",
                     "mov %ecx, %eax",
                     ],
-      "Question":   "What value will %eax hold after these instructions execute?",
+      "Question":   "What value will %eax hold after these instructions all execute?",
       "Answer"  :   "42",
     },
     { 
@@ -336,7 +336,7 @@ MOV_TUTORIAL = {
                     "mov 4(%ebx), %ecx",
                     "mov 4(%ecx, %eax, 2), %edx",
                     ],
-      "Question":   "What value will %edx hold after you run the code?",
+      "Question":   "What value will %edx hold after all instructions are executed?",
       "Answer"  :   "0",
     }
   ]
