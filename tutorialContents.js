@@ -85,7 +85,7 @@ LOGICAL_TUTORIAL = {
                     "mov $56, %ebx",
                     "or %eax, %ebx",
                     ],
-      "Question":   "What is the binary value in %ebx after you run the code (after the or statement)?",
+      "Question":   "What is the binary value in %ebx after you execute these instructions (thorough the or operation)?",
       "Answer"  :   "111011",
     },
     { 
@@ -100,7 +100,7 @@ LOGICAL_TUTORIAL = {
                     "xor %edx, %eax",
                     "xor %eax, %edx"
                     ],
-      "Question":   "What do you expect the value to be if you run 'xor %eax, %eax'?",
+      "Question":   "What do you expect the value to be if you execute 'xor %eax, %eax'?",
       "Answer"  :   "0",
     },
     {
@@ -110,7 +110,7 @@ LOGICAL_TUTORIAL = {
                     ],
       "Code"    :   [ "mov $76, %eax",
                         "not %eax"],
-      "Question":   "What *binary* value is in %eax after you run the code?",
+      "Question":   "What *binary* value will be in %eax after you execute these instructions?",
       "Answer":     "10110011"
     }
   ]
@@ -158,7 +158,7 @@ ARITHMETIC_TUTORIAL = {
                      "imul %edx, %eax",
                      "imul $2, %eax"
                     ],
-      "Question":   "What value does %eax hold after you run the code?",
+      "Question":   "What value will %eax hold after you execute these instructions?",
       "Answer"  :   "464",
       "Memory"  :   {"32": 42, "16": 21}     //Put the memory addresses and values here. Memory values optional.
 
@@ -180,7 +180,7 @@ ARITHMETIC_TUTORIAL = {
                       "sub $55, %edx",
                       "imul %ebx, %edx"],
       "Registers":  {"eax": 10, "ecx":12, "edx":20, "ebx":5},
-      "Question":   "What value is in %ebx after you run the code?",
+      "Question":   "What value will be in %ebx after you execute these instructions?",
       "Answer":     "-424"
     }
   ]
@@ -202,7 +202,7 @@ JMP_TUTORIAL = {
                     "myLabel:",
                     "inc %ebx",
                     ],
-      "Question":   "What value is in %eax after the code runs?",
+      "Question":   "What value will be in %eax after these instructions are executed?",
       "Answer"  :   "0",
       "Registers":  {"eax": 10, "ebx" : 10, "ecx": 0},//If you want to specify any starting register values
                                             // Do so here. Remove this line if not.
@@ -260,7 +260,7 @@ TUTORIAL_FLAGS = {
     {
       "Title"   :   "Flags",
       "Text"    :   [ "Condition flags allow the processor to store state about the previous instructions. This can be very useful for if statements.",
-                    "Consider the C code <pre> if(4==4) </pre>. How will the code know whether they're equal. The if statement causes a comparison instruction: cmp. The comparison works by subtracting the first value from the second then setting flags based on the difference.",
+                    "Consider the C code <pre> if(4==4) </pre>. How will the code know whether they're equal? The if statement causes a comparison instruction: cmp. The comparison works by subtracting the first value from the second then setting flags based on the difference.",
                     "While many instructions set flags, we will focus on the cmp statement for this tutorial.",
                     "You will learn 4 flags: Carry Flag (CF), Zero Flag (ZF), Sign Flag (SF), and Overflow Flag (OF)."
                     ],
@@ -286,7 +286,7 @@ TUTORIAL_FLAGS = {
     {
       "Title"   :   "Carry Flag and Overflow Flag",
       "Text"    :   ["The <b>overflow flag</b> and <b>carry flag</b> are for very large or very small numbers.",
-                    "Remember that with <a href=\"http://en.wikipedia.org/wiki/Two's_complement\">two's compliment</a> arithmatic, one bit represents the sign.  When you add two really big numbers, the sign bit might flip and flow over to the negative end of the spectrum.  When this happens, or when a number is so small that it becomes positive, the <b>overflow flag</b> goes on. This flag can be used to check for overflow.",
+                    "Remember that with <a href=\"http://en.wikipedia.org/wiki/Two's_complement\">two's complement</a> arithmetic, one bit represents the sign.  When you add two really big numbers, the sign bit might flip and flow over to the negative end of the spectrum.  When this happens, or when a number is so small that it becomes positive, the <b>overflow flag</b> goes on. This flag can be used to check for overflow.",
                     "The <b>carry flag</b> is similar but has a subtle difference.  If you are adding to positive numbers, you sometimes need to carry to the next slot: 50 + 50 = 100.  The first two are two digits, but the sum is three. The x86 we're studying can only hold 32 binary digits.  Sometimes adding two 32-bit numbers results in a 33-bit number. Since x86 can only fit 32 bits, the new one get tossed out and the <b>carry flag</b> goes on.",
                     "Notice the overflow flag has meaning for signed numbers and the carry flag has meaning for unsigned numbers.",
                     "Play around with cmp instructions to see which flags go on.",
@@ -320,7 +320,7 @@ MOV_TUTORIAL = {
                     "mov $19, %edx",
                     "mov %ecx, %eax",
                     ],
-      "Question":   "What value will %eax hold after this code is executed?",
+      "Question":   "What value will %eax hold after these instructions execute?",
       "Answer"  :   "42",
     },
     { 
@@ -336,7 +336,7 @@ MOV_TUTORIAL = {
                     "mov 4(%ebx), %ecx",
                     "mov 4(%ecx, %eax, 2), %edx",
                     ],
-      "Question":   "What value will be in %edx after you run the code?",
+      "Question":   "What value will %edx hold after you run the code?",
       "Answer"  :   "0",
     }
   ]
@@ -372,7 +372,7 @@ REG_TUTORIAL = {
                     ],
       "Code"    :   ["mov $30, %eax",
                     ],
-      "Question":   "What is in %eax after you run the code?",
+      "Question":   "What is in %eax after you execute this instruction?",
       "Answer"  :   "30",
     },
     {
@@ -382,7 +382,7 @@ REG_TUTORIAL = {
                     ],
       "Code"    :   [ "mov %eax, %ebx"],
       "Registers":  {"eax": 15},
-      "Question":   "What value is in %ebx after you run the code?",
+      "Question":   "What value will %ebx hold after you execute this instruction?",
       "Answer":     "15"
     }
   ]
