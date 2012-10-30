@@ -332,7 +332,7 @@ MOV_TUTORIAL = {
                     ],
       "Code"    :   ["mov $0, %eax",
                     "mov $5, %edx",
-                    "mov $8, (%eax)"
+                    "mov $8, (%eax)",
                     "mov (%eax), %ebx",
                     "mov 4(%ebx), %ecx",
                     "mov 4(%ecx, %eax, 2), %edx",
