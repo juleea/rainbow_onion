@@ -330,8 +330,9 @@ MOV_TUTORIAL = {
                     "2) Displacement from an address: <br/>  <b>mov D(R), %ecx</b> will add D bytes to the address in r before indexing into memory for a source value.",
                     "3) D(Rb,Ri,S): <br/>In this mode, the source value is at the address Reg[Rb]+S*Reg[Ri]+D."
                     ],
-      "Code"    :   ["mov $1, %eax",
+      "Code"    :   ["mov $0, %eax",
                     "mov $5, %edx",
+                    "mov $8, (%eax)"
                     "mov (%eax), %ebx",
                     "mov 4(%ebx), %ecx",
                     "mov 4(%ecx, %eax, 2), %edx",

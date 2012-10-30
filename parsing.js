@@ -35,7 +35,7 @@ function Parameter(type) {
   this.setValue = function(value) {
     switch(this.type) {
         // TODO: convert value to decimal (might be hex)
-        case PARAM_TYPE.INTEGER: this.literal = goog.math.Integer.fromNumber(Number(value)); break;
+        case PARAM_TYPE.INTEGER: this.literal = goog.math.Integer.fromInt(parseInt(value)); break;
         case PARAM_TYPE.REGISTER: this.register = value; break;
         default: break;//alert("Tried to set value for param with no type");
     }
